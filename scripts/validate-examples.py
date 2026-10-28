@@ -8,15 +8,18 @@ and attempts to compile each block with `typst compile`.
 Requires: markdown-it-py (pip install markdown-it-py)
 
 Usage:
-    python3 scripts/validate-examples.py                    # validate all .md files
+    python3 scripts/validate-examples.py                    # skill's own docs
     python3 scripts/validate-examples.py basics.md types.md # specific files
+    python3 scripts/validate-examples.py --all               # + upstream mirrors
     python3 scripts/validate-examples.py --json             # JSON output
     python3 scripts/validate-examples.py --keep             # keep temp files for debugging
 """
 
 import argparse
 import json
+import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -76,7 +79,7 @@ SKIP_PATTERNS = [
 
 def extract_blocks(md_path: Path) -> list[dict]:
     """Extract ```typst code blocks with line numbers using CommonMark parsing."""
-    text = md_path.read_text()
+    text = md_path.read_text(encoding="utf-8")
     md = MarkdownIt()
     tokens = md.parse(text)
     blocks = []
@@ -105,31 +108,62 @@ def should_skip(code: str) -> str | None:
     return None
 
 
+def default_md_files(skill_dir: Path, scan_mirrors: bool = False) -> list[Path]:
+    """Pick the markdown files to validate.
+
+    Only the skill's own prose is validated by default. references/typst-author/
+    and references/touying-author/ are verbatim mirrors of upstream docs (~1100
+    code blocks between them); sweeping them turns a 3-minute run into a
+    30-minute one, so they are opt-in via --all.
+    """
+    if scan_mirrors:
+        return sorted(skill_dir.rglob("*.md"))
+
+    files = set(skill_dir.glob("*.md"))
+    typst_refs = skill_dir / "references" / "typst"
+    if typst_refs.is_dir():
+        files.update(typst_refs.rglob("*.md"))
+    return sorted(files)
+
+
 def compile_block(
     code: str, preamble: bool = True, keep: bool = False
 ) -> tuple[bool, str]:
-    """Try to compile a Typst code block. Returns (success, stderr)."""
+    """Try to compile a Typst code block. Returns (success, stderr).
+
+    The output must be a real file path: passing a Unix-style sink such as
+    /dev/null fails on Windows with "failed to write PDF file (os error 3)".
+    Compile inside a scratch directory so nothing is left behind.
+    """
     full_code = (PREAMBLE + "\n" + code) if preamble else code
 
-    with tempfile.NamedTemporaryFile(
-        suffix=".typ", mode="w", delete=not keep, dir="."
-    ) as f:
-        f.write(full_code)
-        f.flush()
-        tmp_path = f.name
+    work_dir = tempfile.mkdtemp(prefix="typst-validate-")
+    try:
+        src_path = os.path.join(work_dir, "snippet.typ")
+        out_path = os.path.join(work_dir, "snippet.pdf")
+        with open(src_path, "w", encoding="utf-8") as f:
+            f.write(full_code)
 
         try:
             result = subprocess.run(
-                ["typst", "compile", tmp_path, "/dev/null", "-f", "pdf"],
+                ["typst", "compile", src_path, out_path, "-f", "pdf"],
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
                 timeout=10,
             )
-            return result.returncode == 0, result.stderr.strip()
+            ok = result.returncode == 0
+            if keep:
+                print(f"  (kept: {src_path})", file=sys.stderr)
+            return ok, result.stderr.strip()
         except FileNotFoundError:
             return False, "typst not found in PATH"
         except subprocess.TimeoutExpired:
             return False, "compilation timed out (10s)"
+    finally:
+        if not keep:
+            shutil.rmtree(work_dir, ignore_errors=True)
 
 
 def main():
@@ -162,6 +196,16 @@ def main():
         action="store_true",
         help="Also attempt to compile blocks that would normally be skipped",
     )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        dest="scan_mirrors",
+        help=(
+            "Also validate the vendored upstream doc mirrors "
+            "(references/typst-author, references/touying-author). "
+            "Adds ~1100 blocks and takes tens of minutes."
+        ),
+    )
     args = parser.parse_args()
 
     # Resolve skill directory
@@ -171,7 +215,7 @@ def main():
     if args.files:
         md_files = [skill_dir / f for f in args.files]
     else:
-        md_files = sorted(skill_dir.rglob("*.md"))
+        md_files = default_md_files(skill_dir, args.scan_mirrors)
 
     results = []
     counts = {"pass": 0, "fail": 0, "skip": 0}

@@ -96,6 +96,8 @@ git clone https://github.com/childishtree/typst-skill.git
   - Linux: `cargo install typst-cli`
   - Windows: `winget install typst`
 - **Python 3.10+**（可选）: 用于搜索和验证脚本
+  - 只有 `scripts/validate-examples.py` 需要 `markdown-it-py`（`pip install markdown-it-py`），
+    其余三个脚本仅依赖标准库。
 - **pdftotext**（可选）: 文本级输出验证
 - **typstyle**（可选）: 代码格式化
 
@@ -116,8 +118,9 @@ python3 scripts/search-api.py "image width fit"
 # 验证文档中的示例代码
 python3 scripts/validate-examples.py
 
-# 分析编译性能
-python3 scripts/perf-timings.py document.typ
+# 分析编译性能（需先生成轨迹）
+typst compile --timings trace.json document.typ document.pdf
+python3 scripts/perf-timings.py trace.json --self-time --top 10
 ```
 
 ---

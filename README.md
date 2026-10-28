@@ -96,6 +96,8 @@ Copy the entire `typst-skill/` directory (including `SKILL.md`, `references/`, `
   - Linux: `cargo install typst-cli`
   - Windows: `winget install typst`
 - **Python 3.10+** (optional): For search and validation scripts
+  - `markdown-it-py` is required by `scripts/validate-examples.py` only:
+    `pip install markdown-it-py`. The other three scripts are stdlib-only.
 - **pdftotext** (optional): Text-level output verification
 - **typstyle** (optional): Code formatting
 
@@ -116,8 +118,9 @@ python3 scripts/search-api.py "image width fit"
 # Validate inline examples in docs
 python3 scripts/validate-examples.py
 
-# Analyze compilation performance
-python3 scripts/perf-timings.py document.typ
+# Analyze compilation performance (needs a trace first)
+typst compile --timings trace.json document.typ document.pdf
+python3 scripts/perf-timings.py trace.json --self-time --top 10
 ```
 
 ---

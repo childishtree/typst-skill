@@ -39,10 +39,20 @@ def load_json(path):
 
 
 def resolve_data_dir(override):
+    """Locate the pre-computed index directory.
+
+    The index ships inside the reference mirror at references/typst/data/; older
+    layouts kept a copy at the skill root. Try both so either layout works.
+    """
     if override:
         return override
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(script_dir, "..", "data")
+    root = os.path.join(script_dir, "..")
+    for candidate in ("data", os.path.join("references", "typst", "data")):
+        path = os.path.join(root, candidate)
+        if os.path.isdir(path):
+            return path
+    return os.path.join(root, "data")
 
 
 def parse_version(v):
