@@ -171,7 +171,11 @@ def rewrite_file(
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--check", action="store_true", help="report only, do not modify")
+    ap.add_argument(
+        "--check",
+        action="store_true",
+        help="report only; exit 1 if anything would be rewritten or is unresolved",
+    )
     args = ap.parse_args()
 
     total_rw = total_un = 0
@@ -205,6 +209,10 @@ def main() -> int:
         print(f"\nunresolved ({len(all_unresolved)}), first 20:")
         for where, url in all_unresolved[:20]:
             print(f"  {where}: {url}")
+
+    if args.check and (total_rw or all_unresolved):
+        print("\n--check: mirror is not fully localized", file=sys.stderr)
+        return 1
     return 0
 
 

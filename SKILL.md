@@ -269,7 +269,7 @@ python3 scripts/search-api.py --list-categories
 | `scripts/search-packages.py` | 检索内置的 Typst Universe 包索引 | 无 |
 | `scripts/validate-examples.py` | 校验文档内所有 ```typst 代码块能否编译 | `markdown-it-py` |
 | `scripts/perf-timings.py` | 解析 `typst compile --timings` 轨迹，输出热点表 | 无 |
-| `scripts/localize-mirror-links.py` | 把上游镜像里的站点绝对链接本地化为相对路径（幂等，重同步后跑） | 无 |
+| `scripts/localize-mirror-links.py` | 把上游镜像里的站点绝对链接本地化为相对路径（幂等，重同步后跑）；`--check` 只报告，未本地化时 exit 1 | 无 |
 
 - `validate-examples.py` 默认只校验本 skill 自身的 md（根目录 `*.md` + `references/typst/` 下全部 md，具体文件数由脚本自行枚举）；加 `--all` 才会扫上游文档镜像
   （`references/typst-author/` 等，约 1100 个代码块，耗时数十分钟）。
