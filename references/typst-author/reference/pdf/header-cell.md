@@ -6,12 +6,12 @@ Explicitly defines a cell as a header cell.
 
 Header cells help users of Assistive Technology (AT) understand and navigate complex tables. When your table is correctly marked up with header cells, AT can announce the relevant header information on-demand when entering a cell.
 
-By default, Typst will automatically mark all cells within [`table.header`](/docs/reference/model/table/#definitions-header) as header cells. They will apply to the columns below them. You can use that function's [`level`](/docs/reference/model/table/#definitions-header-level) parameter to make header cells labelled by other header cells.
+By default, Typst will automatically mark all cells within [`table.header`](../model/table.md#definitions-header) as header cells. They will apply to the columns below them. You can use that function's [`level`](../model/table.md#definitions-header-level) parameter to make header cells labelled by other header cells.
 
 The `pdf.header-cell` function allows you to indicate that a cell is a header cell in the following additional situations:
 
-- You have a **header column** in which each cell applies to its row. In that case, you pass `"row"` as an argument to the [`scope` parameter](/docs/reference/pdf/header-cell/#parameters-scope) to indicate that the header cell applies to the row.
-- You have a cell in [`table.header`](/docs/reference/model/table/#definitions-header), for example at the very start, that labels both its row and column. In that case, you pass `"both"` as an argument to the [`scope`](/docs/reference/pdf/header-cell/#parameters-scope) parameter.
+- You have a **header column** in which each cell applies to its row. In that case, you pass `"row"` as an argument to the [`scope` parameter](header-cell.md#parameters-scope) to indicate that the header cell applies to the row.
+- You have a cell in [`table.header`](../model/table.md#definitions-header), for example at the very start, that labels both its row and column. In that case, you pass `"both"` as an argument to the [`scope`](header-cell.md#parameters-scope) parameter.
 - You have a header cell in a row not containing other header cells. In that case, you can use this function to mark it as a header cell.
 
 The API of this feature is temporary. Hence, calling this function requires enabling the `a11y-extras` feature flag at the moment. In a future Typst release, this functionality may move out of the `pdf` module so that tables in other export targets can contain the same information.
@@ -63,7 +63,7 @@ The API of this feature is temporary. Hence, calling this function requires enab
   - type: str
   - default: "column"
 - cell:
-  - description: The table cell. This can be content or a call to [`table.cell`](/docs/reference/model/table/#definitions-cell).
+  - description: The table cell. This can be content or a call to [`table.cell`](../model/table.md#definitions-cell).
   - type: content
   - default: None
 

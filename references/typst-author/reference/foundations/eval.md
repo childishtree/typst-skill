@@ -29,7 +29,7 @@ This function should only be used as a last resort.
   - type: str
   - default: None
 - mode:
-  - description: The [syntactical mode](/docs/reference/syntax/#modes) in which the string is parsed. ```typst #eval("= Heading", mode: "markup") #eval("1_2^3", mode: "math") ```
+  - description: The [syntactical mode](../syntax.md#modes) in which the string is parsed. ```typst #eval("= Heading", mode: "markup") #eval("1_2^3", mode: "math") ```
   - type: str
   - default: "code"
 - scope:

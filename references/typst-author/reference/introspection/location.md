@@ -2,18 +2,18 @@
 
 Identifies an element in the document.
 
-A location uniquely identifies an element in the document and lets you access its absolute position on the pages. You can retrieve the current location with the [`here`](/docs/reference/introspection/here/) function and the location of a queried or shown element with the [`location()`](/docs/reference/foundations/content/#definitions-location) method on content.
+A location uniquely identifies an element in the document and lets you access its absolute position on the pages. You can retrieve the current location with the [`here`](here.md) function and the location of a queried or shown element with the [`location()`](../foundations/content.md#definitions-location) method on content.
 
 ## Locatable elements
 
 Elements that are automatically assigned a location are called _locatable._ For efficiency reasons, not all elements are locatable.
 
-- In the [Model category](/docs/reference/model/), most elements are locatable. This is because semantic elements like [headings](/docs/reference/model/heading/) and [figures](/docs/reference/model/figure/) are often used with introspection.
-- In the [Text category](/docs/reference/text/), the [`raw`](/docs/reference/text/raw/) element, and the decoration elements [`underline`](/docs/reference/text/underline/), [`overline`](/docs/reference/text/overline/), [`strike`](/docs/reference/text/strike/), and [`highlight`](/docs/reference/text/highlight/) are locatable as these are also quite semantic in nature.
-- In the [Introspection category](/docs/reference/introspection/), the [`metadata`](/docs/reference/introspection/metadata/) element is locatable as being queried for is its primary purpose.
-- In the other categories, most elements are not locatable. Exceptions are [`math.equation`](/docs/reference/math/equation/) and [`image`](/docs/reference/visualize/image/).
+- In the [Model category](../model/), most elements are locatable. This is because semantic elements like [headings](../model/heading.md) and [figures](../model/figure.md) are often used with introspection.
+- In the [Text category](../text/), the [`raw`](../text/raw.md) element, and the decoration elements [`underline`](../text/underline.md), [`overline`](../text/overline.md), [`strike`](../text/strike.md), and [`highlight`](../text/highlight.md) are locatable as these are also quite semantic in nature.
+- In the [Introspection category](./), the [`metadata`](metadata.md) element is locatable as being queried for is its primary purpose.
+- In the other categories, most elements are not locatable. Exceptions are [`math.equation`](../math/equation.md) and [`image`](../visualize/image.md).
 
-To find out whether a specific element is locatable, you can try to [`query`](/docs/reference/introspection/query/) for it.
+To find out whether a specific element is locatable, you can try to [`query`](query.md) for it.
 
 Note that you can still observe elements that are not locatable in queries through other means, for instance, when they have a label attached to them.
 
@@ -24,11 +24,11 @@ Note that you can still observe elements that are not locatable in queries throu
 
 Returns the page number for this location.
 
-Note that this does not return the value of the [page counter](/docs/reference/introspection/counter/) at this location, but the true page number (starting from one).
+Note that this does not return the value of the [page counter](counter.md) at this location, but the true page number (starting from one).
 
 If you want to know the value of the page counter, use `counter(page).at(loc)` instead.
 
-Can be used with [`here`](/docs/reference/introspection/here/) to retrieve the physical page position of the current context:
+Can be used with [`here`](here.md) to retrieve the physical page position of the current context:
 
 ```typst
 #context [

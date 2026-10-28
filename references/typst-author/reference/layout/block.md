@@ -6,7 +6,7 @@ A block-level container.
 
 Such a container can be used to separate content, size it, and give it a background or border.
 
-Blocks are also the primary way to control whether text becomes part of a paragraph or not. See [the paragraph documentation](/docs/reference/model/par/#what-becomes-a-paragraph) for more details.
+Blocks are also the primary way to control whether text becomes part of a paragraph or not. See [the paragraph documentation](../model/par.md#what-becomes-a-paragraph) for more details.
 
 ## Examples
 
@@ -60,7 +60,7 @@ More text.
   - type: auto | relative
   - default: auto
 - height:
-  - description: The block\'s height. When the height is larger than the remaining space on a page and [`breakable`](/docs/reference/layout/block/#parameters-breakable) is `true`, the block will continue on the next page with the remaining height. ```typst #set page(height: 80pt) #set align(center) #block(  width: 80%,  height: 150%,  fill: aqua, ) ```
+  - description: The block\'s height. When the height is larger than the remaining space on a page and [`breakable`](block.md#parameters-breakable) is `true`, the block will continue on the next page with the remaining height. ```typst #set page(height: 80pt) #set align(center) #block(  width: 80%,  height: 150%,  fill: aqua, ) ```
   - type: auto | relative | fraction
   - default: auto
 - breakable:
@@ -68,27 +68,27 @@ More text.
   - type: bool
   - default: true
 - fill:
-  - description: The block\'s background color. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-fill) for more details.
+  - description: The block\'s background color. See the [rectangle\'s documentation](../visualize/rect.md#parameters-fill) for more details.
   - type: none | color | gradient | tiling
   - default: none
 - stroke:
-  - description: The block\'s border color. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-stroke) for more details.
+  - description: The block\'s border color. See the [rectangle\'s documentation](../visualize/rect.md#parameters-stroke) for more details.
   - type: none | length | color | gradient | stroke | tiling | dictionary
   - default: (:)
 - radius:
-  - description: How much to round the block\'s corners. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-radius) for more details.
+  - description: How much to round the block\'s corners. See the [rectangle\'s documentation](../visualize/rect.md#parameters-radius) for more details.
   - type: relative | dictionary
   - default: (:)
 - inset:
-  - description: How much to pad the block\'s content. See the [box\'s documentation](/docs/reference/layout/box/#parameters-inset) for more details.
+  - description: How much to pad the block\'s content. See the [box\'s documentation](box.md#parameters-inset) for more details.
   - type: relative | dictionary
   - default: (:)
 - outset:
-  - description: How much to expand the block\'s size without affecting the layout. See the [box\'s documentation](/docs/reference/layout/box/#parameters-outset) for more details.
+  - description: How much to expand the block\'s size without affecting the layout. See the [box\'s documentation](box.md#parameters-outset) for more details.
   - type: relative | dictionary
   - default: (:)
 - spacing:
-  - description: The spacing around the block. When `auto`, inherits the paragraph [`spacing`](/docs/reference/model/par/#parameters-spacing). For two adjacent blocks, the larger of the first block\'s `above` and the second block\'s `below` spacing wins. Moreover, block spacing takes precedence over paragraph [`spacing`](/docs/reference/model/par/#parameters-spacing). Note that this is only a shorthand to set `above` and `below` to the same value. Since the values for `above` and `below` might differ, a [context](/docs/reference/context/) block only provides access to `block.above` and `block.below`, not to `block.spacing` directly. This property can be used in combination with a show rule to adjust the spacing around arbitrary block-level elements. ```typst #set align(center) #show math.equation: set block(above: 8pt, below: 16pt) This sum of $x$ and $y$: $ x + y = z $ A second paragraph. ```
+  - description: The spacing around the block. When `auto`, inherits the paragraph [`spacing`](../model/par.md#parameters-spacing). For two adjacent blocks, the larger of the first block\'s `above` and the second block\'s `below` spacing wins. Moreover, block spacing takes precedence over paragraph [`spacing`](../model/par.md#parameters-spacing). Note that this is only a shorthand to set `above` and `below` to the same value. Since the values for `above` and `below` might differ, a [context](../context.md) block only provides access to `block.above` and `block.below`, not to `block.spacing` directly. This property can be used in combination with a show rule to adjust the spacing around arbitrary block-level elements. ```typst #set align(center) #show math.equation: set block(above: 8pt, below: 16pt) This sum of $x$ and $y$: $ x + y = z $ A second paragraph. ```
   - type: relative | fraction
   - default: 1.2em
 - above:

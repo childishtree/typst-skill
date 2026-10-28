@@ -48,7 +48,7 @@ $ (a dot b dot cancel(x)) /
   - type: auto | angle | function
   - default: auto
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the cancel line. ```typst $ cancel(  sum x,  stroke: #(   paint: red,   thickness: 1.5pt,   dash: "dashed",  ), ) $ ```
+  - description: How to [stroke](../visualize/stroke.md) the cancel line. ```typst $ cancel(  sum x,  stroke: #(   paint: red,   thickness: 1.5pt,   dash: "dashed",  ), ) $ ```
   - type: length | color | gradient | stroke | tiling | dictionary
   - default: 0.5pt
 

@@ -19,7 +19,7 @@ When inserted into content, most values are displayed as this representation in 
 
 This function is for debugging purposes. Its output should not be considered stable and may change at any time.
 
-To be specific, having the same `repr` does not guarantee that values are equivalent, and `repr` is not a strict inverse of [`eval`](/docs/reference/foundations/eval/). In the following example, for readability, the [`length`](/docs/reference/layout/length/) is rounded to two significant digits and the parameter list and body of the [unnamed `function`](/docs/reference/foundations/function/#unnamed) are omitted.
+To be specific, having the same `repr` does not guarantee that values are equivalent, and `repr` is not a strict inverse of [`eval`](eval.md). In the following example, for readability, the [`length`](../layout/length.md) is rounded to two significant digits and the parameter list and body of the [unnamed `function`](function.md#unnamed) are omitted.
 
 ```typst
 #assert(2pt / 3 < 0.67pt)

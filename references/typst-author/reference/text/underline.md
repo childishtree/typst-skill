@@ -24,7 +24,7 @@ This is #underline[important].
 ## Parameters
 
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the line. If set to `auto`, takes on the text\'s color and a thickness defined in the current font. ```typst Take #underline(  stroke: 1.5pt + red,  offset: 2pt,  [care], ) ```
+  - description: How to [stroke](../visualize/stroke.md) the line. If set to `auto`, takes on the text\'s color and a thickness defined in the current font. ```typst Take #underline(  stroke: 1.5pt + red,  offset: 2pt,  [care], ) ```
   - type: auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - offset:

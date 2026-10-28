@@ -4,13 +4,13 @@
 
 A section heading.
 
-With headings, you can structure your document into sections. Each heading has a _level,_ which starts at one and is unbounded upwards. This level indicates the logical role of the following content (section, subsection, etc.) A top-level heading indicates a top-level section of the document (not the document's title). To insert a title, use the [`title`](/docs/reference/model/title/) element instead.
+With headings, you can structure your document into sections. Each heading has a _level,_ which starts at one and is unbounded upwards. This level indicates the logical role of the following content (section, subsection, etc.) A top-level heading indicates a top-level section of the document (not the document's title). To insert a title, use the [`title`](title.md) element instead.
 
-Typst can automatically number your headings for you. To enable numbering, specify how you want your headings to be numbered with a [numbering pattern or function](/docs/reference/model/numbering/).
+Typst can automatically number your headings for you. To enable numbering, specify how you want your headings to be numbered with a [numbering pattern or function](numbering.md).
 
-Independently of the numbering, Typst can also automatically generate an [outline](/docs/reference/model/outline/) of all headings for you. To exclude one or more headings from this outline, you can set the `outlined` parameter to `false`.
+Independently of the numbering, Typst can also automatically generate an [outline](outline.md) of all headings for you. To exclude one or more headings from this outline, you can set the `outlined` parameter to `false`.
 
-When writing a [show rule](/docs/reference/styling/#show-rules) that accesses the [`body` field](/docs/reference/model/heading/#parameters-body) to create a completely custom look for headings, make sure to wrap the content in a [`block`](/docs/reference/layout/block/) (which is implicitly [sticky](/docs/reference/layout/block/#parameters-sticky) for headings through a built-in show-set rule). This prevents headings from becoming "orphans", i.e. remaining at the end of the page with the following content being on the next page.
+When writing a [show rule](../styling.md#show-rules) that accesses the [`body` field](heading.md#parameters-body) to create a completely custom look for headings, make sure to wrap the content in a [`block`](../layout/block.md) (which is implicitly [sticky](../layout/block.md#parameters-sticky) for headings through a built-in show-set rule). This prevents headings from becoming "orphans", i.e. remaining at the end of the page with the following content being on the next page.
 
 ## Example
 
@@ -38,7 +38,7 @@ To make your headings accessible, you should not skip heading levels. This means
 
 As mentioned above, a top-level heading indicates a top-level section of the document rather than its title. This is in contrast to the HTML `<h1>` element of which there should be only one per document.
 
-For this reason, in HTML export, a [`title`](/docs/reference/model/title/) element will turn into an `<h1>` and headings turn into `<h2>` and lower (a level 1 heading thus turns into `<h2>`, a level 2 heading into `<h3>`, etc).
+For this reason, in HTML export, a [`title`](title.md) element will turn into an `<h1>` and headings turn into `<h2>` and lower (a level 1 heading thus turns into `<h2>`, a level 2 heading into `<h3>`, etc).
 
 ```typst
 #heading(
@@ -57,7 +57,7 @@ For this reason, in HTML export, a [`title`](/docs/reference/model/title/) eleme
 ## Parameters
 
 - level:
-  - description: The absolute nesting depth of the heading, starting from one. If set to `auto`, it is computed from `offset + depth`. This is primarily useful for usage in [show rules](/docs/reference/styling/#show-rules) (either with [`where`](/docs/reference/foundations/function/#definitions-where) selectors or by accessing the level directly on a shown heading). ```typst #show heading.where(level: 2): set text(red) = Level 1 == Level 2 #set heading(offset: 1) = Also level 2 == Level 3 ```
+  - description: The absolute nesting depth of the heading, starting from one. If set to `auto`, it is computed from `offset + depth`. This is primarily useful for usage in [show rules](../styling.md#show-rules) (either with [`where`](../foundations/function.md#definitions-where) selectors or by accessing the level directly on a shown heading). ```typst #show heading.where(level: 2): set text(red) = Level 1 == Level 2 #set heading(offset: 1) = Also level 2 == Level 3 ```
   - type: auto | int
   - default: auto
 - depth:
@@ -69,7 +69,7 @@ For this reason, in HTML export, a [`title`](/docs/reference/model/title/) eleme
   - type: int
   - default: 0
 - numbering:
-  - description: How to number the heading. Accepts a [numbering pattern or function](/docs/reference/model/numbering/) taking multiple numbers. ```typst #set heading(numbering: "1.a.") = A section == A subsection === A sub-subsection ```
+  - description: How to number the heading. Accepts a [numbering pattern or function](numbering.md) taking multiple numbers. ```typst #set heading(numbering: "1.a.") = A section == A subsection === A sub-subsection ```
   - type: none | str | function
   - default: none
 - supplement:
@@ -77,15 +77,15 @@ For this reason, in HTML export, a [`title`](/docs/reference/model/title/) eleme
   - type: none | auto | content | function
   - default: auto
 - outlined:
-  - description: Whether the heading should appear in the [outline](/docs/reference/model/outline/). Note that this property, if set to `true`, ensures the heading is also shown as a bookmark in the exported PDF\'s outline (when exporting to PDF). To change that behavior, use the `bookmarked` property. ```typst #outline() #heading[Normal] This is a normal heading. #heading(outlined: false)[Hidden] This heading does not appear in the outline. ```
+  - description: Whether the heading should appear in the [outline](outline.md). Note that this property, if set to `true`, ensures the heading is also shown as a bookmark in the exported PDF\'s outline (when exporting to PDF). To change that behavior, use the `bookmarked` property. ```typst #outline() #heading[Normal] This is a normal heading. #heading(outlined: false)[Hidden] This heading does not appear in the outline. ```
   - type: bool
   - default: true
 - bookmarked:
-  - description: Whether the heading should appear as a bookmark in the exported PDF\'s outline. Doesn\'t affect other export formats, such as PNG. The default value of `auto` indicates that the heading will only appear in the exported PDF\'s outline if its `outlined` property is set to `true`, that is, if it would also be listed in Typst\'s [outline](/docs/reference/model/outline/). Setting this property to either `true` (bookmark) or `false` (don\'t bookmark) bypasses that behavior. ```typst #heading[Normal heading] This heading will be shown in the PDF\'s bookmark outline. #heading(bookmarked: false)[Not bookmarked] This heading won\'t be bookmarked in the resulting PDF. ```
+  - description: Whether the heading should appear as a bookmark in the exported PDF\'s outline. Doesn\'t affect other export formats, such as PNG. The default value of `auto` indicates that the heading will only appear in the exported PDF\'s outline if its `outlined` property is set to `true`, that is, if it would also be listed in Typst\'s [outline](outline.md). Setting this property to either `true` (bookmark) or `false` (don\'t bookmark) bypasses that behavior. ```typst #heading[Normal heading] This heading will be shown in the PDF\'s bookmark outline. #heading(bookmarked: false)[Not bookmarked] This heading won\'t be bookmarked in the resulting PDF. ```
   - type: auto | bool
   - default: auto
 - hanging-indent:
-  - description: The indent all but the first line of a heading should have. The default value of `auto` uses the width of the numbering as indent if the heading is aligned at the [start](/docs/reference/layout/direction/#definitions-start) of the [text direction](/docs/reference/text/text/#parameters-dir), and no indent for center and other alignments. ```typst #set heading(numbering: "1.") = A very, very, very, very, very, very long heading #show heading: set align(center) == A very long heading\\ with center alignment ```
+  - description: The indent all but the first line of a heading should have. The default value of `auto` uses the width of the numbering as indent if the heading is aligned at the [start](../layout/direction.md#definitions-start) of the [text direction](../text/text.md#parameters-dir), and no indent for center and other alignments. ```typst #set heading(numbering: "1.") = A very, very, very, very, very, very long heading #show heading: set align(center) == A very long heading\\ with center alignment ```
   - type: auto | length
   - default: auto
 - body:

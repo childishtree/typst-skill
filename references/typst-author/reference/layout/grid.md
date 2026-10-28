@@ -6,11 +6,11 @@ Arranges content in a grid.
 
 The grid element allows you to arrange content in a grid. You can define the number of rows and columns, as well as the size of the gutters between them. There are multiple sizing modes for columns and rows that can be used to create complex layouts.
 
-While the grid and table elements work very similarly, they are intended for different use cases and carry different semantics. The grid element is intended for presentational and layout purposes, while the [`table`](/docs/reference/model/table/) element is intended for, in broad terms, presenting multiple related data points. Set and show rules on one of these elements do not affect the other. Refer to the [Accessibility Section](/docs/reference/layout/grid/#accessibility) to learn how grids and tables are presented to users of Assistive Technology (AT) like screen readers.
+While the grid and table elements work very similarly, they are intended for different use cases and carry different semantics. The grid element is intended for presentational and layout purposes, while the [`table`](../model/table.md) element is intended for, in broad terms, presenting multiple related data points. Set and show rules on one of these elements do not affect the other. Refer to the [Accessibility Section](grid.md#accessibility) to learn how grids and tables are presented to users of Assistive Technology (AT) like screen readers.
 
 ## Sizing the tracks
 
-A grid's sizing is determined by the track sizes specified in the arguments. There are multiple sizing parameters: [`columns`](/docs/reference/layout/grid/#parameters-columns), [`rows`](/docs/reference/layout/grid/#parameters-rows) and [`gutter`](/docs/reference/layout/grid/#parameters-gutter). Because each of the sizing parameters accepts the same values, we will explain them just once, here. Each sizing argument accepts an array of individual track sizes. A track size is either:
+A grid's sizing is determined by the track sizes specified in the arguments. There are multiple sizing parameters: [`columns`](grid.md#parameters-columns), [`rows`](grid.md#parameters-rows) and [`gutter`](grid.md#parameters-gutter). Because each of the sizing parameters accepts the same values, we will explain them just once, here. Each sizing argument accepts an array of individual track sizes. A track size is either:
 
 - `auto`: The track will be sized to fit its contents. It will be at most as large as the remaining space. If there is more than one `auto` track width, and together they claim more than the available space, the `auto` tracks will fairly distribute the available space among themselves.
 - A fixed or relative length (e.g. `10pt` or `20% - 1cm`): The track will be exactly of this size.
@@ -20,7 +20,7 @@ To specify a single track, the array can be omitted in favor of a single value. 
 
 ## Examples
 
-The example below demonstrates the different track sizing options. It also shows how you can use [`grid.cell`](/docs/reference/layout/grid/#definitions-cell) to make an individual cell span two grid tracks.
+The example below demonstrates the different track sizing options. It also shows how you can use [`grid.cell`](grid.md#definitions-cell) to make an individual cell span two grid tracks.
 
 ```typst
 // We use `rect` to emphasize the
@@ -46,7 +46,7 @@ The example below demonstrates the different track sizing options. It also shows
 )
 ```
 
-You can also [spread](/docs/reference/foundations/arguments/#spreading) an array of strings or content into a grid to populate its cells.
+You can also [spread](../foundations/arguments.md#spreading) an array of strings or content into a grid to populate its cells.
 
 ```typst
 #grid(
@@ -58,18 +58,18 @@ You can also [spread](/docs/reference/foundations/arguments/#spreading) an array
 
 ## Styling the grid
 
-The grid and table elements work similarly. For a hands-on explanation, refer to the [Table Guide](/docs/guides/tables/#fills); for a quick overview, continue reading.
+The grid and table elements work similarly. For a hands-on explanation, refer to the [Table Guide](../../guides/tables.md#fills); for a quick overview, continue reading.
 
 The grid's appearance can be customized through different parameters. These are the most important ones:
 
-- [`align`](/docs/reference/layout/grid/#parameters-align) to change how cells are aligned
-- [`inset`](/docs/reference/layout/grid/#parameters-inset) to optionally add internal padding to cells
-- [`fill`](/docs/reference/layout/grid/#parameters-fill) to give cells a background
-- [`stroke`](/docs/reference/layout/grid/#parameters-stroke) to optionally enable grid lines with a certain stroke
+- [`align`](grid.md#parameters-align) to change how cells are aligned
+- [`inset`](grid.md#parameters-inset) to optionally add internal padding to cells
+- [`fill`](grid.md#parameters-fill) to give cells a background
+- [`stroke`](grid.md#parameters-stroke) to optionally enable grid lines with a certain stroke
 
 To meet different needs, there are various ways to set them.
 
-If you need to override the above options for individual cells, you can use the [`grid.cell`](/docs/reference/layout/grid/#definitions-cell) element. Likewise, you can override individual grid lines with the [`grid.hline`](/docs/reference/layout/grid/#definitions-hline) and [`grid.vline`](/docs/reference/layout/grid/#definitions-vline) elements.
+If you need to override the above options for individual cells, you can use the [`grid.cell`](grid.md#definitions-cell) element. Likewise, you can override individual grid lines with the [`grid.hline`](grid.md#definitions-hline) and [`grid.vline`](grid.md#definitions-vline) elements.
 
 To configure an overall style for a grid, you may instead specify the option in any of the following fashions:
 
@@ -94,19 +94,19 @@ To configure an overall style for a grid, you may instead specify the option in 
 )
 ```
 
-On top of that, you may [apply styling rules](/docs/reference/styling/) to [`grid`](/docs/reference/layout/grid/) and [`grid.cell`](/docs/reference/layout/grid/#definitions-cell). Especially, the [`x`](/docs/reference/layout/grid/#definitions-cell-x) and [`y`](/docs/reference/layout/grid/#definitions-cell-y) fields of `grid.cell` can be used in a [`where`](/docs/reference/foundations/function/#definitions-where) selector, making it possible to style cells at specific columns or rows, or individual positions.
+On top of that, you may [apply styling rules](../styling.md) to [`grid`](grid.md) and [`grid.cell`](grid.md#definitions-cell). Especially, the [`x`](grid.md#definitions-cell-x) and [`y`](grid.md#definitions-cell-y) fields of `grid.cell` can be used in a [`where`](../foundations/function.md#definitions-where) selector, making it possible to style cells at specific columns or rows, or individual positions.
 
 ### Stroke styling precedence
 
-As explained above, there are three ways to set the stroke of a grid cell: through [`grid.cell`'s `stroke` field](/docs/reference/layout/grid/#definitions-cell-stroke), by using [`grid.hline`](/docs/reference/layout/grid/#definitions-hline) and [`grid.vline`](/docs/reference/layout/grid/#definitions-vline), or by setting the [`grid`'s `stroke` field](/docs/reference/layout/grid/#parameters-stroke). When multiple of these settings are present and conflict, the `hline` and `vline` settings take the highest precedence, followed by the `cell` settings, and finally the `grid` settings.
+As explained above, there are three ways to set the stroke of a grid cell: through [`grid.cell`'s `stroke` field](grid.md#definitions-cell-stroke), by using [`grid.hline`](grid.md#definitions-hline) and [`grid.vline`](grid.md#definitions-vline), or by setting the [`grid`'s `stroke` field](grid.md#parameters-stroke). When multiple of these settings are present and conflict, the `hline` and `vline` settings take the highest precedence, followed by the `cell` settings, and finally the `grid` settings.
 
 Furthermore, strokes of a repeated grid header or footer will take precedence over regular cell strokes.
 
 ## Accessibility
 
-Grids do not carry any special semantics. Assistive Technology (AT) does not offer the ability to navigate two-dimensionally by cell in grids. If you want to present tabular data, use the [`table`](/docs/reference/model/table/) element instead.
+Grids do not carry any special semantics. Assistive Technology (AT) does not offer the ability to navigate two-dimensionally by cell in grids. If you want to present tabular data, use the [`table`](../model/table.md) element instead.
 
-AT will read the grid cells in their semantic order. Usually, this is the order in which you passed them to the grid. However, if you manually positioned them using [`grid.cell`'s `x` and `y` arguments](/docs/reference/layout/grid/#definitions-cell-x), cells will be read row by row, from left to right (in left-to-right documents). A cell will be read when its position is first reached.
+AT will read the grid cells in their semantic order. Usually, this is the order in which you passed them to the grid. However, if you manually positioned them using [`grid.cell`'s `x` and `y` arguments](grid.md#definitions-cell-x), cells will be read row by row, from left to right (in left-to-right documents). A cell will be read when its position is first reached.
 
 ```typst
 #grid(
@@ -134,7 +134,7 @@ AT will read the grid cells in their semantic order. Usually, this is the order 
   - type: auto | int | relative | fraction | array
   - default: ()
 - gutter:
-  - description: The gaps between rows and columns. This is a shorthand to set [`column-gutter`](/docs/reference/layout/grid/#parameters-column-gutter) and [`row-gutter`](/docs/reference/layout/grid/#parameters-row-gutter) to the same value. If there are more gutters than defined sizes, the last gutter is repeated. See the [track size section](#track-size) above for more details.
+  - description: The gaps between rows and columns. This is a shorthand to set [`column-gutter`](grid.md#parameters-column-gutter) and [`row-gutter`](grid.md#parameters-row-gutter) to the same value. If there are more gutters than defined sizes, the last gutter is repeated. See the [track size section](#track-size) above for more details.
   - type: auto | int | relative | fraction | array
   - default: ()
 - column-gutter:
@@ -146,11 +146,11 @@ AT will read the grid cells in their semantic order. Usually, this is the order 
   - type: auto | int | relative | fraction | array
   - default: ()
 - inset:
-  - description: How much to pad the cells\' content. To specify a uniform inset for all cells, you can use a single length for all sides, or a dictionary of lengths for individual sides. See the [box\'s documentation](/docs/reference/layout/box/#parameters-inset) for more details. To specify varying inset for different cells, you can: - use a single inset for all cells - use an array of insets corresponding to each column - use a function that maps a cell\'s position to its inset See the [styling section](#styling) above for more details. In addition, you can find an example at the [`table.inset`](/docs/reference/model/table/#parameters-inset) parameter.
+  - description: How much to pad the cells\' content. To specify a uniform inset for all cells, you can use a single length for all sides, or a dictionary of lengths for individual sides. See the [box\'s documentation](box.md#parameters-inset) for more details. To specify varying inset for different cells, you can: - use a single inset for all cells - use an array of insets corresponding to each column - use a function that maps a cell\'s position to its inset See the [styling section](#styling) above for more details. In addition, you can find an example at the [`table.inset`](../model/table.md#parameters-inset) parameter.
   - type: relative | array | dictionary | function
   - default: (:)
 - align:
-  - description: How to align the cells\' content. If set to `auto`, the outer alignment is used. You can specify the alignment in any of the following fashions: - use a single alignment for all cells - use an array of alignments corresponding to each column - use a function that maps a cell\'s position to its alignment See the [styling section](#styling) above for details. In addition, you can find an example at the [`table.align`](/docs/reference/model/table/#parameters-align) parameter.
+  - description: How to align the cells\' content. If set to `auto`, the outer alignment is used. You can specify the alignment in any of the following fashions: - use a single alignment for all cells - use an array of alignments corresponding to each column - use a function that maps a cell\'s position to its alignment See the [styling section](#styling) above for details. In addition, you can find an example at the [`table.align`](../model/table.md#parameters-align) parameter.
   - type: auto | array | alignment | function
   - default: auto
 - fill:
@@ -158,11 +158,11 @@ AT will read the grid cells in their semantic order. Usually, this is the order 
   - type: none | color | gradient | array | tiling | function
   - default: none
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the cells. Grids have no strokes by default, which can be changed by setting this option to the desired stroke. If it is necessary to place lines which can cross spacing between cells produced by the [`gutter`](/docs/reference/layout/grid/#parameters-gutter) option, or to override the stroke between multiple specific cells, consider specifying one or more of [`grid.hline`](/docs/reference/layout/grid/#definitions-hline) and [`grid.vline`](/docs/reference/layout/grid/#definitions-vline) alongside your grid cells. To specify the same stroke for all cells, you can use a single [stroke](/docs/reference/visualize/stroke/) for all sides, or a dictionary of [strokes](/docs/reference/visualize/stroke/) for individual sides. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-stroke) for more details. To specify varying strokes for different cells, you can: - use a single stroke for all cells - use an array of strokes corresponding to each column - use a function that maps a cell\'s position to its stroke See the [styling section](#styling) above for more details. ```typst #set page(width: 420pt) #set text(number-type: "old-style") #show grid.cell.where(y: 0): set text(size: 1.3em) #grid(  columns: (1fr, 2fr, 2fr),  row-gutter: 1.5em,  inset: (left: 0.5em),  stroke: (x, y) => if x > 0 { (left: 0.5pt + gray) },  align: horizon,  [Winter \\ 2007 \\ Season],  [Aaron Copland \\ *The Tender Land* \\ January 2007],  [Eric Satie \\ *Gymnopedie 1, 2* \\ February 2007],  [],  [Jan 12 \\ *Middlebury College \\ Center for the Arts* \\ 20:00],  [Feb 2 \\ *Johnson State College Dibden Center for the Arts* \\ 19:30],  [],  [Skip a week \\ #text(0.8em)[_Prepare your exams!_]],  [Feb 9 \\ *Castleton State College \\ Fine Arts Center* \\ 19:30],  [],  [Jan 26, 27 \\ *Lyndon State College Alexander Twilight Theater* \\ 20:00],  [   Feb 17 --- #smallcaps[Anniversary] \\   *Middlebury College \\ Center for the Arts* \\   19:00 #text(0.7em)[(for a special guest)]  ], ) ``` ```typst #set page(height: 13em, width: 26em) #let cv(..jobs) = grid(  columns: 2,  inset: 5pt,  stroke: (x, y) => if x == 0 and y > 0 {   (right: (    paint: luma(180),    thickness: 1.5pt,    dash: "dotted",   ))  },  grid.header(grid.cell(colspan: 2)[   *Professional Experience*   #box(width: 1fr, line(length: 100%, stroke: luma(180)))  ]),  ..{   let last = none   for job in jobs.pos() {    (     if job.year != last [*#job.year*],     [      *#job.company* - #job.role _(#job.timeframe)_ \\      #job.details     ]    )    last = job.year   }  } ) #cv(  (   year: 2012,   company: [Pear Seed & Co.],   role: [Lead Engineer],   timeframe: [Jul - Dec],   details: [    - Raised engineers from 3x to 10x    - Did a great job   ],  ),  (   year: 2012,   company: [Mega Corp.],   role: [VP of Sales],   timeframe: [Mar - Jun],   details: [- Closed tons of customers],  ),  (   year: 2013,   company: [Tiny Co.],   role: [CEO],   timeframe: [Jan - Dec],   details: [- Delivered 4x more shareholder value],  ),  (   year: 2014,   company: [Glorbocorp Ltd],   role: [CTO],   timeframe: [Jan - Mar],   details: [- Drove containerization forward],  ), ) ```
+  - description: How to [stroke](../visualize/stroke.md) the cells. Grids have no strokes by default, which can be changed by setting this option to the desired stroke. If it is necessary to place lines which can cross spacing between cells produced by the [`gutter`](grid.md#parameters-gutter) option, or to override the stroke between multiple specific cells, consider specifying one or more of [`grid.hline`](grid.md#definitions-hline) and [`grid.vline`](grid.md#definitions-vline) alongside your grid cells. To specify the same stroke for all cells, you can use a single [stroke](../visualize/stroke.md) for all sides, or a dictionary of [strokes](../visualize/stroke.md) for individual sides. See the [rectangle\'s documentation](../visualize/rect.md#parameters-stroke) for more details. To specify varying strokes for different cells, you can: - use a single stroke for all cells - use an array of strokes corresponding to each column - use a function that maps a cell\'s position to its stroke See the [styling section](#styling) above for more details. ```typst #set page(width: 420pt) #set text(number-type: "old-style") #show grid.cell.where(y: 0): set text(size: 1.3em) #grid(  columns: (1fr, 2fr, 2fr),  row-gutter: 1.5em,  inset: (left: 0.5em),  stroke: (x, y) => if x > 0 { (left: 0.5pt + gray) },  align: horizon,  [Winter \\ 2007 \\ Season],  [Aaron Copland \\ *The Tender Land* \\ January 2007],  [Eric Satie \\ *Gymnopedie 1, 2* \\ February 2007],  [],  [Jan 12 \\ *Middlebury College \\ Center for the Arts* \\ 20:00],  [Feb 2 \\ *Johnson State College Dibden Center for the Arts* \\ 19:30],  [],  [Skip a week \\ #text(0.8em)[_Prepare your exams!_]],  [Feb 9 \\ *Castleton State College \\ Fine Arts Center* \\ 19:30],  [],  [Jan 26, 27 \\ *Lyndon State College Alexander Twilight Theater* \\ 20:00],  [   Feb 17 --- #smallcaps[Anniversary] \\   *Middlebury College \\ Center for the Arts* \\   19:00 #text(0.7em)[(for a special guest)]  ], ) ``` ```typst #set page(height: 13em, width: 26em) #let cv(..jobs) = grid(  columns: 2,  inset: 5pt,  stroke: (x, y) => if x == 0 and y > 0 {   (right: (    paint: luma(180),    thickness: 1.5pt,    dash: "dotted",   ))  },  grid.header(grid.cell(colspan: 2)[   *Professional Experience*   #box(width: 1fr, line(length: 100%, stroke: luma(180)))  ]),  ..{   let last = none   for job in jobs.pos() {    (     if job.year != last [*#job.year*],     [      *#job.company* - #job.role _(#job.timeframe)_ \\      #job.details     ]    )    last = job.year   }  } ) #cv(  (   year: 2012,   company: [Pear Seed & Co.],   role: [Lead Engineer],   timeframe: [Jul - Dec],   details: [    - Raised engineers from 3x to 10x    - Did a great job   ],  ),  (   year: 2012,   company: [Mega Corp.],   role: [VP of Sales],   timeframe: [Mar - Jun],   details: [- Closed tons of customers],  ),  (   year: 2013,   company: [Tiny Co.],   role: [CEO],   timeframe: [Jan - Dec],   details: [- Delivered 4x more shareholder value],  ),  (   year: 2014,   company: [Glorbocorp Ltd],   role: [CTO],   timeframe: [Jan - Mar],   details: [- Drove containerization forward],  ), ) ```
   - type: none | length | color | gradient | array | stroke | tiling | dictionary | function
   - default: (:)
 - children:
-  - description: The contents of the grid cells, plus any extra grid lines specified with the [`grid.hline`](/docs/reference/layout/grid/#definitions-hline) and [`grid.vline`](/docs/reference/layout/grid/#definitions-vline) elements. The cells are populated in row-major order.
+  - description: The contents of the grid cells, plus any extra grid lines specified with the [`grid.hline`](grid.md#definitions-hline) and [`grid.vline`](grid.md#definitions-vline) elements. The cells are populated in row-major order.
   - type: content
   - default: None
 
@@ -201,7 +201,7 @@ For example, you can override the position and stroke for a single cell:
 )
 ```
 
-You may also apply a show rule on `grid.cell` to style all cells at once, which allows you, for example, to apply styles based on a cell's position. Refer to the examples of the [`table.cell`](/docs/reference/model/table/#definitions-cell) element to learn more about this.
+You may also apply a show rule on `grid.cell` to style all cells at once, which allows you, for example, to apply styles based on a cell's position. Refer to the examples of the [`table.cell`](../model/table.md#definitions-cell) element to learn more about this.
 
 ```typst
 #grid.cell(
@@ -241,19 +241,19 @@ You may also apply a show rule on `grid.cell` to style all cells at once, which 
   - type: int
   - default: 1
 - inset:
-  - description: The cell\'s [inset](/docs/reference/layout/grid/#parameters-inset) override.
+  - description: The cell\'s [inset](grid.md#parameters-inset) override.
   - type: auto | relative | dictionary
   - default: auto
 - align:
-  - description: The cell\'s [alignment](/docs/reference/layout/grid/#parameters-align) override.
+  - description: The cell\'s [alignment](grid.md#parameters-align) override.
   - type: auto | alignment
   - default: auto
 - fill:
-  - description: The cell\'s [fill](/docs/reference/layout/grid/#parameters-fill) override.
+  - description: The cell\'s [fill](grid.md#parameters-fill) override.
   - type: none | auto | color | gradient | tiling
   - default: auto
 - stroke:
-  - description: The cell\'s [stroke](/docs/reference/layout/grid/#parameters-stroke) override.
+  - description: The cell\'s [stroke](grid.md#parameters-stroke) override.
   - type: none | length | color | gradient | stroke | tiling | dictionary
   - default: (:)
 - breakable:
@@ -267,7 +267,7 @@ A horizontal line in the grid.
 
 Overrides any per-cell stroke, including stroke specified through the grid's `stroke` field. Can cross spacing between cells created through the grid's `column-gutter` option.
 
-An example for this function can be found at the [`table.hline`](/docs/reference/model/table/#definitions-hline) element.
+An example for this function can be found at the [`table.hline`](../model/table.md#definitions-hline) element.
 
 ```typst
 #grid.hline(
@@ -282,7 +282,7 @@ An example for this function can be found at the [`table.hline`](/docs/reference
 #### Parameters
 
 - y:
-  - description: The row above which the horizontal line is placed (zero-indexed). If the `position` field is set to `bottom`, the line is placed below the row with the given index instead (see [`grid.hline.position`](/docs/reference/layout/grid/#definitions-hline-position) for details). Specifying `auto` causes the line to be placed at the row below the last automatically positioned cell (that is, cell without coordinate overrides) before the line among the grid\'s children. If there is no such cell before the line, it is placed at the top of the grid (row 0). Note that specifying for this option exactly the total amount of rows in the grid causes this horizontal line to override the bottom border of the grid, while a value of 0 overrides the top border.
+  - description: The row above which the horizontal line is placed (zero-indexed). If the `position` field is set to `bottom`, the line is placed below the row with the given index instead (see [`grid.hline.position`](grid.md#definitions-hline-position) for details). Specifying `auto` causes the line to be placed at the row below the last automatically positioned cell (that is, cell without coordinate overrides) before the line among the grid\'s children. If there is no such cell before the line, it is placed at the top of the grid (row 0). Note that specifying for this option exactly the total amount of rows in the grid causes this horizontal line to override the bottom border of the grid, while a value of 0 overrides the top border.
   - type: auto | int
   - default: auto
 - start:
@@ -321,7 +321,7 @@ Overrides any per-cell stroke, including stroke specified through the grid's `st
 #### Parameters
 
 - x:
-  - description: The column before which the vertical line is placed (zero-indexed). If the `position` field is set to `end`, the line is placed after the column with the given index instead (see [`grid.vline.position`](/docs/reference/layout/grid/#definitions-vline-position) for details). Specifying `auto` causes the line to be placed at the column after the last automatically positioned cell (that is, cell without coordinate overrides) before the line among the grid\'s children. If there is no such cell before the line, it is placed before the grid\'s first column (column 0). Note that specifying for this option exactly the total amount of columns in the grid causes this vertical line to override the end border of the grid (right in LTR, left in RTL), while a value of 0 overrides the start border (left in LTR, right in RTL).
+  - description: The column before which the vertical line is placed (zero-indexed). If the `position` field is set to `end`, the line is placed after the column with the given index instead (see [`grid.vline.position`](grid.md#definitions-vline-position) for details). Specifying `auto` causes the line to be placed at the column after the last automatically positioned cell (that is, cell without coordinate overrides) before the line among the grid\'s children. If there is no such cell before the line, it is placed before the grid\'s first column (column 0). Note that specifying for this option exactly the total amount of columns in the grid causes this vertical line to override the end border of the grid (right in LTR, left in RTL), while a value of 0 overrides the start border (left in LTR, right in RTL).
   - type: auto | int
   - default: auto
 - start:
@@ -345,7 +345,7 @@ Overrides any per-cell stroke, including stroke specified through the grid's `st
 
 A repeatable grid header.
 
-If `repeat` is set to `true`, the header will be repeated across pages. For an example, refer to the [`table.header`](/docs/reference/model/table/#definitions-header) element and the [`grid.stroke`](/docs/reference/layout/grid/#parameters-stroke) parameter.
+If `repeat` is set to `true`, the header will be repeated across pages. For an example, refer to the [`table.header`](../model/table.md#definitions-header) element and the [`grid.stroke`](grid.md#parameters-stroke) parameter.
 
 ```typst
 #grid.header(
@@ -374,7 +374,7 @@ If `repeat` is set to `true`, the header will be repeated across pages. For an e
 
 A repeatable grid footer.
 
-Just like the [`grid.header`](/docs/reference/layout/grid/#definitions-header) element, the footer can repeat itself on every page of the grid.
+Just like the [`grid.header`](grid.md#definitions-header) element, the footer can repeat itself on every page of the grid.
 
 No other grid cells may be placed after the footer.
 

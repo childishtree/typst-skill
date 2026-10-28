@@ -29,7 +29,7 @@ This is #highlight[important].
   - type: none | color | gradient | tiling
   - default: rgb ("#fffd11a1")
 - stroke:
-  - description: The highlight\'s border color. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-stroke) for more details. ```typst This is a #highlight(  stroke: fuchsia )[stroked highlighting]. ```
+  - description: The highlight\'s border color. See the [rectangle\'s documentation](../visualize/rect.md#parameters-stroke) for more details. ```typst This is a #highlight(  stroke: fuchsia )[stroked highlighting]. ```
   - type: none | length | color | gradient | stroke | tiling | dictionary
   - default: (:)
 - top-edge:
@@ -45,7 +45,7 @@ This is #highlight[important].
   - type: length
   - default: 0pt
 - radius:
-  - description: How much to round the highlight\'s corners. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-radius) for more details. ```typst Listen #highlight(  radius: 5pt, extent: 2pt )[carefully], it will be on the test. ```
+  - description: How much to round the highlight\'s corners. See the [rectangle\'s documentation](../visualize/rect.md#parameters-radius) for more details. ```typst Listen #highlight(  radius: 5pt, extent: 2pt )[carefully], it will be on the test. ```
   - type: relative | dictionary
   - default: (:)
 - body:

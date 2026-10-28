@@ -2,7 +2,7 @@
 
 Represents a date, a time, or a combination of both.
 
-Can be created by either specifying a custom datetime using this type's constructor function or getting the current date with [`datetime.today`](/docs/reference/foundations/datetime/#definitions-today).
+Can be created by either specifying a custom datetime using this type's constructor function or getting the current date with [`datetime.today`](datetime.md#definitions-today).
 
 ## Example
 
@@ -32,7 +32,7 @@ Can be created by either specifying a custom datetime using this type's construc
 
 ## Datetime and Duration
 
-You can get a [duration](/docs/reference/foundations/duration/) by subtracting two datetime:
+You can get a [duration](duration.md) by subtracting two datetime:
 
 ```typst
 #let first-of-march = datetime(day: 1, month: 3, year: 2024)
@@ -56,7 +56,7 @@ You can also add/subtract a datetime and a duration to retrieve a new, offset da
 
 ## Format
 
-You can specify a customized formatting using the [`display`](/docs/reference/foundations/datetime/#definitions-display) method. The format of a datetime is specified by providing _components_ with a specified number of _modifiers_. A component represents a certain part of the datetime that you want to display, and with the help of modifiers you can define how you want to display that component. In order to display a component, you wrap the name of the component in square brackets (e.g. `[year]` will display the year). In order to add modifiers, you add a space after the component name followed by the name of the modifier, a colon and the value of the modifier (e.g. `[month repr:short]` will display the short representation of the month).
+You can specify a customized formatting using the [`display`](datetime.md#definitions-display) method. The format of a datetime is specified by providing _components_ with a specified number of _modifiers_. A component represents a certain part of the datetime that you want to display, and with the help of modifiers you can define how you want to display that component. In order to display a component, you wrap the name of the component in square brackets (e.g. `[year]` will display the year). In order to add modifiers, you add a space after the component name followed by the name of the modifier, a colon and the value of the modifier (e.g. `[month repr:short]` will display the short representation of the month).
 
 The possible combination of components and their respective modifiers is as follows:
 
@@ -92,7 +92,7 @@ Keep in mind that not always all components can be used. For example, if you cre
 
 Creates a new datetime.
 
-You can specify the [datetime](/docs/reference/foundations/datetime/) using a year, month, day, hour, minute, and second.
+You can specify the [datetime](datetime.md) using a year, month, day, hour, minute, and second.
 
 _Note_: Depending on which components of the datetime you specify, Typst will store it in one of the following three ways:
 
@@ -100,7 +100,7 @@ _Note_: Depending on which components of the datetime you specify, Typst will st
 - If you specify hour, minute and second, Typst will store just a time.
 - If you specify all of year, month, day, hour, minute and second, Typst will store a full datetime.
 
-Depending on how it is stored, the [`display`](/docs/reference/foundations/datetime/#definitions-display) method will choose a different formatting by default.
+Depending on how it is stored, the [`display`](datetime.md#definitions-display) method will choose a different formatting by default.
 
 ```typst
 #datetime(
@@ -181,7 +181,7 @@ Displays the datetime in a specified format.
 
 Depending on whether you have defined just a date, a time or both, the default format will be different. If you specified a date, it will be `[year]-[month]-[day]`. If you specified a time, it will be `[hour]:[minute]:[second]`. In the case of a datetime, it will be `[year]-[month]-[day] [hour]:[minute]:[second]`.
 
-See the [format syntax](/docs/reference/foundations/datetime/#format) for more information.
+See the [format syntax](datetime.md#format) for more information.
 
 ```typst
 #datetime.display(

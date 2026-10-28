@@ -52,7 +52,7 @@ By default block quotes are padded left and right by `1em`, alignment and paddin
   - type: bool
   - default: false
 - quotes:
-  - description: Whether double quotes should be added around this quote. The double quotes used are inferred from the `quotes` property on [smartquote](/docs/reference/text/smartquote/), which is affected by the `lang` property on [text](/docs/reference/text/text/). - `true`: Wrap this quote in double quotes. - `false`: Do not wrap this quote in double quotes. - `auto`: Infer whether to wrap this quote in double quotes based on the `block` property. If `block` is `false`, double quotes are automatically added. ```typst #set text(lang: "de") Ein deutsch-sprechender Author zitiert unter umständen JFK: #quote[Ich bin ein Berliner.] #set text(lang: "en") And an english speaking one may translate the quote: #quote[I am a Berliner.] ```
+  - description: Whether double quotes should be added around this quote. The double quotes used are inferred from the `quotes` property on [smartquote](../text/smartquote.md), which is affected by the `lang` property on [text](../text/text.md). - `true`: Wrap this quote in double quotes. - `false`: Do not wrap this quote in double quotes. - `auto`: Infer whether to wrap this quote in double quotes based on the `block` property. If `block` is `false`, double quotes are automatically added. ```typst #set text(lang: "de") Ein deutsch-sprechender Author zitiert unter umständen JFK: #quote[Ich bin ein Berliner.] #set text(lang: "en") And an english speaking one may translate the quote: #quote[I am a Berliner.] ```
   - type: auto | bool
   - default: auto
 - attribution:

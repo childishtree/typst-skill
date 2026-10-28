@@ -14,9 +14,9 @@ Typst is a good choice for writing any long form text such as essays, articles, 
 
 This tutorial has four chapters. Each chapter builds on the previous one. Here is what you will learn in each of them:
 
-1. [Writing in Typst:](/docs/tutorial/writing-in-typst/) Learn how to write text and insert images, equations, and other elements.
-2. [Formatting:](/docs/tutorial/formatting/) Learn how to adjust the formatting of your document, including font size, heading styles, and more.
-3. [Advanced Styling:](/docs/tutorial/advanced-styling/) Create a complex page layout for a scientific paper with typographic features such as an author list and run-in headings.
-4. [Making a Template:](/docs/tutorial/making-a-template/) Build a reusable template from the paper you created in the previous chapter.
+1. [Writing in Typst:](writing-in-typst.md) Learn how to write text and insert images, equations, and other elements.
+2. [Formatting:](formatting.md) Learn how to adjust the formatting of your document, including font size, heading styles, and more.
+3. [Advanced Styling:](advanced-styling.md) Create a complex page layout for a scientific paper with typographic features such as an author list and run-in headings.
+4. [Making a Template:](making-a-template.md) Build a reusable template from the paper you created in the previous chapter.
 
 We hope you'll enjoy Typst!

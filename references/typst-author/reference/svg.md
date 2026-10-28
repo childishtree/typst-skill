@@ -4,7 +4,7 @@ Instead of creating a PDF, Typst can also directly render pages to scalable vect
 
 SVGs can represent text in two ways: By embedding the text itself and rendering it with the fonts available on the viewer's computer or by embedding the shapes of each glyph in the font used to create the document. To ensure that the SVG file looks the same across all devices it is viewed on, Typst chooses the latter method. This means that the text in the SVG cannot be extracted automatically, for example by copy/paste or a screen reader. If you need the text to be accessible, export a PDF or HTML file instead.
 
-SVGs can have transparent backgrounds. By default, Typst will output an SVG with an opaque white background. You can make the background transparent using `#set page(fill: none)`. Learn more on the [`page` function's reference page](/docs/reference/layout/page/#parameters-fill).
+SVGs can have transparent backgrounds. By default, Typst will output an SVG with an opaque white background. You can make the background transparent using `#set page(fill: none)`. Learn more on the [`page` function's reference page](layout/page.md#parameters-fill).
 
 ## Exporting as SVG
 

@@ -51,11 +51,11 @@ You are already familiar with most of what is going on here. We set the text siz
 
 The `header` argument is new: With it, we can provide content to fill the top margin of every page. In the header, we specify our paper's title as requested by the conference style guide. We use the `align` function to align the text to the right.
 
-Last but not least is the `numbering` argument. Here, we can provide a [numbering pattern](/docs/reference/model/numbering/) that defines how to number the pages. By setting it to `"1"`, Typst only displays the bare page number. Setting it to `"(1/1)"` would have displayed the current page and total number of pages surrounded by parentheses. And we could even have provided a completely custom function here to format things to our liking.
+Last but not least is the `numbering` argument. Here, we can provide a [numbering pattern](../reference/model/numbering.md) that defines how to number the pages. By setting it to `"1"`, Typst only displays the bare page number. Setting it to `"(1/1)"` would have displayed the current page and total number of pages surrounded by parentheses. And we could even have provided a completely custom function here to format things to our liking.
 
 ## Creating a title and abstract
 
-Now, let's add a title and an abstract. We'll start with the title. Typst comes with a [`title`](/docs/reference/model/title/) function. Let's start by providing our title as an argument:
+Now, let's add a title and an abstract. We'll start with the title. Typst comes with a [`title`](../reference/model/title.md) function. Let's start by providing our title as an argument:
 
 ```typst
 #title[
@@ -111,9 +111,9 @@ This looks right. Let's also add the author list: Since we are writing this pape
 )
 ```
 
-The two author blocks are laid out next to each other. We use the [`grid`](/docs/reference/layout/grid/) function to create this layout. With a grid, we can control exactly how large each column is and which content goes into which cell. The `columns` argument takes an array of [relative lengths](/docs/reference/layout/relative/) or [fractions](/docs/reference/layout/fraction/). In this case, we passed it two equal fractional sizes, telling it to split the available space into two equal columns. We then passed two content arguments to the grid function. The first with our own details, and the second with our supervisors'. We again use the `align` function to center the content within the column. The grid takes an arbitrary number of content arguments specifying the cells. Rows are added automatically, but they can also be manually sized with the `rows` argument.
+The two author blocks are laid out next to each other. We use the [`grid`](../reference/layout/grid.md) function to create this layout. With a grid, we can control exactly how large each column is and which content goes into which cell. The `columns` argument takes an array of [relative lengths](../reference/layout/relative.md) or [fractions](../reference/layout/fraction.md). In this case, we passed it two equal fractional sizes, telling it to split the available space into two equal columns. We then passed two content arguments to the grid function. The first with our own details, and the second with our supervisors'. We again use the `align` function to center the content within the column. The grid takes an arbitrary number of content arguments specifying the cells. Rows are added automatically, but they can also be manually sized with the `rows` argument.
 
-Looking at the authors and the title, they are a bit too close together. You can address this by using another show-set rule to configure the space below the title. The title, the grid, paragraphs, and all other elements that Typst arranges from the top to the bottom of the page are called _blocks._ Each block is controlled by the [`block`](/docs/reference/layout/block/) function. It controls behaviors like their distance and whether a block can contain a page break. That means that we can write another show-set rule that selects the title to set the block spacing:
+Looking at the authors and the title, they are a bit too close together. You can address this by using another show-set rule to configure the space below the title. The title, the grid, paragraphs, and all other elements that Typst arranges from the top to the bottom of the page are called _blocks._ Each block is controlled by the [`block`](../reference/layout/block.md) function. It controls behaviors like their distance and whether a block can contain a page break. That means that we can write another show-set rule that selects the title to set the block spacing:
 
 ```typst
 #show title: set text(size: 17pt)
@@ -210,7 +210,7 @@ completing this tutorial.</p>
 
 The paper above unfortunately looks like a wall of lead. To fix that, let's add some headings and switch our paper to a two-column layout. Fortunately, that's easy to do: We just need to amend our `page` set rule with the `columns` argument.
 
-By adding `columns: 2` to the argument list, we have wrapped the whole document in two columns. However, that would also affect the title and authors overview. To keep them spanning the whole page, we can wrap them in a function call to [`place`](/docs/reference/layout/place/). Place expects an alignment and the content it should place as positional arguments. Using the named `scope` argument, we can decide if the items should be placed relative to the current column or its parent (the page). There is one more thing to configure: If no other arguments are provided, `place` takes its content out of the flow of the document and positions it over the other content without affecting the layout of other content in its container:
+By adding `columns: 2` to the argument list, we have wrapped the whole document in two columns. However, that would also affect the title and authors overview. To keep them spanning the whole page, we can wrap them in a function call to [`place`](../reference/layout/place.md). Place expects an alignment and the content it should place as positional arguments. Using the named `scope` argument, we can decide if the items should be placed relative to the current column or its parent (the page). There is one more thing to configure: If no other arguments are provided, `place` takes its content out of the flow of the document and positions it over the other content without affecting the layout of other content in its container:
 
 ```typst
 #place(
@@ -254,7 +254,7 @@ If we hadn't used `place` here, the square would be in its own line, but here it
 #lorem(200)
 ```
 
-In this example, we also used the `clearance` argument of the `place` function to provide the space between it and the body instead of using the [`v`](/docs/reference/layout/v/) function. We can also remove the explicit `align(center, ..)` calls around the various parts since they inherit the center alignment from the placement.
+In this example, we also used the `clearance` argument of the `place` function to provide the space between it and the body instead of using the [`v`](../reference/layout/v.md) function. We can also remove the explicit `align(center, ..)` calls around the various parts since they inherit the center alignment from the placement.
 
 Now there is only one thing left to do: Style our headings. We need to make them centered and use small capitals. These properties are not available on the `heading` function, so we will need to write a few show-set rules and a show rule:
 
@@ -281,7 +281,7 @@ Now there is only one thing left to do: Style our headings. We need to make them
 
 This looks great! We used show rules that apply to all headings. In the final show rule, we applied the `smallcaps` function to the complete heading. As we will see in the next example, we can also provide a custom rule to completely override the default look of headings.
 
-The only remaining problem is that all headings look the same now. The "Motivation" and "Problem Statement" subsections ought to be italic run-in headers, but right now, they look indistinguishable from the section headings. We can fix that by using a `where` selector on our show rule: This is a [method](/docs/reference/scripting/#methods) we can call on headings (and other elements) that allows us to filter them by their properties. We can use it to differentiate between section and subsection headings:
+The only remaining problem is that all headings look the same now. The "Motivation" and "Problem Statement" subsections ought to be italic run-in headers, but right now, they look indistinguishable from the section headings. We can fix that by using a `where` selector on our show rule: This is a [method](../reference/scripting.md#methods) we can call on headings (and other elements) that allows us to filter them by their properties. We can use it to differentiate between section and subsection headings:
 
 ```typst
 #show heading.where(level: 1): set align(center)
@@ -321,7 +321,7 @@ We are now in compliance with all of these styles and can submit the paper to th
 
 ## Review
 
-You have now learned how to create titles, headers, and footers, how to use functions, show-set rules, and scopes to locally override styles, how to create more complex layouts with the [`grid`](/docs/reference/layout/grid/) function, how to access element properties with context, and how to write show rules for individual functions, and the whole document. You also learned how to use the [`where` selector](/docs/reference/styling/#show-rules) to filter the headings by their level.
+You have now learned how to create titles, headers, and footers, how to use functions, show-set rules, and scopes to locally override styles, how to create more complex layouts with the [`grid`](../reference/layout/grid.md) function, how to access element properties with context, and how to write show rules for individual functions, and the whole document. You also learned how to use the [`where` selector](../reference/styling.md#show-rules) to filter the headings by their level.
 
 The paper was a great success! You've met a lot of like-minded researchers at the conference and are planning a project which you hope to publish at the same venue next year. You'll need to write a new paper using the same style guide though, so maybe now you want to create a time-saving template for you and your team?
 

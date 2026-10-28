@@ -4,11 +4,11 @@ Tables are a great way to present data to your readers in an easily readable, co
 
 Typst can help you with your tables by automating styling, importing data from other applications, and more! This guide takes you through a few of the most common questions you may have when adding a table to your document with Typst. Feel free to skip to the section most relevant to you – we designed this guide to be read out of order.
 
-If you want to look up a detail of how tables work, you should also [check out their reference page](/docs/reference/model/table/). And if you are looking for a table of contents rather than a normal table, the reference page of the [`outline` function](/docs/reference/model/outline/) is the right place to learn more.
+If you want to look up a detail of how tables work, you should also [check out their reference page](../reference/model/table.md). And if you are looking for a table of contents rather than a normal table, the reference page of the [`outline` function](../reference/model/outline.md) is the right place to learn more.
 
 ## How to create a basic table?
 
-In order to create a table in Typst, use the [`table` function](/docs/reference/model/table/). For a basic table, you need to tell the table function two things:
+In order to create a table in Typst, use the [`table` function](../reference/model/table.md). For a basic table, you need to tell the table function two things:
 
 - The number of columns
 - The content for each of the table cells
@@ -31,11 +31,11 @@ So, let's say you want to create a table with two columns describing the ingredi
 )
 ```
 
-This example shows how to call, configure, and populate a table. Both the column count and cell contents are passed to the table as arguments. The [argument list](/docs/reference/foundations/function/) is surrounded by round parentheses. In it, we first pass the column count as a named argument. Then, we pass multiple [content blocks](/docs/reference/foundations/content/) as positional arguments. Each content block contains the contents for a single cell.
+This example shows how to call, configure, and populate a table. Both the column count and cell contents are passed to the table as arguments. The [argument list](../reference/foundations/function.md) is surrounded by round parentheses. In it, we first pass the column count as a named argument. Then, we pass multiple [content blocks](../reference/foundations/content.md) as positional arguments. Each content block contains the contents for a single cell.
 
 To make the example more legible, we have placed two content block arguments on each line, mimicking how they would appear in the table. You could also write each cell on its own line. Typst does not care on which line you place the arguments. Instead, Typst will place the content cells from left to right (or right to left, if that is the writing direction of your language) and then from top to bottom. It will automatically add enough rows to your table so that it fits all of your content.
 
-It is best to wrap the header row of your table in the [`table.header` function](/docs/reference/model/table/#definitions-header). This clarifies your intent and will also allow Typst to make the output more [accessible](/docs/guides/accessibility/) to users with a screen reader:
+It is best to wrap the header row of your table in the [`table.header` function](../reference/model/table.md#definitions-header). This clarifies your intent and will also allow Typst to make the output more [accessible](accessibility.md) to users with a screen reader:
 
 ```typst
 #table(
@@ -46,7 +46,7 @@ It is best to wrap the header row of your table in the [`table.header` function]
 )
 ```
 
-You could also write a show rule that automatically [strongly emphasizes](/docs/reference/model/strong/) the contents of the first cells for all tables. This quickly becomes useful if your document contains multiple tables!
+You could also write a show rule that automatically [strongly emphasizes](../reference/model/strong.md) the contents of the first cells for all tables. This quickly becomes useful if your document contains multiple tables!
 
 ```typst
 #show table.cell.where(y: 0): strong
@@ -68,9 +68,9 @@ Congratulations, you have created your first table! Now you can proceed to [chan
 If you create a table and specify the number of columns, Typst will make each column large enough to fit its largest cell. Often, you want something different, for example, to make a table span the whole width of the page. You can provide a list, specifying how wide you want each column to be, through the `columns` argument. There are a few different ways to specify column widths:
 
 - First, there is `auto`. This is the default behavior and tells Typst to grow the column to fit its contents. If there is not enough space, Typst will try its best to distribute the space among the `auto`-sized columns.
-- [Lengths](/docs/reference/layout/length/) like `6cm`, `0.7in`, or `120pt`. As usual, you can also use the font-dependent `em` unit. This is a multiple of your current font size. It's useful if you want to size your table so that it always fits about the same amount of text, independent of font size.
-- A [ratio in percent](/docs/reference/layout/ratio/) such as `40%`. This will make the column take up 40% of the total horizontal space available to the table, so either the inner width of the page or the table's container. You can also mix ratios and lengths into [relative lengths](/docs/reference/layout/relative/). Be mindful that even if you specify a list of column widths that sum up to 100%, your table could still become larger than its container. This is because there can be [gutter](/docs/reference/model/table/#parameters-gutter) between columns that is not included in the column widths. If you want to make a table fill the page, the next option is often very useful.
-- A [fractional part of the free space](/docs/reference/layout/fraction/) using the `fr` unit, such as `1fr`. This unit allows you to distribute the available space to columns. It works as follows: First, Typst sums up the lengths of all columns that do not use `fr`s. Then, it determines how much horizontal space is left. This horizontal space then gets distributed to all columns denominated in `fr`s. During this process, a `2fr` column will become twice as wide as a `1fr` column. This is where the name comes from: The width of the column is its fraction of the total fractionally sized columns.
+- [Lengths](../reference/layout/length.md) like `6cm`, `0.7in`, or `120pt`. As usual, you can also use the font-dependent `em` unit. This is a multiple of your current font size. It's useful if you want to size your table so that it always fits about the same amount of text, independent of font size.
+- A [ratio in percent](../reference/layout/ratio.md) such as `40%`. This will make the column take up 40% of the total horizontal space available to the table, so either the inner width of the page or the table's container. You can also mix ratios and lengths into [relative lengths](../reference/layout/relative.md). Be mindful that even if you specify a list of column widths that sum up to 100%, your table could still become larger than its container. This is because there can be [gutter](../reference/model/table.md#parameters-gutter) between columns that is not included in the column widths. If you want to make a table fill the page, the next option is often very useful.
+- A [fractional part of the free space](../reference/layout/fraction.md) using the `fr` unit, such as `1fr`. This unit allows you to distribute the available space to columns. It works as follows: First, Typst sums up the lengths of all columns that do not use `fr`s. Then, it determines how much horizontal space is left. This horizontal space then gets distributed to all columns denominated in `fr`s. During this process, a `2fr` column will become twice as wide as a `1fr` column. This is where the name comes from: The width of the column is its fraction of the total fractionally sized columns.
 
 Let's put this to use with a table that contains the dates, numbers, and descriptions of some routine checks. The first two columns are `auto`-sized and the last column is `1fr` wide as to fill the whole page.
 
@@ -84,11 +84,11 @@ Let's put this to use with a table that contains the dates, numbers, and descrip
 )
 ```
 
-Here, we have passed our list of column lengths as an [array](/docs/reference/foundations/array/), enclosed in round parentheses, with its elements separated by commas. The first two columns are automatically sized, so that they take on the size of their content and the third column is sized as `1fr` so that it fills up the remainder of the space on the page. If you wanted to instead change the second column to be a bit more spacious, you could replace its entry in the `columns` array with a value like `6em`.
+Here, we have passed our list of column lengths as an [array](../reference/foundations/array.md), enclosed in round parentheses, with its elements separated by commas. The first two columns are automatically sized, so that they take on the size of their content and the third column is sized as `1fr` so that it fills up the remainder of the space on the page. If you wanted to instead change the second column to be a bit more spacious, you could replace its entry in the `columns` array with a value like `6em`.
 
 ## How to caption and reference my table?
 
-A table is just as valuable as the information your readers draw from it. You can enhance the effectiveness of both your prose and your table by making a clear connection between the two with a cross-reference. Typst can help you with automatic [references](/docs/reference/model/ref/) and the [`figure` function](/docs/reference/model/figure/).
+A table is just as valuable as the information your readers draw from it. You can enhance the effectiveness of both your prose and your table by making a clear connection between the two with a cross-reference. Typst can help you with automatic [references](../reference/model/ref.md) and the [`figure` function](../reference/model/figure.md).
 
 Just like with images, wrapping a table in the `figure` function allows you to add a caption and a label, so you can reference the figure elsewhere. Wrapping your table in a figure also lets you use the figure's `placement` parameter to float it to the top or bottom of a page.
 
@@ -125,7 +125,7 @@ To add zebra stripes to a table, we use the `table` function's `fill` argument. 
 
 - A single color (this can also be a gradient or a tiling) to fill all cells with. Because we want some cells to have another color, this is not useful if we want to build zebra tables.
 - An array with colors which Typst cycles through for each column. We can use an array with two elements to get striped columns.
-- A function that takes the horizontal coordinate `x` and the vertical coordinate `y` of a cell and returns its fill. We can use this to create horizontal stripes or [checkerboard patterns](/docs/reference/layout/grid/#definitions-cell).
+- A function that takes the horizontal coordinate `x` and the vertical coordinate `y` of a cell and returns its fill. We can use this to create horizontal stripes or [checkerboard patterns](../reference/layout/grid.md#definitions-cell).
 
 Let's start with an example of a horizontally striped table:
 
@@ -162,7 +162,7 @@ Let's start with an example of a horizontally striped table:
 )
 ```
 
-This example shows a book club reading list. The line `fill: (rgb("EAF2F5"), none)` in `table`'s set rule is all that is needed to add striped columns. It tells Typst to alternate between coloring columns with a light blue (in the [`rgb`](/docs/reference/visualize/color/#definitions-rgb) function call) and nothing (`none`). Note that we extracted all of our styling from the `table` function call itself into set and show rules, so that we can automatically reuse it for multiple tables.
+This example shows a book club reading list. The line `fill: (rgb("EAF2F5"), none)` in `table`'s set rule is all that is needed to add striped columns. It tells Typst to alternate between coloring columns with a light blue (in the [`rgb`](../reference/visualize/color.md#definitions-rgb) function call) and nothing (`none`). Note that we extracted all of our styling from the `table` function call itself into set and show rules, so that we can automatically reuse it for multiple tables.
 
 Because setting the stripes itself is easy we also added some other styles to make it look nice. The other code in the example provides a dark blue [stroke](#stroke-functions) around the table and below the first line and emboldens the first row and the column with the book title. See the [strokes](#strokes) section for details on how we achieved this stroke configuration.
 
@@ -202,7 +202,7 @@ Finally, here is a bonus example that uses the _stroke_ to achieve striped rows:
 
 ### Manually overriding a cell's fill color
 
-Sometimes, the fill of a cell needs not to vary based on its position in the table, but rather based on its contents. We can use the [`table.cell` element](/docs/reference/model/table/#definitions-cell) in the `table`'s parameter list to wrap a cell's content and override its fill.
+Sometimes, the fill of a cell needs not to vary based on its position in the table, but rather based on its contents. We can use the [`table.cell` element](../reference/model/table.md#definitions-cell) in the `table`'s parameter list to wrap a cell's content and override its fill.
 
 For example, here is a list of all German presidents, with the cell borders colored in the color of their party.
 
@@ -233,7 +233,7 @@ For example, here is a list of all German presidents, with the cell borders colo
 )
 ```
 
-In this example, we make use of variables because there only have been a total of three parties whose members have become president (and one unaffiliated president). Their colors will repeat multiple times, so we store a function that produces an array with their party's name and a table cell with that party's color and the president's name (`cdu`, `spd`, and `fdp`). We then use these functions in the `table` argument list instead of directly adding the name. We use the [spread operator](/docs/reference/foundations/arguments/#spreading) `..` to turn the items of the arrays into single cells. We could also write something like `[FDP], table.cell(fill: yellow)[Theodor Heuss]` for each cell directly in the `table`'s argument list, but that becomes unreadable, especially for the parties whose colors are dark so that they require white text. We also delete vertical strokes and set the font to Roboto.
+In this example, we make use of variables because there only have been a total of three parties whose members have become president (and one unaffiliated president). Their colors will repeat multiple times, so we store a function that produces an array with their party's name and a table cell with that party's color and the president's name (`cdu`, `spd`, and `fdp`). We then use these functions in the `table` argument list instead of directly adding the name. We use the [spread operator](../reference/foundations/arguments.md#spreading) `..` to turn the items of the arrays into single cells. We could also write something like `[FDP], table.cell(fill: yellow)[Theodor Heuss]` for each cell directly in the `table`'s argument list, but that becomes unreadable, especially for the parties whose colors are dark so that they require white text. We also delete vertical strokes and set the font to Roboto.
 
 The party column and the cell color in this example communicate redundant information on purpose: Communicating important data using color only is a bad accessibility practice. It disadvantages users with vision impairment and is in violation of universal access standards, such as the [WCAG 2.1 Success Criterion 1.4.1](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html). To improve this table, we added a column printing the party name. Alternatively, you could have made sure to choose a color-blindness friendly palette and mark up your cells with an additional label that screen readers can read out loud. The latter feature is not currently supported by Typst, but will be added in a future release. You can check how colors look for color-blind readers with [this Chrome extension](https://chromewebstore.google.com/detail/colorblindly/floniaahmccleoclneebhhmnjgdfijgg), [Photoshop](https://helpx.adobe.com/photoshop/using/proofing-colors.html), or [GIMP](https://docs.gimp.org/2.10/en/gimp-display-filter-dialog.html).
 
@@ -241,12 +241,12 @@ The party column and the cell color in this example communicate redundant inform
 
 By default, Typst adds strokes between each row and column of a table. You can adjust these strokes in a variety of ways. Which one is the most practical, depends on the modification you want to make and your intent:
 
-- Do you want to style all tables in your document, irrespective of their size and content? Use the `table` function's [stroke](/docs/reference/model/table/#parameters-stroke) argument in a set rule.
-- Do you want to customize all lines in a single table? Use the `table` function's [stroke](/docs/reference/model/table/#parameters-stroke) argument when calling the table function.
+- Do you want to style all tables in your document, irrespective of their size and content? Use the `table` function's [stroke](../reference/model/table.md#parameters-stroke) argument in a set rule.
+- Do you want to customize all lines in a single table? Use the `table` function's [stroke](../reference/model/table.md#parameters-stroke) argument when calling the table function.
 - Do you want to change, add, or remove the stroke around a single cell? Use the `table.cell` element in the argument list of your table call.
-- Do you want to change, add, or remove a single horizontal or vertical stroke in a single table? Use the [`table.hline`](/docs/reference/model/table/#definitions-hline) and [`table.vline`](/docs/reference/model/table/#definitions-vline) elements in the argument list of your table call.
+- Do you want to change, add, or remove a single horizontal or vertical stroke in a single table? Use the [`table.hline`](../reference/model/table.md#definitions-hline) and [`table.vline`](../reference/model/table.md#definitions-vline) elements in the argument list of your table call.
 
-We will go over all of these options with examples next! First, we will tackle the `table` function's [stroke](/docs/reference/model/table/#parameters-stroke) argument. Here, you can adjust both how the table's lines get drawn and configure which lines are drawn at all.
+We will go over all of these options with examples next! First, we will tackle the `table` function's [stroke](../reference/model/table.md#parameters-stroke) argument. Here, you can adjust both how the table's lines get drawn and configure which lines are drawn at all.
 
 Let's start by modifying the color and thickness of the stroke:
 
@@ -260,7 +260,7 @@ Let's start by modifying the color and thickness of the stroke:
 )
 ```
 
-This makes the table lines a bit less wide and uses a bluish gray. You can see that we added a width in point to a color to achieve our customized stroke. This addition yields a value of the [stroke type](/docs/reference/visualize/stroke/). Alternatively, you can use the dictionary representation for strokes which allows you to access advanced features such as dashed lines.
+This makes the table lines a bit less wide and uses a bluish gray. You can see that we added a width in point to a color to achieve our customized stroke. This addition yields a value of the [stroke type](../reference/visualize/stroke.md). Alternatively, you can use the dictionary representation for strokes which allows you to access advanced features such as dashed lines.
 
 The previous example showed how to use the stroke argument in the table function's invocation. Alternatively, you can specify the stroke argument in the `table`'s set rule. This will have exactly the same effect on all subsequent `table` calls as if the stroke argument was specified in the argument list. This is useful if you are writing a template or want to style your whole document.
 
@@ -308,7 +308,7 @@ This turns off all vertical strokes and leaves the horizontal strokes in place. 
 
 ### Adding individual lines in the table
 
-If you want to add a single horizontal or vertical line in your table, for example to separate a group of rows, you can use the [`table.hline`](/docs/reference/model/table/#definitions-hline) and [`table.vline`](/docs/reference/model/table/#definitions-vline) elements for horizontal and vertical lines, respectively. Add them to the argument list of the `table` function just like you would add individual cells and a header.
+If you want to add a single horizontal or vertical line in your table, for example to separate a group of rows, you can use the [`table.hline`](../reference/model/table.md#definitions-hline) and [`table.vline`](../reference/model/table.md#definitions-vline) elements for horizontal and vertical lines, respectively. Add them to the argument list of the `table` function just like you would add individual cells and a header.
 
 Let's take a look at the following example from the reference:
 
@@ -367,11 +367,11 @@ Let's imagine you are working with a template that shows none of the table strok
 
 In this example, we have added `table.vline` at the start of our positional argument list. But because the line is not supposed to go to the left of the first column, we specified the `x` argument as `1`. We also set the `start` argument to `1` so that the line does only start after the first row.
 
-The example also contains two more things: We use the align argument with a function to right-align the data in all but the first column and use a show rule to make the first column of table cells appear in small capitals. Because these styles are specific to this one table, we put everything into a [code block](/docs/reference/scripting/#blocks), so that the styling does not affect any further tables.
+The example also contains two more things: We use the align argument with a function to right-align the data in all but the first column and use a show rule to make the first column of table cells appear in small capitals. Because these styles are specific to this one table, we put everything into a [code block](../reference/scripting.md#blocks), so that the styling does not affect any further tables.
 
 ### Overriding the strokes of a single cell
 
-Imagine you want to change the stroke around a single cell. Maybe your cell is very important and needs highlighting! For this scenario, there is the [`table.cell` function](/docs/reference/model/table/#definitions-cell). Instead of adding your content directly in the argument list of the table, you wrap it in a `table.cell` call. Now, you can use `table.cell`'s argument list to override the table properties, such as the stroke, for this cell only.
+Imagine you want to change the stroke around a single cell. Maybe your cell is very important and needs highlighting! For this scenario, there is the [`table.cell` function](../reference/model/table.md#definitions-cell). Instead of adding your content directly in the argument list of the table, you wrap it in a `table.cell` call. Now, you can use `table.cell`'s argument list to override the table properties, such as the stroke, for this cell only.
 
 Here's an example with a matrix of two of the Big Five personality factors, with one intersection highlighted.
 
@@ -459,7 +459,7 @@ This example is a bit more complex. We start by drawing all the strokes on the r
 
 ### How to achieve a double line?
 
-Typst does not yet have a native way to draw double strokes, but there are multiple ways to emulate them, for example with [tilings](/docs/reference/visualize/tiling/). We will show a different workaround in this section: Table gutters.
+Typst does not yet have a native way to draw double strokes, but there are multiple ways to emulate them, for example with [tilings](../reference/visualize/tiling.md). We will show a different workaround in this section: Table gutters.
 
 Tables can space their cells apart using the `gutter` argument. When a gutter is applied, a stroke is drawn on each of the now separated cells. We can selectively add gutter between the rows or columns for which we want to draw a double line. The `row-gutter` and `column-gutter` arguments allow us to do this. They accept arrays of gutter values. Let's take a look at an example:
 
@@ -479,9 +479,9 @@ We can see that we used an array for `row-gutter` that specifies a `2.2pt` gap b
 
 ## How to align the contents of the cells in my table?
 
-You can use multiple mechanisms to align the content in your table. You can either use the `table` function's `align` argument to set the alignment for your whole table (or use it in a set rule to set the alignment for tables throughout your document) or the [`align`](/docs/reference/layout/align/) function (or `table.cell`'s `align` argument) to override the alignment of a single cell.
+You can use multiple mechanisms to align the content in your table. You can either use the `table` function's `align` argument to set the alignment for your whole table (or use it in a set rule to set the alignment for tables throughout your document) or the [`align`](../reference/layout/align.md) function (or `table.cell`'s `align` argument) to override the alignment of a single cell.
 
-When using the `table` function's align argument, you can choose between three methods to specify an [alignment](/docs/reference/layout/alignment/):
+When using the `table` function's align argument, you can choose between three methods to specify an [alignment](../reference/layout/alignment.md):
 
 - Just specify a single alignment like `right` (aligns in the top-right corner) or `center + horizon` (centers all cell content). This changes the alignment of all cells.
 - Provide an array. Typst will cycle through this array for each column.
@@ -531,13 +531,13 @@ However, this example does not yet look perfect — the header cells should be b
 
 In the function, we calculate a horizontal and vertical alignment based on whether we are in the first column (`x == 0`) or the first row (`y == 0`). We then make use of the fact that we can add horizontal and vertical alignments with `+` to receive a single, two-dimensional alignment.
 
-You can find an example of using `table.cell` to change a single cell's alignment on [its reference page](/docs/reference/model/table/#definitions-cell).
+You can find an example of using `table.cell` to change a single cell's alignment on [its reference page](../reference/model/table.md#definitions-cell).
 
 ## How to merge cells?
 
 When a table contains logical groupings or the same data in multiple adjacent cells, merging multiple cells into a single, larger cell can be advantageous. Another use case for cell groups are table headers with multiple rows: That way, you can group for example a sales data table by quarter in the first row and by months in the second row.
 
-A merged cell spans multiple rows and/or columns. You can achieve it with the [`table.cell`](/docs/reference/model/table/#definitions-cell) function's `rowspan` and `colspan` arguments: Just specify how many rows or columns you want your cell to span.
+A merged cell spans multiple rows and/or columns. You can achieve it with the [`table.cell`](../reference/model/table.md#definitions-cell) function's `rowspan` and `colspan` arguments: Just specify how many rows or columns you want your cell to span.
 
 The example below contains an attendance calendar for an office with in-person and remote days for each team member. To make the table more glanceable, we merge adjacent cells with the same value:
 
@@ -585,7 +585,7 @@ The example below contains an attendance calendar for an office with in-person a
 
 In the example, we first define variables with "Office", "Remote", and "On leave" so we don't have to write these labels out every time. We can then use these variables in the table body either directly or in a `table.cell` call if the team member spends multiple consecutive days in office, remote, or on leave.
 
-The example also contains a black header (created with `table`'s `fill` argument) with white strokes (`table`'s `stroke` argument) and white text (set by the `table.cell` set rule). Finally, we align all the content of all table cells in the body in the center. If you want to know more about the functions passed to `align`, `stroke`, and `fill`, you can check out the sections on [alignment](/docs/reference/layout/alignment/), [strokes](#stroke-functions), and [striped tables](#fills).
+The example also contains a black header (created with `table`'s `fill` argument) with white strokes (`table`'s `stroke` argument) and white text (set by the `table.cell` set rule). Finally, we align all the content of all table cells in the body in the center. If you want to know more about the functions passed to `align`, `stroke`, and `fill`, you can check out the sections on [alignment](../reference/layout/alignment.md), [strokes](#stroke-functions), and [striped tables](#fills).
 
 This table would be a great candidate for fully automated generation from an external data source! Check out the [section about importing data](#importing-data) to learn more about that.
 
@@ -593,8 +593,8 @@ This table would be a great candidate for fully automated generation from an ext
 
 When tables have many columns, a portrait paper orientation can quickly get cramped. Hence, you'll sometimes want to switch your tables to landscape orientation. There are two ways to accomplish this in Typst:
 
-- If you want to rotate only the table but not the other content of the page and the page itself, use the [`rotate` function](/docs/reference/layout/rotate/) with the `reflow` argument set to `true`.
-- If you want to rotate the whole page the table is on, you can use the [`page` function](/docs/reference/layout/page/) with its `flipped` argument set to `true`. The header, footer, and page number will now also appear on the long edge of the page. This has the advantage that the table will appear right side up when read on a computer, but it also means that a page in your document has different dimensions than all the others, which can be jarring to your readers.
+- If you want to rotate only the table but not the other content of the page and the page itself, use the [`rotate` function](../reference/layout/rotate.md) with the `reflow` argument set to `true`.
+- If you want to rotate the whole page the table is on, you can use the [`page` function](../reference/layout/page.md) with its `flipped` argument set to `true`. The header, footer, and page number will now also appear on the long edge of the page. This has the advantage that the table will appear right side up when read on a computer, but it also means that a page in your document has different dimensions than all the others, which can be jarring to your readers.
 
 Below, we will demonstrate both techniques with a student grade book table.
 
@@ -678,13 +678,13 @@ The second example shows how to rotate the whole page, so that the table stays u
 ]
 ```
 
-Here, we take the same table and the other content we want to set with it and put it into a call to the [`page`](/docs/reference/layout/page/) function while supplying `true` to the `flipped` argument. This will instruct Typst to create new pages with width and height swapped and place the contents of the function call onto a new page. Notice how the page number is also on the long edge of the paper now. At the bottom of the page, we use the [`pad`](/docs/reference/layout/pad/) function to constrain the width of the paragraph to achieve a nice and legible line length.
+Here, we take the same table and the other content we want to set with it and put it into a call to the [`page`](../reference/layout/page.md) function while supplying `true` to the `flipped` argument. This will instruct Typst to create new pages with width and height swapped and place the contents of the function call onto a new page. Notice how the page number is also on the long edge of the paper now. At the bottom of the page, we use the [`pad`](../reference/layout/pad.md) function to constrain the width of the paragraph to achieve a nice and legible line length.
 
 ## How to break a table across pages?
 
-It is best to contain a table on a single page. However, some tables just have many rows, so breaking them across pages becomes unavoidable. Fortunately, Typst supports breaking tables across pages out of the box. If you are using the [`table.header`](/docs/reference/model/table/#definitions-header) and [`table.footer`](/docs/reference/model/table/#definitions-footer) functions, their contents will be repeated on each page as the first and last rows, respectively. If you want to disable this behavior, you can set `repeat` to `false` on either of them.
+It is best to contain a table on a single page. However, some tables just have many rows, so breaking them across pages becomes unavoidable. Fortunately, Typst supports breaking tables across pages out of the box. If you are using the [`table.header`](../reference/model/table.md#definitions-header) and [`table.footer`](../reference/model/table.md#definitions-footer) functions, their contents will be repeated on each page as the first and last rows, respectively. If you want to disable this behavior, you can set `repeat` to `false` on either of them.
 
-If you have placed your table inside of a [figure](/docs/reference/model/figure/), it becomes unable to break across pages by default. However, you can change this behavior. Let's take a look:
+If you have placed your table inside of a [figure](../reference/model/figure.md), it becomes unable to break across pages by default. However, you can change this behavior. Let's take a look:
 
 ```typst
 #set page(width: 9cm, height: 6cm)
@@ -712,11 +712,11 @@ If you have placed your table inside of a [figure](/docs/reference/model/figure/
 )
 ```
 
-A figure automatically produces a [block](/docs/reference/layout/block/) which cannot break by default. However, we can reconfigure the block of the figure using a show rule to make it `breakable`. Now, the figure spans multiple pages with the headers and footers repeating.
+A figure automatically produces a [block](../reference/layout/block.md) which cannot break by default. However, we can reconfigure the block of the figure using a show rule to make it `breakable`. Now, the figure spans multiple pages with the headers and footers repeating.
 
 ## How to import data into a table?
 
-Often, you need to put data that you obtained elsewhere into a table. Sometimes, this is from Microsoft Excel or Google Sheets, sometimes it is from a dataset on the web or from your experiment. Fortunately, Typst can load many [common file formats](/docs/reference/data-loading/), so you can use scripting to include their data in a table.
+Often, you need to put data that you obtained elsewhere into a table. Sometimes, this is from Microsoft Excel or Google Sheets, sometimes it is from a dataset on the web or from your experiment. Fortunately, Typst can load many [common file formats](../reference/data-loading/), so you can use scripting to include their data in a table.
 
 The most common file format for tabular data is CSV. You can obtain a CSV file from Excel by choosing "Save as" in the _File_ menu and choosing the file format "CSV UTF-8 (Comma-delimited) (.csv)". Save the file and, if you are using the web app, upload it to your project.
 
@@ -734,13 +734,13 @@ World,OWID_WRL,1974,6097.5625
 
 The file starts with a header and contains four columns: Entity (which is to whom the metric applies), Code, the year, and the number of transistors per microprocessor. Only the last two columns change between each row, so we can disregard "Entity" and "Code".
 
-First, let's start by loading this file with the [`csv`](/docs/reference/data-loading/csv/) function. It accepts the file name of the file we want to load as a string argument:
+First, let's start by loading this file with the [`csv`](../reference/data-loading/csv.md) function. It accepts the file name of the file we want to load as a string argument:
 
 ```typst
 #let moore = csv("moore.csv")
 ```
 
-We have loaded our file (assuming we named it `moore.csv`) and [bound it](/docs/reference/scripting/#bindings) to the new variable `moore`. This will not produce any output, so there's nothing to see yet. If we want to examine what Typst loaded, we can either hover the name of the variable in the web app or print some items from the array:
+We have loaded our file (assuming we named it `moore.csv`) and [bound it](../reference/scripting.md#bindings) to the new variable `moore`. This will not produce any output, so there's nothing to see yet. If we want to examine what Typst loaded, we can either hover the name of the variable in the web app or print some items from the array:
 
 ```typst
 #let moore = csv("moore.csv")
@@ -748,7 +748,7 @@ We have loaded our file (assuming we named it `moore.csv`) and [bound it](/docs/
 #moore.slice(0, 3)
 ```
 
-With the arguments `(0, 3)`, the [`slice`](/docs/reference/foundations/array/#definitions-slice) method returns the first three items in the array (with the indices 0, 1, and 2). We can see that each row is its own array with one item per cell.
+With the arguments `(0, 3)`, the [`slice`](../reference/foundations/array.md#definitions-slice) method returns the first three items in the array (with the indices 0, 1, and 2). We can see that each row is its own array with one item per cell.
 
 Now, let's write a loop that will transform this data into an array of cells that we can use with the table function.
 
@@ -763,9 +763,9 @@ Now, let's write a loop that will transform this data into an array of cells tha
 )
 ```
 
-The example above uses a for loop that iterates over the rows in our CSV file and returns an array for each iteration. We use the for loop's [destructuring](/docs/reference/scripting/#bindings) capability to discard all but the last two items of each row. We then create a new array with just these two. Because Typst will concatenate the array results of all the loop iterations, we get a one-dimensional array in which the year column and the number of transistors alternate. We can then insert the array as cells. For this we use the [spread operator](/docs/reference/foundations/arguments/#spreading) (`..`). By prefixing an array, or, in our case an expression that yields an array, with two dots, we tell Typst that the array's items should be used as positional arguments.
+The example above uses a for loop that iterates over the rows in our CSV file and returns an array for each iteration. We use the for loop's [destructuring](../reference/scripting.md#bindings) capability to discard all but the last two items of each row. We then create a new array with just these two. Because Typst will concatenate the array results of all the loop iterations, we get a one-dimensional array in which the year column and the number of transistors alternate. We can then insert the array as cells. For this we use the [spread operator](../reference/foundations/arguments.md#spreading) (`..`). By prefixing an array, or, in our case an expression that yields an array, with two dots, we tell Typst that the array's items should be used as positional arguments.
 
-Alternatively, we can also use the [`map`](/docs/reference/foundations/array/#definitions-map), [`slice`](/docs/reference/foundations/array/#definitions-slice), and [`flatten`](/docs/reference/foundations/array/#definitions-flatten) array methods to write this in a more functional style:
+Alternatively, we can also use the [`map`](../reference/foundations/array.md#definitions-map), [`slice`](../reference/foundations/array.md#definitions-slice), and [`flatten`](../reference/foundations/array.md#definitions-flatten) array methods to write this in a more functional style:
 
 ```typst
 #let moore = csv("moore.csv")
@@ -803,7 +803,7 @@ Now that we have nice code for our table, we should try to also make the table i
 )
 ```
 
-In this example, we first drop the header row from the data since we are adding our own. Then, we discard all but the last two columns as above. We do this by [destructuring](/docs/reference/scripting/#bindings) the array `m`, discarding all but the two last items. We then convert the string in `count` to a floating point number, calculate its logarithm and store it in the variable `log`. Finally, we round it to two digits, convert it to a string, and store it in the variable `rounded`. Then, we return an array with `year` and `rounded` that replaces the original row. In our table, we have added our custom header that tells the reader that we've applied a logarithm to the values. Then, we spread the flattened data as above.
+In this example, we first drop the header row from the data since we are adding our own. Then, we discard all but the last two columns as above. We do this by [destructuring](../reference/scripting.md#bindings) the array `m`, discarding all but the two last items. We then convert the string in `count` to a floating point number, calculate its logarithm and store it in the variable `log`. Finally, we round it to two digits, convert it to a string, and store it in the variable `rounded`. Then, we return an array with `year` and `rounded` that replaces the original row. In our table, we have added our custom header that tells the reader that we've applied a logarithm to the values. Then, we spread the flattened data as above.
 
 We also styled the table with [stripes](#fills), a [horizontal line](#individual-lines) below the first row, [aligned](#alignment) everything to the right, and emboldened the first column. Click on the links to go to the relevant guide sections and see how it's done!
 
@@ -813,11 +813,11 @@ Tabular layouts of content can be useful not only for matrices of closely relate
 
 To make this difference clear to other software and allow templates to heavily style tables, Typst has two functions for grid and table layout:
 
-- The [`table`](/docs/reference/model/table/) function explained throughout this guide which is intended for tabular data.
-- The [`grid`](/docs/reference/layout/grid/) function which is intended for presentational purposes and page layout.
+- The [`table`](../reference/model/table.md) function explained throughout this guide which is intended for tabular data.
+- The [`grid`](../reference/layout/grid.md) function which is intended for presentational purposes and page layout.
 
 Both elements work the same way and have the same arguments. You can apply everything you have learned about tables in this guide to grids. There are only three differences:
 
-- You'll need to use the [`grid.cell`](/docs/reference/layout/grid/#definitions-cell), [`grid.vline`](/docs/reference/layout/grid/#definitions-vline), and [`grid.hline`](/docs/reference/layout/grid/#definitions-hline) elements instead of [`table.cell`](/docs/reference/model/table/#definitions-cell), [`table.vline`](/docs/reference/model/table/#definitions-vline), and [`table.hline`](/docs/reference/model/table/#definitions-hline).
+- You'll need to use the [`grid.cell`](../reference/layout/grid.md#definitions-cell), [`grid.vline`](../reference/layout/grid.md#definitions-vline), and [`grid.hline`](../reference/layout/grid.md#definitions-hline) elements instead of [`table.cell`](../reference/model/table.md#definitions-cell), [`table.vline`](../reference/model/table.md#definitions-vline), and [`table.hline`](../reference/model/table.md#definitions-hline).
 - The grid has different defaults: It draws no strokes by default and has no spacing (`inset`) inside of its cells.
 - Elements like `figure` do not react to grids since they are supposed to have no semantical bearing on the document structure.

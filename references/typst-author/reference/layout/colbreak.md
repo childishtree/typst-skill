@@ -4,7 +4,7 @@
 
 Forces a column break.
 
-The function will behave like a [page break](/docs/reference/layout/pagebreak/) when used in a single column layout or the last column on a page. Otherwise, content after the column break will be placed in the next column.
+The function will behave like a [page break](pagebreak.md) when used in a single column layout or the last column on a page. Otherwise, content after the column break will be placed in the next column.
 
 ## Example
 

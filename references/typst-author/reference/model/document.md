@@ -4,7 +4,7 @@
 
 The root element of a document and its metadata.
 
-All documents are automatically wrapped in a `document` element. You cannot create a document element yourself. This function is only used with [set rules](/docs/reference/styling/#set-rules) to specify document metadata. Such a set rule must not occur inside of any layout container.
+All documents are automatically wrapped in a `document` element. You cannot create a document element yourself. This function is only used with [set rules](../styling.md#set-rules) to specify document metadata. Such a set rule must not occur inside of any layout container.
 
 ```typst
 #set document(title: [Hello])

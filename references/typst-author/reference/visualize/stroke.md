@@ -25,7 +25,7 @@ You can create a simple solid stroke from a color, a thickness, or a combination
 - A color to use for the stroke. The thickness is inherited, defaulting to `1pt`.
 - A stroke combined from color and thickness using the `+` operator as in `2pt + red`.
 
-For full control, you can also provide a [dictionary](/docs/reference/foundations/dictionary/) or a `stroke` object to any function that expects a stroke. The dictionary's keys may include any of the parameters for the constructor function, shown below.
+For full control, you can also provide a [dictionary](../foundations/dictionary.md) or a `stroke` object to any function that expects a stroke. The dictionary's keys may include any of the parameters for the constructor function, shown below.
 
 ## Fields
 
@@ -78,7 +78,7 @@ Note that in most cases you do not need to convert values to strokes in order to
   - type: auto | str
   - default: None
 - dash:
-  - description: The dash pattern to use. This can be: - One of the predefined patterns:  - `"solid"` or `none`  - `"dotted"`  - `"densely-dotted"`  - `"loosely-dotted"`  - `"dashed"`  - `"densely-dashed"`  - `"loosely-dashed"`  - `"dash-dotted"`  - `"densely-dash-dotted"`  - `"loosely-dash-dotted"` - An [array](/docs/reference/foundations/array/) with alternating lengths for dashes and gaps. You can also use the string `"dot"` for a length equal to the line thickness. - A [dictionary](/docs/reference/foundations/dictionary/) with the keys `array` (same as the array above), and `phase` (of type [length](/docs/reference/layout/length/)), which defines where in the pattern to start drawing. If set to `auto`, the value is inherited, defaulting to `none`. ```typst #set line(length: 100%, stroke: 2pt) #stack(  spacing: 1em,  line(stroke: (dash: "dashed")),  line(stroke: (dash: (10pt, 5pt, "dot", 5pt))),  line(stroke: (dash: (array: (10pt, 5pt, "dot", 5pt), phase: 10pt))), ) ```
+  - description: The dash pattern to use. This can be: - One of the predefined patterns:  - `"solid"` or `none`  - `"dotted"`  - `"densely-dotted"`  - `"loosely-dotted"`  - `"dashed"`  - `"densely-dashed"`  - `"loosely-dashed"`  - `"dash-dotted"`  - `"densely-dash-dotted"`  - `"loosely-dash-dotted"` - An [array](../foundations/array.md) with alternating lengths for dashes and gaps. You can also use the string `"dot"` for a length equal to the line thickness. - A [dictionary](../foundations/dictionary.md) with the keys `array` (same as the array above), and `phase` (of type [length](../layout/length.md)), which defines where in the pattern to start drawing. If set to `auto`, the value is inherited, defaulting to `none`. ```typst #set line(length: 100%, stroke: 2pt) #stack(  spacing: 1em,  line(stroke: (dash: "dashed")),  line(stroke: (dash: (10pt, 5pt, "dot", 5pt))),  line(stroke: (dash: (array: (10pt, 5pt, "dot", 5pt), phase: 10pt))), ) ```
   - type: none | auto | str | array | dictionary
   - default: None
 - miter-limit:

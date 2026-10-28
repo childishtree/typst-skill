@@ -7,7 +7,7 @@ Represents a positive or negative span of time.
 
 Creates a new duration.
 
-You can specify the [duration](/docs/reference/foundations/duration/) using weeks, days, hours, minutes and seconds. You can also get a duration by subtracting two [datetimes](/docs/reference/foundations/datetime/).
+You can specify the [duration](duration.md) using weeks, days, hours, minutes and seconds. You can also get a duration by subtracting two [datetimes](datetime.md).
 
 ```typst
 #duration(

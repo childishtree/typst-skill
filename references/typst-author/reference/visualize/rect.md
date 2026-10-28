@@ -45,7 +45,7 @@ A rectangle with optional content.
   - type: none | color | gradient | tiling
   - default: none
 - stroke:
-  - description: How to stroke the rectangle. This can be: - `none` to disable stroking - `auto` for a stroke of `1pt + black` if and only if no fill is given. - Any kind of [stroke](/docs/reference/visualize/stroke/) - A dictionary describing the stroke for each side individually. The dictionary can contain the following keys in order of precedence:  - `top`: The top stroke.  - `right`: The right stroke.  - `bottom`: The bottom stroke.  - `left`: The left stroke.  - `x`: The horizontal stroke.  - `y`: The vertical stroke.  - `rest`: The stroke on all sides except those for which the dictionary explicitly sets a size. All keys are optional; omitted keys will use their previously set value, or the default stroke if never set. ```typst #stack(  dir: ltr,  spacing: 1fr,  rect(stroke: red),  rect(stroke: 2pt),  rect(stroke: 2pt + red), ) ```
+  - description: How to stroke the rectangle. This can be: - `none` to disable stroking - `auto` for a stroke of `1pt + black` if and only if no fill is given. - Any kind of [stroke](stroke.md) - A dictionary describing the stroke for each side individually. The dictionary can contain the following keys in order of precedence:  - `top`: The top stroke.  - `right`: The right stroke.  - `bottom`: The bottom stroke.  - `left`: The left stroke.  - `x`: The horizontal stroke.  - `y`: The vertical stroke.  - `rest`: The stroke on all sides except those for which the dictionary explicitly sets a size. All keys are optional; omitted keys will use their previously set value, or the default stroke if never set. ```typst #stack(  dir: ltr,  spacing: 1fr,  rect(stroke: red),  rect(stroke: 2pt),  rect(stroke: 2pt + red), ) ```
   - type: none | auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - radius:
@@ -53,11 +53,11 @@ A rectangle with optional content.
   - type: relative | dictionary
   - default: (:)
 - inset:
-  - description: How much to pad the rectangle\'s content. See the [box\'s documentation](/docs/reference/layout/box/#parameters-inset) for more details.
+  - description: How much to pad the rectangle\'s content. See the [box\'s documentation](../layout/box.md#parameters-inset) for more details.
   - type: relative | dictionary
   - default: 0 % + 5pt
 - outset:
-  - description: How much to expand the rectangle\'s size without affecting the layout. See the [box\'s documentation](/docs/reference/layout/box/#parameters-outset) for more details.
+  - description: How much to expand the rectangle\'s size without affecting the layout. See the [box\'s documentation](../layout/box.md#parameters-outset) for more details.
   - type: relative | dictionary
   - default: (:)
 - body:

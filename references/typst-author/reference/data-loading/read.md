@@ -4,9 +4,9 @@
 
 Reads plain text or data from a file.
 
-By default, the file will be read as UTF-8 and returned as a [string](/docs/reference/foundations/str/).
+By default, the file will be read as UTF-8 and returned as a [string](../foundations/str.md).
 
-If you specify `encoding: none`, this returns raw [bytes](/docs/reference/foundations/bytes/) instead.
+If you specify `encoding: none`, this returns raw [bytes](../foundations/bytes.md) instead.
 
 ## Example
 
@@ -29,7 +29,7 @@ Raw bytes:
 ## Parameters
 
 - path:
-  - description: Path to a file. For more details, see the [Paths section](/docs/reference/syntax/#paths).
+  - description: Path to a file. For more details, see the [Paths section](../syntax.md#paths).
   - type: str
   - default: None
 - encoding:

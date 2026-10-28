@@ -9,7 +9,7 @@ This function returns either
 - `"paged"` (for PDF, PNG, and SVG export), or
 - `"html"` (for HTML export).
 
-The design of this function is not yet finalized and for this reason it is guarded behind the `html` feature. Visit the [HTML documentation page](/docs/reference/html/) for more details.
+The design of this function is not yet finalized and for this reason it is guarded behind the `html` feature. Visit the [HTML documentation page](../html/) for more details.
 
 ## When to use it
 
@@ -17,7 +17,7 @@ This function allows you to format your document properly across both HTML and p
 
 ## Varying targets
 
-This function is [contextual](/docs/reference/context/) as the target can vary within a single compilation: When exporting to HTML, the target will be `"paged"` while within an [`html.frame`](/docs/reference/html/frame/).
+This function is [contextual](../context.md) as the target can vary within a single compilation: When exporting to HTML, the target will be `"paged"` while within an [`html.frame`](../html/frame.md).
 
 ## Example
 

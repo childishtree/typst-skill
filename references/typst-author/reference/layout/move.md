@@ -22,7 +22,7 @@ The `move` function allows you to move content while the layout still 'sees' it 
 
 ## Accessibility
 
-Moving is transparent to Assistive Technology (AT). Your content will be read in the order it appears in the source, regardless of any visual movement. If you need to hide content from AT altogether in PDF export, consider using [`pdf.artifact`](/docs/reference/pdf/artifact/).
+Moving is transparent to Assistive Technology (AT). Your content will be read in the order it appears in the source, regardless of any visual movement. If you need to hide content from AT altogether in PDF export, consider using [`pdf.artifact`](../pdf/artifact.md).
 
 ```typst
 #move(

@@ -4,16 +4,16 @@ A filter for selecting elements within the document.
 
 To construct a selector you can:
 
-- use an [element function](/docs/reference/foundations/function/#element-functions)
-- filter for an element function with [specific fields](/docs/reference/foundations/function/#definitions-where)
-- use a [string](/docs/reference/foundations/str/) or [regular expression](/docs/reference/foundations/regex/)
-- use a [`<label>`](/docs/reference/foundations/label/)
-- use a [`location`](/docs/reference/introspection/location/)
-- call the [`selector`](/docs/reference/foundations/selector/) constructor to convert any of the above types into a selector value and use the methods below to refine it
+- use an [element function](function.md#element-functions)
+- filter for an element function with [specific fields](function.md#definitions-where)
+- use a [string](str.md) or [regular expression](regex.md)
+- use a [`<label>`](label.md)
+- use a [`location`](../introspection/location.md)
+- call the [`selector`](selector.md) constructor to convert any of the above types into a selector value and use the methods below to refine it
 
-Selectors are used to [apply styling rules](/docs/reference/styling/#show-rules) to elements. You can also use selectors to [query](/docs/reference/introspection/query/) the document for certain types of elements.
+Selectors are used to [apply styling rules](../styling.md#show-rules) to elements. You can also use selectors to [query](../introspection/query.md) the document for certain types of elements.
 
-Furthermore, you can pass a selector to several of Typst's built-in functions to configure their behaviour. One such example is the [outline](/docs/reference/model/outline/) where it can be used to change which elements are listed within the outline.
+Furthermore, you can pass a selector to several of Typst's built-in functions to configure their behaviour. One such example is the [outline](../model/outline.md) where it can be used to change which elements are listed within the outline.
 
 Multiple selectors can be combined using the methods shown below. However, not all kinds of selectors are supported in all places, at the moment.
 
@@ -36,9 +36,9 @@ Multiple selectors can be combined using the methods shown below. However, not a
 Turns a value into a selector. The following values are accepted:
 
 - An element function like a `heading` or `figure`.
-- A [string](/docs/reference/foundations/str/) or [regular expression](/docs/reference/foundations/regex/).
+- A [string](str.md) or [regular expression](regex.md).
 - A `<label>`.
-- A [`location`](/docs/reference/introspection/location/).
+- A [`location`](../introspection/location.md).
 - A more complex selector like `heading.where(level: 1)`.
 
 ```typst

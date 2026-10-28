@@ -4,7 +4,7 @@ So far, you have written a report with some text, a few equations and images. Ho
 
 ## Set rules
 
-As we have seen in the previous chapter, Typst has functions that _insert_ content (e.g. the [`image`](/docs/reference/visualize/image/) function) and others that _manipulate_ content that they received as arguments (e.g. the [`align`](/docs/reference/layout/align/) function). The first impulse you might have when you want, for example, to change the font, could be to look for a function that does that and wrap the complete document in it.
+As we have seen in the previous chapter, Typst has functions that _insert_ content (e.g. the [`image`](../reference/visualize/image.md) function) and others that _manipulate_ content that they received as arguments (e.g. the [`align`](../reference/layout/align.md) function). The first impulse you might have when you want, for example, to change the font, could be to look for a function that does that and wrap the complete document in it.
 
 ```typst
 #text(font: "New Computer Modern")[
@@ -22,7 +22,7 @@ As we have seen in the previous chapter, Typst has functions that _insert_ conte
 
 Wait, shouldn't all arguments of a function be specified within parentheses? Why is there a second set of square brackets with content _after_ the parentheses? The answer is that, as passing content to a function is such a common thing to do in Typst, there is special syntax for it: Instead of putting the content inside of the argument list, you can write it in square brackets directly after the normal arguments, saving on punctuation.
 
-As seen above, that works. With the [`text`](/docs/reference/text/text/) function, we can adjust the font for all text within it. However, wrapping the document in countless functions and applying styles selectively and in-situ can quickly become cumbersome.
+As seen above, that works. With the [`text`](../reference/text/text.md) function, we can adjust the font for all text within it. However, wrapping the document in countless functions and applying styles selectively and in-situ can quickly become cumbersome.
 
 Fortunately, Typst has a more elegant solution. With _set rules,_ you can apply style properties to all occurrences of some kind of content. You write a set rule by entering the `set` keyword, followed by the name of the function whose properties you want to set, and a list of arguments in parentheses.
 
@@ -55,11 +55,11 @@ If you followed along and tried a few things in the app, you might have noticed 
 
 Back to set rules: When writing a rule, you choose the function depending on what type of element you want to style. Here is a list of some functions that are commonly used in set rules:
 
-- [`text`](/docs/reference/text/text/) to set font family, size, color, and other properties of text
-- [`page`](/docs/reference/layout/page/) to set the page size, margins, headers, enable columns, and footers
-- [`par`](/docs/reference/model/par/) to justify paragraphs, set line spacing, and more
-- [`heading`](/docs/reference/model/heading/) to set the appearance of headings and enable numbering
-- [`document`](/docs/reference/model/document/) to set the metadata contained in the PDF output, such as title and author
+- [`text`](../reference/text/text.md) to set font family, size, color, and other properties of text
+- [`page`](../reference/layout/page.md) to set the page size, margins, headers, enable columns, and footers
+- [`par`](../reference/model/par.md) to justify paragraphs, set line spacing, and more
+- [`heading`](../reference/model/heading.md) to set the appearance of headings and enable numbering
+- [`document`](../reference/model/document.md) to set the metadata contained in the PDF output, such as title and author
 
 Not all function parameters can be set. In general, only parameters that tell a function _how_ to do something can be set, not those that tell it _what_ to do it with. The function reference pages indicate which parameters are settable.
 
@@ -99,17 +99,17 @@ behaviour of these natural structures.
 
 There are a few things of note here.
 
-First is the [`page`](/docs/reference/layout/page/) set rule. It receives two arguments: the page size and margins for the page. The page size is a string. Typst accepts [many standard page sizes,](/docs/reference/layout/page/#parameters-paper) but you can also specify a custom page size. The margins are specified as a [dictionary.](/docs/reference/foundations/dictionary/) Dictionaries are a collection of key-value pairs. In this case, the keys are `x` and `y`, and the values are the horizontal and vertical margins, respectively. We could also have specified separate margins for each side by passing a dictionary with the keys `left`, `right`, `top`, and `bottom`.
+First is the [`page`](../reference/layout/page.md) set rule. It receives two arguments: the page size and margins for the page. The page size is a string. Typst accepts [many standard page sizes,](../reference/layout/page.md#parameters-paper) but you can also specify a custom page size. The margins are specified as a [dictionary.](../reference/foundations/dictionary.md) Dictionaries are a collection of key-value pairs. In this case, the keys are `x` and `y`, and the values are the horizontal and vertical margins, respectively. We could also have specified separate margins for each side by passing a dictionary with the keys `left`, `right`, `top`, and `bottom`.
 
-Next is the set [`text`](/docs/reference/text/text/) set rule. Here, we set the font size to `10pt` and font family to `"New Computer Modern"`. The Typst app comes with many fonts that you can try for your document. When you are in the text function's argument list, you can discover the available fonts in the autocomplete panel.
+Next is the set [`text`](../reference/text/text.md) set rule. Here, we set the font size to `10pt` and font family to `"New Computer Modern"`. The Typst app comes with many fonts that you can try for your document. When you are in the text function's argument list, you can discover the available fonts in the autocomplete panel.
 
-We have also set the spacing between lines (a.k.a. leading): It is specified as a [length](/docs/reference/layout/length/) value, and we used the `em` unit to specify the leading relative to the size of the font: `1em` is equivalent to the current font size (which defaults to `11pt`).
+We have also set the spacing between lines (a.k.a. leading): It is specified as a [length](../reference/layout/length.md) value, and we used the `em` unit to specify the leading relative to the size of the font: `1em` is equivalent to the current font size (which defaults to `11pt`).
 
 Finally, we have bottom aligned our image by adding a vertical alignment to our center alignment. Vertical and horizontal alignments can be combined with the `+` operator to yield a 2D alignment.
 
 ## A hint of sophistication
 
-To structure our document more clearly, we now want to number our headings. We can do this by setting the `numbering` parameter of the [`heading`](/docs/reference/model/heading/) function.
+To structure our document more clearly, we now want to number our headings. We can do this by setting the `numbering` parameter of the [`heading`](../reference/model/heading.md) function.
 
 ```typst
 #set heading(numbering: "1.")
@@ -124,7 +124,7 @@ To structure our document more clearly, we now want to number our headings. We c
 #lorem(15)
 ```
 
-We specified the string `"1."` as the numbering parameter. This tells Typst to number the headings with arabic numerals and to put a dot between the number of each level. We can also use [letters, roman numerals, and symbols](/docs/reference/model/numbering/) for our headings:
+We specified the string `"1."` as the numbering parameter. This tells Typst to number the headings with arabic numerals and to put a dot between the number of each level. We can also use [letters, roman numerals, and symbols](../reference/model/numbering.md) for our headings:
 
 ```typst
 #set heading(numbering: "1.a")
@@ -139,7 +139,7 @@ We specified the string `"1."` as the numbering parameter. This tells Typst to n
 #lorem(15)
 ```
 
-This example also uses the [`lorem`](/docs/reference/text/lorem/) function to generate some placeholder text. This function takes a number as an argument and generates that many words of _Lorem Ipsum_ text.
+This example also uses the [`lorem`](../reference/text/lorem.md) function to generate some placeholder text. This function takes a number as an argument and generates that many words of _Lorem Ipsum_ text.
 
 > Did you wonder why the headings and text set rules apply to all text and headings, even if they are not produced with the respective functions?
 > Typst internally calls the `heading` function every time you write `= Conclusion`. In fact, the function call `#heading[Conclusion]` is equivalent to the heading markup above. Other markup elements work similarly, they are only _syntax sugar_ for the corresponding function calls.
@@ -148,7 +148,7 @@ This example also uses the [`lorem`](/docs/reference/text/lorem/) function to ge
 
 You are already pretty happy with how this turned out. But one last thing needs to be fixed: The report you are writing is intended for a larger project and that project's name should always be accompanied by a logo, even in prose.
 
-You consider your options. You could add an `#image("logo.svg")` call before every instance of the logo using search and replace. That sounds very tedious. Instead, you could maybe [define a custom function](/docs/reference/foundations/function/#defining-functions) that always yields the logo with its image. However, there is an even easier way:
+You consider your options. You could add an `#image("logo.svg")` call before every instance of the logo using search and replace. That sounds very tedious. Instead, you could maybe [define a custom function](../reference/foundations/function.md#defining-functions) that always yields the logo with its image. However, there is an even easier way:
 
 With show rules, you can redefine how Typst displays certain elements. You specify which elements Typst should show differently and how they should look. Show rules can be applied to instances of text, many functions, and even the whole document.
 
@@ -168,7 +168,7 @@ project of the Artos Institute.
 
 There is a lot of new syntax in this example: We write the `show` keyword, followed by a string of text we want to show differently and a colon. Then, we write a function that takes the content that shall be shown as an argument. Here, we called that argument `name`. We can now use the `name` variable in the function's body to print the ArtosFlow name. Our show rule adds the logo image in front of the name and puts the result into a box to prevent linebreaks from occurring between logo and name. The image is also put inside of a box, so that it does not appear in its own paragraph.
 
-The calls to the first box function and the image function did not require a leading `#` because they were not embedded directly in markup. When Typst expects code instead of markup, the leading `#` is not needed to access functions, keywords, and variables. This can be observed in parameter lists, function definitions, and [code blocks](/docs/reference/scripting/).
+The calls to the first box function and the image function did not require a leading `#` because they were not embedded directly in markup. When Typst expects code instead of markup, the leading `#` is not needed to access functions, keywords, and variables. This can be observed in parameter lists, function definitions, and [code blocks](../reference/scripting.md).
 
 ## Review
 

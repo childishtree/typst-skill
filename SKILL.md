@@ -87,9 +87,11 @@ Concise, pattern-first reference docs covering specific tasks. Each doc links to
 ### Tier 2: Full Official Documentation (`references/typst-author/`)
 A complete mirror of the official Typst documentation, organized by category:
 
-> ⚠️ 镜像里 2385 条链接是**站点绝对路径**（`/docs/reference/model/strong/`），本地解析不了。
-> 按路径直接映射即可：`/docs/<path>/` → `references/typst-author/<path>.md`。
-> 例：`/docs/reference/model/strong/` → `references/typst-author/reference/model/strong.md`。
+> 镜像里的交叉引用已从站点绝对路径（`/docs/reference/model/strong/`）**本地化为相对路径**
+> （`../model/strong.md`），2402 条全部可直接打开。若从上游重新同步过镜像，跑一次
+> `python3 scripts/localize-mirror-links.py` 重新本地化（幂等，可重复跑）。
+> 注意：URL 里的 `#anchor` 是文档站点从 frontmatter 生成的，本地 markdown 不会生成同样的
+> 锚点，所以片段可能跳不过去——落到了正确的文件里，用页内搜索找参数名即可。
 
 - **Tutorial**: `references/typst-author/tutorial/writing-in-typst.md` -- Getting started
 - **Guides**: `references/typst-author/guides/` -- Page setup, tables, page-setup, etc.
@@ -267,6 +269,7 @@ python3 scripts/search-api.py --list-categories
 | `scripts/search-packages.py` | 检索内置的 Typst Universe 包索引 | 无 |
 | `scripts/validate-examples.py` | 校验文档内所有 ```typst 代码块能否编译 | `markdown-it-py` |
 | `scripts/perf-timings.py` | 解析 `typst compile --timings` 轨迹，输出热点表 | 无 |
+| `scripts/localize-mirror-links.py` | 把上游镜像里的站点绝对链接本地化为相对路径（幂等，重同步后跑） | 无 |
 
 - `validate-examples.py` 默认只校验本 skill 自身的 md（根目录 `*.md` + `references/typst/` 下全部 md，具体文件数由脚本自行枚举）；加 `--all` 才会扫上游文档镜像
   （`references/typst-author/` 等，约 1100 个代码块，耗时数十分钟）。

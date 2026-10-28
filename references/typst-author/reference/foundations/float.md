@@ -2,7 +2,7 @@
 
 A floating-point number.
 
-A limited-precision representation of a real number. Typst uses 64 bits to store floats. Wherever a float is expected, you can also pass an [integer](/docs/reference/foundations/int/).
+A limited-precision representation of a real number. Typst uses 64 bits to store floats. Wherever a float is expected, you can also pass an [integer](int.md).
 
 You can convert a value to a float with this type's constructor.
 

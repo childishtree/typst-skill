@@ -56,7 +56,7 @@ The XML file in the example contains a root `news` tag with multiple `article` t
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to an XML file or raw XML bytes.
+  - description: A [path](../syntax.md#paths) to an XML file or raw XML bytes.
   - type: str | bytes
   - default: None
 

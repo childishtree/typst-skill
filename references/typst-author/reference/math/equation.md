@@ -24,7 +24,7 @@ By default, block-level equations will not break across pages. This can be chang
 
 ## Syntax
 
-This function also has dedicated syntax: Write mathematical markup within dollar signs to create an equation. Starting and ending the equation with whitespace lifts it into a separate block that is centered horizontally. For more details about math syntax, see the [main math page](/docs/reference/math/).
+This function also has dedicated syntax: Write mathematical markup within dollar signs to create an equation. Starting and ending the equation with whitespace lifts it into a separate block that is centered horizontally. For more details about math syntax, see the [main math page](./).
 
 ```typst
 #math.equation(
@@ -44,7 +44,7 @@ This function also has dedicated syntax: Write mathematical markup within dollar
   - type: bool
   - default: false
 - numbering:
-  - description: How to number block-level equations. Accepts a [numbering pattern or function](/docs/reference/model/numbering/) taking a single number. ```typst #set math.equation(numbering: "(1)") We define: $ phi.alt := (1 + sqrt(5)) / 2 $ <ratio> With @ratio, we get: $ F_n = floor(1 / sqrt(5) phi.alt^n) $ ```
+  - description: How to number block-level equations. Accepts a [numbering pattern or function](../model/numbering.md) taking a single number. ```typst #set math.equation(numbering: "(1)") We define: $ phi.alt := (1 + sqrt(5)) / 2 $ <ratio> With @ratio, we get: $ F_n = floor(1 / sqrt(5) phi.alt^n) $ ```
   - type: none | str | function
   - default: none
 - number-align:
@@ -56,7 +56,7 @@ This function also has dedicated syntax: Write mathematical markup within dollar
   - type: none | auto | content | function
   - default: auto
 - alt:
-  - description: An alternative description of the mathematical equation. This should describe the full equation in natural language and will be made available to Assistive Technology. You can learn more in the [Textual Representations section of the Accessibility Guide](/docs/guides/accessibility/#textual-representations). ```typst #math.equation(  alt: "integral from 1 to infinity of a x squared plus b with respect to x",  block: true,  $ integral_1^oo a x^2 + b dif x $, ) ```
+  - description: An alternative description of the mathematical equation. This should describe the full equation in natural language and will be made available to Assistive Technology. You can learn more in the [Textual Representations section of the Accessibility Guide](../../guides/accessibility.md#textual-representations). ```typst #math.equation(  alt: "integral from 1 to infinity of a x squared plus b with respect to x",  block: true,  $ integral_1^oo a x^2 + b dif x $, ) ```
   - type: none | str
   - default: none
 - body:

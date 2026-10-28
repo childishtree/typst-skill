@@ -29,7 +29,7 @@ The CSV file will be read and parsed into a 2-dimensional array of strings: Each
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to a CSV file or raw CSV bytes.
+  - description: A [path](../syntax.md#paths) to a CSV file or raw CSV bytes.
   - type: str | bytes
   - default: None
 - delimiter:

@@ -33,12 +33,12 @@ Here is a list on how each new version improves over PDF 1.4 for Typst documents
 
 - **PDF 1.5** (2003): Improved color management, text extraction, table accessibility, reflow, and emoji fonts
 - **PDF 1.6** (2004): More flexible links
-- **PDF 1.7** (2006): Allows [attachments](/docs/reference/pdf/attach/), improved reflow
+- **PDF 1.7** (2006): Allows [attachments](attach.md), improved reflow
 - **PDF 2.0** (2017): Improved both metadata and tag semantics for accessibility
 
 The software used to read your file must support your PDF version. Under normal circumstances, this poses no problem, but it can be a source of errors when working with older hardware. For general exchange, we recommend keeping the default PDF 1.7 setting or choosing PDF 2.0.
 
-When using PDF files as [images](/docs/reference/visualize/image/) in your document, the export PDF version must equal or exceed the image file versions.
+When using PDF files as [images](../visualize/image.md) in your document, the export PDF version must equal or exceed the image file versions.
 
 ### PDF/UA
 
@@ -46,13 +46,13 @@ Typst supports writing PDF/UA-conformant files. PDF/UA files are designed for _U
 
 Note that there are some rules in PDF/UA that are crucial for accessibility but cannot be automatically checked. Hence, when exporting a PDF/UA-1 document, make sure you did the following:
 
-- If your document is written in a different language than English, make sure [set the text language](/docs/reference/text/text/#parameters-lang) before any content.
-- Make sure to use Typst's semantic elements (like [headings](/docs/reference/model/heading/), [figures](/docs/reference/model/figure/), and [lists](/docs/reference/model/list/)) when appropriate instead of defining custom constructs. This lets Typst know (and export) the role a construct plays in the document. See [the Accessibility guide](/docs/guides/accessibility/) for more details.
+- If your document is written in a different language than English, make sure [set the text language](../text/text.md#parameters-lang) before any content.
+- Make sure to use Typst's semantic elements (like [headings](../model/heading.md), [figures](../model/figure.md), and [lists](../model/list.md)) when appropriate instead of defining custom constructs. This lets Typst know (and export) the role a construct plays in the document. See [the Accessibility guide](../../guides/accessibility.md) for more details.
 - Do not exclusively use contrast, color, format, or layout to communicate an idea. Use text or alternative descriptions instead of or in addition to these elements.
-- Wrap all decorative elements without a semantic meaning in [`pdf.artifact`](/docs/reference/pdf/artifact/).
+- Wrap all decorative elements without a semantic meaning in [`pdf.artifact`](artifact.md).
 - Do not use images of text. Instead, insert the text directly into your markup.
 
-Typst currently only supports part one (PDF/UA-1) which is based on PDF 1.7 (2006). When exporting to PDF/UA-1, be aware that you will need to manually provide [alternative descriptions of mathematics](/docs/reference/math/#accessibility) in natural language.
+Typst currently only supports part one (PDF/UA-1) which is based on PDF 1.7 (2006). When exporting to PDF/UA-1, be aware that you will need to manually provide [alternative descriptions of mathematics](../math/#accessibility) in natural language.
 
 New accessibility features were added to PDF 2.0 (2017). When set to PDF 2.0 export, Typst will leverage some of these features. PDF 2.0 and PDF/UA-1, however, are mutually incompatible. For accessible documents, we currently recommend exporting to PDF/UA-1 instead of PDF 2.0 for the additional checks and greater compatibility. The second part of PDF/UA is designed for PDF 2.0, but not yet supported by Typst.
 
@@ -66,19 +66,19 @@ The PDF/A Standard has multiple versions (_parts_ in ISO terminology) and most p
 - **PDF/A-1a:** This is the _accessible_ conformance level that builds on the basic level PDF/A-1b. To conform to this level, your file must be an accessible _Tagged PDF_ file. Note that accessibility is improved with later parts as not all PDF accessibility features are available for PDF 1.4 files. Furthermore, all text in the file must consist of known Unicode code points.
 - **PDF/A-2b:** The _basic_ conformance level of ISO 19005-2. This version of PDF/A is based on PDF 1.7 (2006) and results in self-contained, archivable PDF files.
 - **PDF/A-2u:** This is the _Unicode-mappable_ conformance level that builds on the basic level A-2b. It also adds rules that all text in the document must consist of known Unicode code points. If possible, always prefer this standard over PDF/A-2b.
-- **PDF/A-2a:** This is the _accessible_ conformance level that builds on the Unicode-mappable level A-2u. This conformance level also adds two requirements: Your file must be an accessible _Tagged PDF_ file. Typst automatically adds tags to help you reach this conformance level. Also pay attention to the Accessibility Sections throughout the reference and the [Accessibility Guide](/docs/guides/accessibility/) when targeting this conformance level. Finally, PDF/A-2a forbids you from using code points in the [Unicode Private Use area](https://en.wikipedia.org/wiki/Private_Use_Areas). If you want to build an accessible file, also consider additionally targeting PDF/UA-1, which enables more automatic accessibility checks.
-- **PDF/A-3b:** The _basic_ conformance level of ISO 19005-3. This version of PDF/A is based on PDF 1.7 (2006) and results in archivable PDF files that can contain arbitrary other related files as [attachments](/docs/reference/pdf/attach/). The only difference between it and PDF/A-2b is the capability to attach non-PDF/A-conformant files.
+- **PDF/A-2a:** This is the _accessible_ conformance level that builds on the Unicode-mappable level A-2u. This conformance level also adds two requirements: Your file must be an accessible _Tagged PDF_ file. Typst automatically adds tags to help you reach this conformance level. Also pay attention to the Accessibility Sections throughout the reference and the [Accessibility Guide](../../guides/accessibility.md) when targeting this conformance level. Finally, PDF/A-2a forbids you from using code points in the [Unicode Private Use area](https://en.wikipedia.org/wiki/Private_Use_Areas). If you want to build an accessible file, also consider additionally targeting PDF/UA-1, which enables more automatic accessibility checks.
+- **PDF/A-3b:** The _basic_ conformance level of ISO 19005-3. This version of PDF/A is based on PDF 1.7 (2006) and results in archivable PDF files that can contain arbitrary other related files as [attachments](attach.md). The only difference between it and PDF/A-2b is the capability to attach non-PDF/A-conformant files.
 - **PDF/A-3u:** This is the _Unicode-mappable_ conformance level that builds on the basic level A-3b. Just like PDF/A-2b, this requires all text to consist of known Unicode code points. These rules do not apply to attachments. If possible, always prefer this standard over PDF/A-3b.
 - **PDF/A-3a:** This is the _accessible_ conformance level that builds on the Unicode-mappable level A-3u. Just like PDF/A-2a, this requires files to be accessible _Tagged PDF_ and to not use characters from the Unicode Private Use area. Just like before, these rules do not apply to attachments.
 - **PDF/A-4:** The basic conformance level of ISO 19005-4. This version of PDF/A is based on PDF 2.0 (2017) and results in self-contained, archivable PDF files. PDF/A-4 has no parts relating to accessibility. Instead, the topic has been elaborated on more in the dedicated PDF/UA standard. PDF/A-4 files can conform to PDF/UA-2 (currently not supported in Typst).
-- **PDF/A-4f:** The _embedded files_ conformance level that builds on the basic level A-4. Files conforming to this level can contain arbitrary other related files as [attachments](/docs/reference/pdf/attach/), just as files conforming to part 3 of ISO 19005. The only difference between it and PDF/A-4 is the capability to attach non-PDF/A-conformant files.
+- **PDF/A-4f:** The _embedded files_ conformance level that builds on the basic level A-4. Files conforming to this level can contain arbitrary other related files as [attachments](attach.md), just as files conforming to part 3 of ISO 19005. The only difference between it and PDF/A-4 is the capability to attach non-PDF/A-conformant files.
 - **PDF/A-4e:** The _engineering_ conformance level that builds on the embedded files level A-4f. Files conforming to this level can contain 3D objects. Typst does not support 3D content, so this is functionally equivalent to PDF/A-4f from a Typst perspective.
 
 If you want to target PDF/A but are unsure about which particular setting to use, there are some good rules of thumb. First, you must determine your **part,** that's the "version number" of the standard. Ask yourself these questions:
 
 1. **Does pre-2006 software or equipment need to be able to read my file?** If so, choose part one (PDF/A-1).
 2. **If not, does my file need attachments?** If so, you must choose part three (PDF/A-3) or the embedded files level of part four (PDF/A-4f).
-3. **Does your file need to use features introduced in PDF 2.0?** Currently, use of PDF 2.0 features in Typst is limited to minor improvements in accessibility, e.g. for the [title element](/docs/reference/model/title/). If you can do without these improvements, maximize compatibility by choosing part two (when you don't need attachments) or part three (when you do need attachments). If you rely on PDF 2.0 features, use part four.
+3. **Does your file need to use features introduced in PDF 2.0?** Currently, use of PDF 2.0 features in Typst is limited to minor improvements in accessibility, e.g. for the [title element](../model/title.md). If you can do without these improvements, maximize compatibility by choosing part two (when you don't need attachments) or part three (when you do need attachments). If you rely on PDF 2.0 features, use part four.
 
 Now, you only need to choose a **conformance level** (the lowercase letter at the end).
 
@@ -91,15 +91,15 @@ When choosing between exporting PDF/A and regular PDF, keep in mind that PDF/A f
 
 Typst exposes PDF-specific functionality in the global `pdf` module. See below for the definitions it contains.
 
-This module contains some functions without a final API. They are designed to enhance accessibility for documents with complex tables. This includes [`table-summary`](/docs/reference/pdf/table-summary/), [`header-cell`](/docs/reference/pdf/header-cell/), and [`data-cell`](/docs/reference/pdf/data-cell/). All of these functions will be removed in a future Typst release, either through integration into table functions or through full removal. You can enable these functions by passing `--features a11y-extras` or setting the `TYPST_FEATURES` environment variable to `a11y-extras`. In the web app, these features are not available at this time.
+This module contains some functions without a final API. They are designed to enhance accessibility for documents with complex tables. This includes [`table-summary`](table-summary.md), [`header-cell`](header-cell.md), and [`data-cell`](data-cell.md). All of these functions will be removed in a future Typst release, either through integration into table functions or through full removal. You can enable these functions by passing `--features a11y-extras` or setting the `TYPST_FEATURES` environment variable to `a11y-extras`. In the web app, these features are not available at this time.
 
 ## Definitions
 
 | Name | Description |
 | --- | --- |
-| [`artifact`](/reference/pdf/artifact/) | Marks content as a PDF artifact. |
-| [`attach`](/reference/pdf/attach/) | A file that will be attached to the output PDF. |
-| [`data-cell`](/reference/pdf/data-cell/) | Explicitly defines this cell as a data cell. |
-| [`header-cell`](/reference/pdf/header-cell/) | Explicitly defines a cell as a header cell. |
-| [`table-summary`](/reference/pdf/table-summary/) | A summary of the purpose and structure of a complex table. |
+| [`artifact`](artifact.md) | Marks content as a PDF artifact. |
+| [`attach`](attach.md) | A file that will be attached to the output PDF. |
+| [`data-cell`](data-cell.md) | Explicitly defines this cell as a data cell. |
+| [`header-cell`](header-cell.md) | Explicitly defines a cell as a header cell. |
+| [`table-summary`](table-summary.md) | A summary of the purpose and structure of a complex table. |
 

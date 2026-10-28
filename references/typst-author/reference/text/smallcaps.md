@@ -23,7 +23,7 @@ In the future, this function will support synthesizing smallcaps from normal let
 
 ## Smallcaps headings
 
-You can use a [show rule](/docs/reference/styling/#show-rules) to apply smallcaps formatting to all your headings. In the example below, we also center-align our headings and disable the standard bold font.
+You can use a [show rule](../styling.md#show-rules) to apply smallcaps formatting to all your headings. In the example below, we also center-align our headings and disable the standard bold font.
 
 ```typst
 #set par(justify: true)

@@ -46,7 +46,7 @@ This functions also has dedicated syntax: Start a line with a hyphen, followed b
 ## Parameters
 
 - tight:
-  - description: Defines the default [spacing](/docs/reference/model/list/#parameters-spacing) of the list. If it is `false`, the items are spaced apart with [paragraph spacing](/docs/reference/model/par/#parameters-spacing). If it is `true`, they use [paragraph leading](/docs/reference/model/par/#parameters-leading) instead. This makes the list more compact, which can look better if the items are short. In markup mode, the value of this parameter is determined based on whether items are separated with a blank line. If items directly follow each other, this is set to `true`; if items are separated by a blank line, this is set to `false`. The markup-defined tightness cannot be overridden with set rules. ```typst - If a list has a lot of text, and  maybe other inline content, it  should not be tight anymore. - To make a list wide, simply insert  a blank line between the items. ```
+  - description: Defines the default [spacing](list.md#parameters-spacing) of the list. If it is `false`, the items are spaced apart with [paragraph spacing](par.md#parameters-spacing). If it is `true`, they use [paragraph leading](par.md#parameters-leading) instead. This makes the list more compact, which can look better if the items are short. In markup mode, the value of this parameter is determined based on whether items are separated with a blank line. If items directly follow each other, this is set to `true`; if items are separated by a blank line, this is set to `false`. The markup-defined tightness cannot be overridden with set rules. ```typst - If a list has a lot of text, and  maybe other inline content, it  should not be tight anymore. - To make a list wide, simply insert  a blank line between the items. ```
   - type: bool
   - default: true
 - marker:
@@ -62,7 +62,7 @@ This functions also has dedicated syntax: Start a line with a hyphen, followed b
   - type: length
   - default: 0.5em
 - spacing:
-  - description: The spacing between the items of the list. If set to `auto`, uses paragraph [`leading`](/docs/reference/model/par/#parameters-leading) for tight lists and paragraph [`spacing`](/docs/reference/model/par/#parameters-spacing) for wide (non-tight) lists.
+  - description: The spacing between the items of the list. If set to `auto`, uses paragraph [`leading`](par.md#parameters-leading) for tight lists and paragraph [`spacing`](par.md#parameters-spacing) for wide (non-tight) lists.
   - type: auto | length
   - default: auto
 - children:

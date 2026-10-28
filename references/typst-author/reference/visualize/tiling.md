@@ -15,7 +15,7 @@ Typst supports the most common type of tilings, where a pattern is repeated in a
 #rect(fill: pat, width: 100%, height: 60pt, stroke: 1pt)
 ```
 
-Tilings are also supported on text, but only when setting the [relativeness](/docs/reference/visualize/tiling/#constructor-relative) to either `auto` (the default value) or `"parent"`. To create word-by-word or glyph-by-glyph tilings, you can wrap the words or characters of your text in [boxes](/docs/reference/layout/box/) manually or through a [show rule](/docs/reference/styling/#show-rules).
+Tilings are also supported on text, but only when setting the [relativeness](tiling.md#constructor-relative) to either `auto` (the default value) or `"parent"`. To create word-by-word or glyph-by-glyph tilings, you can wrap the words or characters of your text in [boxes](../layout/box.md) manually or through a [show rule](../styling.md#show-rules).
 
 ```typst
 #let pat = tiling(
@@ -32,7 +32,7 @@ Tilings are also supported on text, but only when setting the [relativeness](/do
 #lorem(10)
 ```
 
-You can also space the elements further or closer apart using the [`spacing`](/docs/reference/visualize/tiling/#constructor-spacing) feature of the tiling. If the spacing is lower than the size of the tiling, the tiling will overlap. If it is higher, the tiling will have gaps of the same color as the background of the tiling.
+You can also space the elements further or closer apart using the [`spacing`](tiling.md#constructor-spacing) feature of the tiling. If the spacing is lower than the size of the tiling, the tiling will overlap. If it is higher, the tiling will have gaps of the same color as the background of the tiling.
 
 ```typst
 #let pat = tiling(
@@ -60,7 +60,7 @@ The location of the starting point of the tiling is dependent on the dimensions 
 Typst determines the ancestor container as follows:
 
 - For shapes that are placed at the root/top level of the document, the closest ancestor is the page itself.
-- For other shapes, the ancestor is the innermost [`block`](/docs/reference/layout/block/) or [`box`](/docs/reference/layout/box/) that contains the shape. This includes the boxes and blocks that are implicitly created by show rules and elements. For example, a [`rotate`](/docs/reference/layout/rotate/) will not affect the parent of a gradient, but a [`grid`](/docs/reference/layout/grid/) will.
+- For other shapes, the ancestor is the innermost [`block`](../layout/block.md) or [`box`](../layout/box.md) that contains the shape. This includes the boxes and blocks that are implicitly created by show rules and elements. For example, a [`rotate`](../layout/rotate.md) will not affect the parent of a gradient, but a [`grid`](../layout/grid.md) will.
 
 ## Compatibility
 

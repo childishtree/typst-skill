@@ -4,7 +4,7 @@
 
 Explicitly defines this cell as a data cell.
 
-Each cell in a table is either a header cell or a data cell. By default, all cells in [`table.header`](/docs/reference/model/table/#definitions-header) are header cells, and all other cells data cells.
+Each cell in a table is either a header cell or a data cell. By default, all cells in [`table.header`](../model/table.md#definitions-header) are header cells, and all other cells data cells.
 
 If your header contains a cell that is not a header cell, you can use this function to mark it as a data cell.
 
@@ -49,7 +49,7 @@ The API of this feature is temporary. Hence, calling this function requires enab
 ## Parameters
 
 - cell:
-  - description: The table cell. This can be content or a call to [`table.cell`](/docs/reference/model/table/#definitions-cell).
+  - description: The table cell. This can be content or a call to [`table.cell`](../model/table.md#definitions-cell).
   - type: content
   - default: None
 

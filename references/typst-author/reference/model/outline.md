@@ -4,7 +4,7 @@
 
 A table of contents, figures, or other elements.
 
-This function generates a list of all occurrences of an element in the document, up to a given [`depth`](/docs/reference/model/outline/#parameters-depth). The element's numbering and page number will be displayed in the outline alongside its title or caption.
+This function generates a list of all occurrences of an element in the document, up to a given [`depth`](outline.md#parameters-depth). The element's numbering and page number will be displayed in the outline alongside its title or caption.
 
 ## Example
 
@@ -26,7 +26,7 @@ In its default configuration, this function generates a table of contents. By se
 
 In the example below, we list all figures containing images by setting `target` to `figure.where(kind: image)`. Just the same, we could have set it to `figure.where(kind: table)` to generate a list of tables.
 
-We could also set it to just `figure`, without using a [`where`](/docs/reference/foundations/function/#definitions-where) selector, but then the list would contain _all_ figures, be it ones containing images, tables, or other material.
+We could also set it to just `figure`, without using a [`where`](../foundations/function.md#definitions-where) selector, but then the list would contain _all_ figures, be it ones containing images, tables, or other material.
 
 ```typst
 #outline(
@@ -42,13 +42,13 @@ We could also set it to just `figure`, without using a [`where`](/docs/reference
 
 ## Styling the outline
 
-At the most basic level, you can style the outline by setting properties on it and its entries. This way, you can customize the outline's [title](/docs/reference/model/outline/#parameters-title), how outline entries are [indented](/docs/reference/model/outline/#parameters-indent), and how the space between an entry's text and its page number should be [filled](/docs/reference/model/outline/#definitions-entry-fill).
+At the most basic level, you can style the outline by setting properties on it and its entries. This way, you can customize the outline's [title](outline.md#parameters-title), how outline entries are [indented](outline.md#parameters-indent), and how the space between an entry's text and its page number should be [filled](outline.md#definitions-entry-fill).
 
-Richer customization is possible through configuration of the outline's [entries](/docs/reference/model/outline/#definitions-entry). The outline generates one entry for each outlined element.
+Richer customization is possible through configuration of the outline's [entries](outline.md#definitions-entry). The outline generates one entry for each outlined element.
 
 ### Spacing the entries
 
-Outline entries are [blocks](/docs/reference/layout/block/), so you can adjust the spacing between them with normal block-spacing rules:
+Outline entries are [blocks](../layout/block.md), so you can adjust the spacing between them with normal block-spacing rules:
 
 ```typst
 #show outline.entry.where(
@@ -79,9 +79,9 @@ The default show rule for an outline entry looks like this[1](#1):
 )
 ```
 
-- The [`indented`](/docs/reference/model/outline/#definitions-entry-definitions-indented) function takes an optional prefix and inner content and automatically applies the proper indentation to it, such that different entries align nicely and long headings wrap properly.
-- The [`prefix`](/docs/reference/model/outline/#definitions-entry-definitions-prefix) function formats the element's numbering (if any). It also appends a supplement for certain elements.
-- The [`inner`](/docs/reference/model/outline/#definitions-entry-definitions-inner) function combines the element's [`body`](/docs/reference/model/outline/#definitions-entry-definitions-body), the filler, and the [`page` number](/docs/reference/model/outline/#definitions-entry-definitions-page).
+- The [`indented`](outline.md#definitions-entry-definitions-indented) function takes an optional prefix and inner content and automatically applies the proper indentation to it, such that different entries align nicely and long headings wrap properly.
+- The [`prefix`](outline.md#definitions-entry-definitions-prefix) function formats the element's numbering (if any). It also appends a supplement for certain elements.
+- The [`inner`](outline.md#definitions-entry-definitions-inner) function combines the element's [`body`](outline.md#definitions-entry-definitions-body), the filler, and the [`page` number](outline.md#definitions-entry-definitions-page).
 
 You can use these individual functions to format the outline entry in different ways. Let's say, you'd like to fully remove the filler and page numbers. To achieve this, you could write a show rule like this:
 
@@ -113,11 +113,11 @@ You can use these individual functions to format the outline entry in different 
 ## Parameters
 
 - title:
-  - description: The title of the outline. - When set to `auto`, an appropriate title for the [text language](/docs/reference/text/text/#parameters-lang) will be used. - When set to `none`, the outline will not have a title. - A custom title can be set by passing content. The outline\'s heading will not be numbered by default, but you can force it to be with a show-set rule: `show outline: set heading(numbering: "1.")`
+  - description: The title of the outline. - When set to `auto`, an appropriate title for the [text language](../text/text.md#parameters-lang) will be used. - When set to `none`, the outline will not have a title. - A custom title can be set by passing content. The outline\'s heading will not be numbered by default, but you can force it to be with a show-set rule: `show outline: set heading(numbering: "1.")`
   - type: none | auto | content
   - default: auto
 - target:
-  - description: The type of element to include in the outline. To list figures containing a specific kind of element, like an image or a table, you can specify the desired kind in a [`where`](/docs/reference/foundations/function/#definitions-where) selector. See the section on [alternative outlines](/docs/reference/model/outline/#alternative-outlines) for more details. ```typst #outline(  title: [List of Tables],  target: figure.where(kind: table), ) #figure(  table(   columns: 4,   [t], [1], [2], [3],   [y], [0.3], [0.7], [0.5],  ),  caption: [Experiment results], ) ```
+  - description: The type of element to include in the outline. To list figures containing a specific kind of element, like an image or a table, you can specify the desired kind in a [`where`](../foundations/function.md#definitions-where) selector. See the section on [alternative outlines](outline.md#alternative-outlines) for more details. ```typst #outline(  title: [List of Tables],  target: figure.where(kind: table), ) #figure(  table(   columns: 4,   [t], [1], [2], [3],   [y], [0.3], [0.7], [0.5],  ),  caption: [Experiment results], ) ```
   - type: label | selector | location | function
   - default: heading
 - depth:
@@ -125,7 +125,7 @@ You can use these individual functions to format the outline entry in different 
   - type: none | int
   - default: none
 - indent:
-  - description: How to indent the outline\'s entries. - `auto`: Indents the numbering/prefix of a nested entry with the title of its parent entry. If the entries are not numbered (e.g., via [heading numbering](/docs/reference/model/heading/#parameters-numbering)), this instead simply inserts a fixed amount of `1.2em` indent per level. - [Relative length](/docs/reference/layout/relative/): Indents the entry by the specified length per nesting level. Specifying `2em`, for instance, would indent top-level headings by `0em` (not nested), second level headings by `2em` (nested once), third-level headings by `4em` (nested twice) and so on. - [Function](/docs/reference/foundations/function/): You can further customize this setting with a function. That function receives the nesting level as a parameter (starting at 0 for top-level headings/elements) and should return a (relative) length. For example, `n => n * 2em` would be equivalent to just specifying `2em`. ```typst #set heading(numbering: "I-I.") #set outline(title: none) #outline() #line(length: 100%) #outline(indent: 3em) = Software engineering technologies == Requirements == Tools and technologies === Code editors == Analyzing alternatives = Designing software components = Testing and integration ```
+  - description: How to indent the outline\'s entries. - `auto`: Indents the numbering/prefix of a nested entry with the title of its parent entry. If the entries are not numbered (e.g., via [heading numbering](heading.md#parameters-numbering)), this instead simply inserts a fixed amount of `1.2em` indent per level. - [Relative length](../layout/relative.md): Indents the entry by the specified length per nesting level. Specifying `2em`, for instance, would indent top-level headings by `0em` (not nested), second level headings by `2em` (nested once), third-level headings by `4em` (nested twice) and so on. - [Function](../foundations/function.md): You can further customize this setting with a function. That function receives the nesting level as a parameter (starting at 0 for top-level headings/elements) and should return a (relative) length. For example, `n => n * 2em` would be equivalent to just specifying `2em`. ```typst #set heading(numbering: "I-I.") #set outline(title: none) #outline() #line(length: 100%) #outline(indent: 3em) = Software engineering technologies == Requirements == Tools and technologies === Code editors == Analyzing alternatives = Designing software components = Testing and integration ```
   - type: auto | relative | function
   - default: auto
 
@@ -135,7 +135,7 @@ You can use these individual functions to format the outline entry in different 
 
 Represents an entry line in an outline.
 
-With show-set and show rules on outline entries, you can richly customize the outline's appearance. See the [section on styling the outline](/docs/reference/model/outline/#styling-the-outline) for details.
+With show-set and show rules on outline entries, you can richly customize the outline's appearance. See the [section on styling the outline](outline.md#styling-the-outline) for details.
 
 ```typst
 #outline.entry(
@@ -152,11 +152,11 @@ With show-set and show rules on outline entries, you can richly customize the ou
   - type: int
   - default: None
 - element:
-  - description: The element this entry refers to. Its location will be available through the [`location`](/docs/reference/foundations/content/#definitions-location) method on the content and can be [linked](/docs/reference/model/link/) to.
+  - description: The element this entry refers to. Its location will be available through the [`location`](../foundations/content.md#definitions-location) method on the content and can be [linked](link.md) to.
   - type: content
   - default: None
 - fill:
-  - description: Content to fill the space between the title and the page number. Can be set to `none` to disable filling. The `fill` will be placed into a fractionally sized box that spans the space between the entry\'s body and the page number. When using show rules to override outline entries, it is thus recommended to wrap the fill in a [`box`](/docs/reference/layout/box/) with fractional width, i.e. `box(width: 1fr, it.fill)`. When using [`repeat`](/docs/reference/layout/repeat/), the [`gap`](/docs/reference/layout/repeat/#parameters-gap) property can be useful to tweak the visual weight of the fill. ```typst #set outline.entry(fill: line(length: 100%)) #outline() = A New Beginning ```
+  - description: Content to fill the space between the title and the page number. Can be set to `none` to disable filling. The `fill` will be placed into a fractionally sized box that spans the space between the entry\'s body and the page number. When using show rules to override outline entries, it is thus recommended to wrap the fill in a [`box`](../layout/box.md) with fractional width, i.e. `box(width: 1fr, it.fill)`. When using [`repeat`](../layout/repeat.md), the [`gap`](../layout/repeat.md#parameters-gap) property can be useful to tweak the visual weight of the fill. ```typst #set outline.entry(fill: line(length: 100%)) #outline() = A New Beginning ```
   - type: none | content
   - default: repeat (body : [.], gap : 0.15em)
 
@@ -166,9 +166,9 @@ With show-set and show rules on outline entries, you can richly customize the ou
 
 A helper function for producing an indented entry layout: Lays out a prefix and the rest of the entry in an indent-aware way.
 
-If the parent outline's [`indent`](/docs/reference/model/outline/#parameters-indent) is `auto`, the inner content of all entries at level `N` is aligned with the prefix of all entries at level `N + 1`, leaving at least `gap` space between the prefix and inner parts. Furthermore, the `inner` contents of all entries at the same level are aligned.
+If the parent outline's [`indent`](outline.md#parameters-indent) is `auto`, the inner content of all entries at level `N` is aligned with the prefix of all entries at level `N + 1`, leaving at least `gap` space between the prefix and inner parts. Furthermore, the `inner` contents of all entries at the same level are aligned.
 
-If the outline's indent is a fixed value or a function, the prefixes are indented, but the inner contents are simply offset from the prefix by the specified `gap`, rather than aligning outline-wide. For a visual explanation, see [`outline.indent`](/docs/reference/model/outline/#parameters-indent).
+If the outline's indent is a fixed value or a function, the prefixes are indented, but the inner contents are simply offset from the prefix by the specified `gap`, rather than aligning outline-wide. For a visual explanation, see [`outline.indent`](outline.md#parameters-indent).
 
 ```typst
 #entry.indented(
@@ -207,7 +207,7 @@ This includes the body, the fill, and page number.
 
 ##### entry.body
 
-The content which is displayed in place of the referred element at its entry in the outline. For a heading, this is its [`body`](/docs/reference/model/heading/#parameters-body); for a figure a caption and for equations, it is empty.
+The content which is displayed in place of the referred element at its entry in the outline. For a heading, this is its [`body`](heading.md#parameters-body); for a figure a caption and for equations, it is empty.
 
 ##### entry.page
 

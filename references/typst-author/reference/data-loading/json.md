@@ -41,25 +41,25 @@ The JSON files in the example contain objects with the keys `temperature`, `unit
 | JSON value | Converted into Typst |
 | --- | --- |
 | `null` | `none` |
-| bool | [`bool`](/docs/reference/foundations/bool/) |
-| number | [`float`](/docs/reference/foundations/float/) or [`int`](/docs/reference/foundations/int/) |
-| string | [`str`](/docs/reference/foundations/str/) |
-| array | [`array`](/docs/reference/foundations/array/) |
-| object | [`dictionary`](/docs/reference/foundations/dictionary/) |
+| bool | [`bool`](../foundations/bool.md) |
+| number | [`float`](../foundations/float.md) or [`int`](../foundations/int.md) |
+| string | [`str`](../foundations/str.md) |
+| array | [`array`](../foundations/array.md) |
+| object | [`dictionary`](../foundations/dictionary.md) |
 
 | Typst value | Converted into JSON |
 | --- | --- |
 | types that can be converted from JSON | corresponding JSON value |
-| [`bytes`](/docs/reference/foundations/bytes/) | string via [`repr`](/docs/reference/foundations/repr/) |
-| [`symbol`](/docs/reference/foundations/symbol/) | string |
-| [`content`](/docs/reference/foundations/content/) | an object describing the content |
-| other types ([`length`](/docs/reference/layout/length/), etc.) | string via [`repr`](/docs/reference/foundations/repr/) |
+| [`bytes`](../foundations/bytes.md) | string via [`repr`](../foundations/repr.md) |
+| [`symbol`](../foundations/symbol.md) | string |
+| [`content`](../foundations/content.md) | an object describing the content |
+| other types ([`length`](../layout/length.md), etc.) | string via [`repr`](../foundations/repr.md) |
 
 ### Notes
 
 - In most cases, JSON numbers will be converted to floats or integers depending on whether they are whole numbers. However, be aware that integers larger than 263-1 or smaller than -263 will be converted to floating-point numbers, which may result in an approximative value.
-- Bytes are not encoded as JSON arrays for performance and readability reasons. Consider using [`cbor.encode`](/docs/reference/data-loading/cbor/#definitions-encode) for binary data.
-- The `repr` function is [for debugging purposes only](/docs/reference/foundations/repr/#debugging-only), and its output is not guaranteed to be stable across Typst versions.
+- Bytes are not encoded as JSON arrays for performance and readability reasons. Consider using [`cbor.encode`](cbor.md#definitions-encode) for binary data.
+- The `repr` function is [for debugging purposes only](../foundations/repr.md#debugging-only), and its output is not guaranteed to be stable across Typst versions.
 
 ```typst
 #json(
@@ -70,7 +70,7 @@ The JSON files in the example contain objects with the keys `temperature`, `unit
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to a JSON file or raw JSON bytes.
+  - description: A [path](../syntax.md#paths) to a JSON file or raw JSON bytes.
   - type: str | bytes
   - default: None
 

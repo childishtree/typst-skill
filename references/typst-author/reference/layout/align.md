@@ -61,7 +61,7 @@ You can use varying alignments for layout containers and the elements within the
 
 ## Alignment within the same line
 
-The `align` function performs block-level alignment and thus always interrupts the current paragraph. To have different alignment for parts of the same line, you should use [fractional spacing](/docs/reference/layout/h/) instead:
+The `align` function performs block-level alignment and thus always interrupts the current paragraph. To have different alignment for parts of the same line, you should use [fractional spacing](h.md) instead:
 
 ```typst
 Start #h(1fr) End
@@ -77,7 +77,7 @@ Start #h(1fr) End
 ## Parameters
 
 - alignment:
-  - description: The [alignment](/docs/reference/layout/alignment/) along both axes. ```typst #set page(height: 6cm) #set text(lang: "ar") مثال #align(  end + horizon,  rect(inset: 12pt)[ركن] ) ```
+  - description: The [alignment](alignment.md) along both axes. ```typst #set page(height: 6cm) #set text(lang: "ar") مثال #align(  end + horizon,  rect(inset: 12pt)[ركن] ) ```
   - type: alignment
   - default: start + top
 - body:

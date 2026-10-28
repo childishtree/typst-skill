@@ -17,9 +17,9 @@ more details on compound theory.
 In 1984, the first ...
 ```
 
-Even without manual page breaks, content will be automatically paginated based on the configured page size. You can set [the page height](/docs/reference/layout/page/#parameters-height) to `auto` to let the page grow dynamically until a manual page break occurs.
+Even without manual page breaks, content will be automatically paginated based on the configured page size. You can set [the page height](page.md#parameters-height) to `auto` to let the page grow dynamically until a manual page break occurs.
 
-Pagination tries to avoid single lines of text at the top or bottom of a page (these are called _widows_ and _orphans_). You can adjust the [`text.costs`](/docs/reference/text/text/#parameters-costs) parameter to disable this behavior.
+Pagination tries to avoid single lines of text at the top or bottom of a page (these are called _widows_ and _orphans_). You can adjust the [`text.costs`](../text/text.md#parameters-costs) parameter to disable this behavior.
 
 ```typst
 #pagebreak(

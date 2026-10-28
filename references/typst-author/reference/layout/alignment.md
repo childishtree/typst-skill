@@ -4,8 +4,8 @@ Where to align something along an axis.
 
 Possible values are:
 
-- `start`: Aligns at the [start](/docs/reference/layout/direction/#definitions-start) of the [text direction](/docs/reference/text/text/#parameters-dir).
-- `end`: Aligns at the [end](/docs/reference/layout/direction/#definitions-end) of the [text direction](/docs/reference/text/text/#parameters-dir).
+- `start`: Aligns at the [start](direction.md#definitions-start) of the [text direction](../text/text.md#parameters-dir).
+- `end`: Aligns at the [end](direction.md#definitions-end) of the [text direction](../text/text.md#parameters-dir).
 - `left`: Align at the left.
 - `center`: Aligns in the middle, horizontally.
 - `right`: Aligns at the right.

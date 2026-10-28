@@ -4,17 +4,17 @@
 
 A table of items.
 
-Tables are used to arrange content in cells. Cells can contain arbitrary content, including multiple paragraphs and are specified in row-major order. For a hands-on explanation of all the ways you can use and customize tables in Typst, check out the [Table Guide](/docs/guides/tables/).
+Tables are used to arrange content in cells. Cells can contain arbitrary content, including multiple paragraphs and are specified in row-major order. For a hands-on explanation of all the ways you can use and customize tables in Typst, check out the [Table Guide](../../guides/tables.md).
 
-Because tables are just grids with different defaults for some cell properties (notably `stroke` and `inset`), refer to the [grid documentation](/docs/reference/layout/grid/#track-size) for more information on how to size the table tracks and specify the cell appearance properties.
+Because tables are just grids with different defaults for some cell properties (notably `stroke` and `inset`), refer to the [grid documentation](../layout/grid.md#track-size) for more information on how to size the table tracks and specify the cell appearance properties.
 
 If you are unsure whether you should be using a table or a grid, consider whether the content you are arranging semantically belongs together as a set of related data points or similar or whether you are just want to enhance your presentation by arranging unrelated content in a grid. In the former case, a table is the right choice, while in the latter case, a grid is more appropriate. Furthermore, Assistive Technology (AT) like screen readers will announce content in a `table` as tabular while a grid's content will be announced no different than multiple content blocks in the document flow. AT users will be able to navigate tables two-dimensionally by cell.
 
-Note that, to override a particular cell's properties or apply show rules on table cells, you can use the [`table.cell`](/docs/reference/model/table/#definitions-cell) element. See its documentation for more information.
+Note that, to override a particular cell's properties or apply show rules on table cells, you can use the [`table.cell`](table.md#definitions-cell) element. See its documentation for more information.
 
 Although the `table` and the `grid` share most properties, set and show rules on one of them do not affect the other. Locating most of your styling in set and show rules is recommended, as it keeps the table's actual usages clean and easy to read. It also allows you to easily change the appearance of all tables in one place.
 
-To give a table a caption and make it [referenceable](/docs/reference/model/ref/), put it into a [figure](/docs/reference/model/figure/).
+To give a table a caption and make it [referenceable](ref.md), put it into a [figure](figure.md).
 
 ## Example
 
@@ -41,7 +41,7 @@ The example below demonstrates some of the most common table options.
 )
 ```
 
-Much like with grids, you can use [`table.cell`](/docs/reference/model/table/#definitions-cell) to customize the appearance and the position of each cell.
+Much like with grids, you can use [`table.cell`](table.md#definitions-cell) to customize the appearance and the position of each cell.
 
 ```typst
 #set table(
@@ -83,9 +83,9 @@ Much like with grids, you can use [`table.cell`](/docs/reference/model/table/#de
 
 ## Accessibility
 
-Tables are challenging to consume for users of Assistive Technology (AT). To make the life of AT users easier, we strongly recommend that you use [`table.header`](/docs/reference/model/table/#definitions-header) and [`table.footer`](/docs/reference/model/table/#definitions-footer) to mark the header and footer sections of your table. This will allow AT to announce the column labels for each cell.
+Tables are challenging to consume for users of Assistive Technology (AT). To make the life of AT users easier, we strongly recommend that you use [`table.header`](table.md#definitions-header) and [`table.footer`](table.md#definitions-footer) to mark the header and footer sections of your table. This will allow AT to announce the column labels for each cell.
 
-Because navigating a table by cell is more cumbersome than reading it visually, you should consider making the core information in your table available as text as well. You can do this by wrapping your table in a [figure](/docs/reference/model/figure/) and using its caption to summarize the table's content.
+Because navigating a table by cell is more cumbersome than reading it visually, you should consider making the core information in your table available as text as well. You can do this by wrapping your table in a [figure](figure.md) and using its caption to summarize the table's content.
 
 ```typst
 #table(
@@ -105,43 +105,43 @@ Because navigating a table by cell is more cumbersome than reading it visually, 
 ## Parameters
 
 - columns:
-  - description: The column sizes. See the [grid documentation](/docs/reference/layout/grid/#track-size) for more information on track sizing.
+  - description: The column sizes. See the [grid documentation](../layout/grid.md#track-size) for more information on track sizing.
   - type: auto | int | relative | fraction | array
   - default: ()
 - rows:
-  - description: The row sizes. See the [grid documentation](/docs/reference/layout/grid/#track-size) for more information on track sizing.
+  - description: The row sizes. See the [grid documentation](../layout/grid.md#track-size) for more information on track sizing.
   - type: auto | int | relative | fraction | array
   - default: ()
 - gutter:
-  - description: The gaps between rows and columns. This is a shorthand for setting `column-gutter` and `row-gutter` to the same value. See the [grid documentation](/docs/reference/layout/grid/#parameters-gutter) for more information on gutters.
+  - description: The gaps between rows and columns. This is a shorthand for setting `column-gutter` and `row-gutter` to the same value. See the [grid documentation](../layout/grid.md#parameters-gutter) for more information on gutters.
   - type: auto | int | relative | fraction | array
   - default: ()
 - column-gutter:
-  - description: The gaps between columns. Takes precedence over `gutter`. See the [grid documentation](/docs/reference/layout/grid/#parameters-gutter) for more information on gutters.
+  - description: The gaps between columns. Takes precedence over `gutter`. See the [grid documentation](../layout/grid.md#parameters-gutter) for more information on gutters.
   - type: auto | int | relative | fraction | array
   - default: ()
 - row-gutter:
-  - description: The gaps between rows. Takes precedence over `gutter`. See the [grid documentation](/docs/reference/layout/grid/#parameters-gutter) for more information on gutters.
+  - description: The gaps between rows. Takes precedence over `gutter`. See the [grid documentation](../layout/grid.md#parameters-gutter) for more information on gutters.
   - type: auto | int | relative | fraction | array
   - default: ()
 - inset:
-  - description: How much to pad the cells\' content. To specify the same inset for all cells, use a single length for all sides, or a dictionary of lengths for individual sides. See the [box\'s documentation](/docs/reference/layout/box/#parameters-inset) for more details. To specify a varying inset for different cells, you can: - use a single, uniform inset for all cells - use an array of insets for each column - use a function that maps a cell\'s X/Y position (both starting from zero) to its inset See the [grid documentation](/docs/reference/layout/grid/#styling) for more details. ```typst #table(  columns: 2,  inset: 10pt,  [Hello],  [World], ) #table(  columns: 2,  inset: (x: 20pt, y: 10pt),  [Hello],  [World], ) ```
+  - description: How much to pad the cells\' content. To specify the same inset for all cells, use a single length for all sides, or a dictionary of lengths for individual sides. See the [box\'s documentation](../layout/box.md#parameters-inset) for more details. To specify a varying inset for different cells, you can: - use a single, uniform inset for all cells - use an array of insets for each column - use a function that maps a cell\'s X/Y position (both starting from zero) to its inset See the [grid documentation](../layout/grid.md#styling) for more details. ```typst #table(  columns: 2,  inset: 10pt,  [Hello],  [World], ) #table(  columns: 2,  inset: (x: 20pt, y: 10pt),  [Hello],  [World], ) ```
   - type: relative | array | dictionary | function
   - default: 0 % + 5pt
 - align:
-  - description: How to align the cells\' content. If set to `auto`, the outer alignment is used. You can specify the alignment in any of the following fashions: - use a single alignment for all cells - use an array of alignments corresponding to each column - use a function that maps a cell\'s X/Y position (both starting from zero) to its alignment See the [Table Guide](/docs/guides/tables/#alignment) for details. ```typst #table(  columns: 3,  align: (left, center, right),  [Hello], [Hello], [Hello],  [A], [B], [C], ) ```
+  - description: How to align the cells\' content. If set to `auto`, the outer alignment is used. You can specify the alignment in any of the following fashions: - use a single alignment for all cells - use an array of alignments corresponding to each column - use a function that maps a cell\'s X/Y position (both starting from zero) to its alignment See the [Table Guide](../../guides/tables.md#alignment) for details. ```typst #table(  columns: 3,  align: (left, center, right),  [Hello], [Hello], [Hello],  [A], [B], [C], ) ```
   - type: auto | array | alignment | function
   - default: auto
 - fill:
-  - description: How to fill the cells. This can be: - a single fill for all cells - an array of fill corresponding to each column - a function that maps a cell\'s position to its fill Most notably, arrays and functions are useful for creating striped tables. See the [Table Guide](/docs/guides/tables/#fills) for more details. ```typst #table(  fill: (x, _) =>   if calc.odd(x) { luma(240) }   else { white },  align: (x, y) =>   if y == 0 { center }   else if x == 0 { left }   else { right },  columns: 4,  [], [*Q1*], [*Q2*], [*Q3*],  [Revenue:], [1000 €], [2000 €], [3000 €],  [Expenses:], [500 €], [1000 €], [1500 €],  [Profit:], [500 €], [1000 €], [1500 €], ) ```
+  - description: How to fill the cells. This can be: - a single fill for all cells - an array of fill corresponding to each column - a function that maps a cell\'s position to its fill Most notably, arrays and functions are useful for creating striped tables. See the [Table Guide](../../guides/tables.md#fills) for more details. ```typst #table(  fill: (x, _) =>   if calc.odd(x) { luma(240) }   else { white },  align: (x, y) =>   if y == 0 { center }   else if x == 0 { left }   else { right },  columns: 4,  [], [*Q1*], [*Q2*], [*Q3*],  [Revenue:], [1000 €], [2000 €], [3000 €],  [Expenses:], [500 €], [1000 €], [1500 €],  [Profit:], [500 €], [1000 €], [1500 €], ) ```
   - type: none | color | gradient | array | tiling | function
   - default: none
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the cells. Strokes can be disabled by setting this to `none`. If it is necessary to place lines which can cross spacing between cells produced by the [`gutter`](/docs/reference/model/table/#parameters-gutter) option, or to override the stroke between multiple specific cells, consider specifying one or more of [`table.hline`](/docs/reference/model/table/#definitions-hline) and [`table.vline`](/docs/reference/model/table/#definitions-vline) alongside your table cells. To specify the same stroke for all cells, use a single [stroke](/docs/reference/visualize/stroke/) for all sides, or a dictionary of [strokes](/docs/reference/visualize/stroke/) for individual sides. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-stroke) for more details. To specify varying strokes for different cells, you can: - use a single stroke for all cells - use an array of strokes corresponding to each column - use a function that maps a cell\'s position to its stroke See the [Table Guide](/docs/guides/tables/#strokes) for more details.
+  - description: How to [stroke](../visualize/stroke.md) the cells. Strokes can be disabled by setting this to `none`. If it is necessary to place lines which can cross spacing between cells produced by the [`gutter`](table.md#parameters-gutter) option, or to override the stroke between multiple specific cells, consider specifying one or more of [`table.hline`](table.md#definitions-hline) and [`table.vline`](table.md#definitions-vline) alongside your table cells. To specify the same stroke for all cells, use a single [stroke](../visualize/stroke.md) for all sides, or a dictionary of [strokes](../visualize/stroke.md) for individual sides. See the [rectangle\'s documentation](../visualize/rect.md#parameters-stroke) for more details. To specify varying strokes for different cells, you can: - use a single stroke for all cells - use an array of strokes corresponding to each column - use a function that maps a cell\'s position to its stroke See the [Table Guide](../../guides/tables.md#strokes) for more details.
   - type: none | length | color | gradient | array | stroke | tiling | dictionary | function
   - default: 1pt + black
 - children:
-  - description: The contents of the table cells, plus any extra table lines specified with the [`table.hline`](/docs/reference/model/table/#definitions-hline) and [`table.vline`](/docs/reference/model/table/#definitions-vline) elements.
+  - description: The contents of the table cells, plus any extra table lines specified with the [`table.hline`](table.md#definitions-hline) and [`table.vline`](table.md#definitions-vline) elements.
   - type: content
   - default: None
 
@@ -246,11 +246,11 @@ You may also apply a show rule on `table.cell` to style all cells at once. Combi
   - type: content
   - default: None
 - x:
-  - description: The cell\'s column (zero-indexed). Functions identically to the `x` field in [`grid.cell`](/docs/reference/layout/grid/#definitions-cell).
+  - description: The cell\'s column (zero-indexed). Functions identically to the `x` field in [`grid.cell`](../layout/grid.md#definitions-cell).
   - type: auto | int
   - default: auto
 - y:
-  - description: The cell\'s row (zero-indexed). Functions identically to the `y` field in [`grid.cell`](/docs/reference/layout/grid/#definitions-cell).
+  - description: The cell\'s row (zero-indexed). Functions identically to the `y` field in [`grid.cell`](../layout/grid.md#definitions-cell).
   - type: auto | int
   - default: auto
 - colspan:
@@ -262,19 +262,19 @@ You may also apply a show rule on `table.cell` to style all cells at once. Combi
   - type: int
   - default: 1
 - inset:
-  - description: The cell\'s [inset](/docs/reference/model/table/#parameters-inset) override.
+  - description: The cell\'s [inset](table.md#parameters-inset) override.
   - type: auto | relative | dictionary
   - default: auto
 - align:
-  - description: The cell\'s [alignment](/docs/reference/model/table/#parameters-align) override.
+  - description: The cell\'s [alignment](table.md#parameters-align) override.
   - type: auto | alignment
   - default: auto
 - fill:
-  - description: The cell\'s [fill](/docs/reference/model/table/#parameters-fill) override.
+  - description: The cell\'s [fill](table.md#parameters-fill) override.
   - type: none | auto | color | gradient | tiling
   - default: auto
 - stroke:
-  - description: The cell\'s [stroke](/docs/reference/model/table/#parameters-stroke) override.
+  - description: The cell\'s [stroke](table.md#parameters-stroke) override.
   - type: none | length | color | gradient | stroke | tiling | dictionary
   - default: (:)
 - breakable:
@@ -286,9 +286,9 @@ You may also apply a show rule on `table.cell` to style all cells at once. Combi
 
 A horizontal line in the table.
 
-Overrides any per-cell stroke, including stroke specified through the table's `stroke` field. Can cross spacing between cells created through the table's [`column-gutter`](/docs/reference/model/table/#parameters-column-gutter) option.
+Overrides any per-cell stroke, including stroke specified through the table's `stroke` field. Can cross spacing between cells created through the table's [`column-gutter`](table.md#parameters-column-gutter) option.
 
-Use this function instead of the table's `stroke` field if you want to manually place a horizontal line at a specific position in a single table. Consider using [table's `stroke`](/docs/reference/model/table/#parameters-stroke) field or [`table.cell`'s `stroke`](/docs/reference/model/table/#definitions-cell-stroke) field instead if the line you want to place is part of all your tables' designs.
+Use this function instead of the table's `stroke` field if you want to manually place a horizontal line at a specific position in a single table. Consider using [table's `stroke`](table.md#parameters-stroke) field or [`table.cell`'s `stroke`](table.md#definitions-cell-stroke) field instead if the line you want to place is part of all your tables' designs.
 
 ```typst
 #set table.hline(stroke: .6pt)
@@ -324,7 +324,7 @@ Use this function instead of the table's `stroke` field if you want to manually 
 #### Parameters
 
 - y:
-  - description: The row above which the horizontal line is placed (zero-indexed). Functions identically to the `y` field in [`grid.hline`](/docs/reference/layout/grid/#definitions-hline-y).
+  - description: The row above which the horizontal line is placed (zero-indexed). Functions identically to the `y` field in [`grid.hline`](../layout/grid.md#definitions-hline-y).
   - type: auto | int
   - default: auto
 - start:
@@ -346,11 +346,11 @@ Use this function instead of the table's `stroke` field if you want to manually 
 
 ### table.vline
 
-A vertical line in the table. See the docs for [`grid.vline`](/docs/reference/layout/grid/#definitions-vline) for more information regarding how to use this element's fields.
+A vertical line in the table. See the docs for [`grid.vline`](../layout/grid.md#definitions-vline) for more information regarding how to use this element's fields.
 
-Overrides any per-cell stroke, including stroke specified through the table's `stroke` field. Can cross spacing between cells created through the table's [`row-gutter`](/docs/reference/model/table/#parameters-row-gutter) option.
+Overrides any per-cell stroke, including stroke specified through the table's `stroke` field. Can cross spacing between cells created through the table's [`row-gutter`](table.md#parameters-row-gutter) option.
 
-Similar to [`table.hline`](/docs/reference/model/table/#definitions-hline), use this function if you want to manually place a vertical line at a specific position in a single table and use the [table's `stroke`](/docs/reference/model/table/#parameters-stroke) field or [`table.cell`'s `stroke`](/docs/reference/model/table/#definitions-cell-stroke) field instead if the line you want to place is part of all your tables' designs.
+Similar to [`table.hline`](table.md#definitions-hline), use this function if you want to manually place a vertical line at a specific position in a single table and use the [table's `stroke`](table.md#parameters-stroke) field or [`table.cell`'s `stroke`](table.md#definitions-cell-stroke) field instead if the line you want to place is part of all your tables' designs.
 
 ```typst
 #table.vline(
@@ -365,7 +365,7 @@ Similar to [`table.hline`](/docs/reference/model/table/#definitions-hline), use 
 #### Parameters
 
 - x:
-  - description: The column before which the vertical line is placed (zero-indexed). Functions identically to the `x` field in [`grid.vline`](/docs/reference/layout/grid/#definitions-vline).
+  - description: The column before which the vertical line is placed (zero-indexed). Functions identically to the `x` field in [`grid.vline`](../layout/grid.md#definitions-vline).
   - type: auto | int
   - default: auto
 - start:
@@ -389,11 +389,11 @@ Similar to [`table.hline`](/docs/reference/model/table/#definitions-hline), use 
 
 A repeatable table header.
 
-You should wrap your tables' heading rows in this function even if you do not plan to wrap your table across pages because Typst uses this function to attach accessibility metadata to tables and ensure [Universal Access](/docs/guides/accessibility/#basics) to your document.
+You should wrap your tables' heading rows in this function even if you do not plan to wrap your table across pages because Typst uses this function to attach accessibility metadata to tables and ensure [Universal Access](../../guides/accessibility.md#basics) to your document.
 
 You can use the `repeat` parameter to control whether your table's header will be repeated across pages.
 
-Currently, this function is unsuitable for creating a header column or single header cells. Either use regular cells, or, if you are exporting a PDF, you can also use the [`pdf.header-cell`](/docs/reference/pdf/header-cell/) function to mark a cell as a header cell. Likewise, you can use [`pdf.data-cell`](/docs/reference/pdf/data-cell/) to mark cells in this function as data cells. Note that these functions are not final and thus only available when you enable the `a11y-extras` feature (see the [PDF module documentation](/docs/reference/pdf/) for details).
+Currently, this function is unsuitable for creating a header column or single header cells. Either use regular cells, or, if you are exporting a PDF, you can also use the [`pdf.header-cell`](../pdf/header-cell.md) function to mark a cell as a header cell. Likewise, you can use [`pdf.data-cell`](../pdf/data-cell.md) to mark cells in this function as data cells. Note that these functions are not final and thus only available when you enable the `a11y-extras` feature (see the [PDF module documentation](../pdf/) for details).
 
 ```typst
 #set page(height: 11.5em)
@@ -457,7 +457,7 @@ Currently, this function is unsuitable for creating a header column or single he
 
 A repeatable table footer.
 
-Just like the [`table.header`](/docs/reference/model/table/#definitions-header) element, the footer can repeat itself on every page of the table. This is useful for improving legibility by adding the column labels in both the header and footer of a large table, totals, or other information that should be visible on every page.
+Just like the [`table.header`](table.md#definitions-header) element, the footer can repeat itself on every page of the table. This is useful for improving legibility by adding the column labels in both the header and footer of a large table, totals, or other information that should be visible on every page.
 
 No other table cells may be placed after the footer.
 

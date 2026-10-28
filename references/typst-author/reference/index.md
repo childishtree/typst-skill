@@ -1,10 +1,10 @@
 # Reference
 
-This reference documentation is a comprehensive guide to all of Typst's syntax, concepts, types, and functions. If you are completely new to Typst, we recommend starting with the [tutorial](/docs/tutorial/) and then coming back to the reference to learn more about Typst's features as you need them.
+This reference documentation is a comprehensive guide to all of Typst's syntax, concepts, types, and functions. If you are completely new to Typst, we recommend starting with the [tutorial](../tutorial/) and then coming back to the reference to learn more about Typst's features as you need them.
 
 ## Language
 
-The reference starts with a language part that gives an overview over [Typst's syntax](/docs/reference/syntax/) and contains information about concepts involved in [styling documents,](/docs/reference/styling/) using [Typst's scripting capabilities.](/docs/reference/scripting/)
+The reference starts with a language part that gives an overview over [Typst's syntax](syntax.md) and contains information about concepts involved in [styling documents,](styling.md) using [Typst's scripting capabilities.](scripting.md)
 
 ## Functions
 

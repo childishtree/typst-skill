@@ -28,7 +28,7 @@ You can multiply lengths with and divide them by integers and floats.
 ## Fields
 
 - `abs`: A length with just the absolute component of the current length (that is, excluding the `em` component).
-- `em`: The amount of `em` units in this length, as a [float](/docs/reference/foundations/float/).
+- `em`: The amount of `em` units in this length, as a [float](../foundations/float.md).
 
 
 ## Methods
@@ -43,19 +43,19 @@ Fails with an error if this length has non-zero `em` units (such as `5em + 2pt` 
 
 Converts this length to millimeters.
 
-Fails with an error if this length has non-zero `em` units. See the [`pt`](/docs/reference/layout/length/#definitions-pt) method for more details.
+Fails with an error if this length has non-zero `em` units. See the [`pt`](length.md#definitions-pt) method for more details.
 
 ## length.cm
 
 Converts this length to centimeters.
 
-Fails with an error if this length has non-zero `em` units. See the [`pt`](/docs/reference/layout/length/#definitions-pt) method for more details.
+Fails with an error if this length has non-zero `em` units. See the [`pt`](length.md#definitions-pt) method for more details.
 
 ## length.inches
 
 Converts this length to inches.
 
-Fails with an error if this length has non-zero `em` units. See the [`pt`](/docs/reference/layout/length/#definitions-pt) method for more details.
+Fails with an error if this length has non-zero `em` units. See the [`pt`](length.md#definitions-pt) method for more details.
 
 ## length.to-absolute
 

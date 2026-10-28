@@ -2,10 +2,10 @@
 
 A Unicode symbol.
 
-Typst defines common symbols so that they can easily be written with standard keyboards. The symbols are defined in modules, from which they can be accessed using [field access notation](/docs/reference/scripting/#fields):
+Typst defines common symbols so that they can easily be written with standard keyboards. The symbols are defined in modules, from which they can be accessed using [field access notation](../scripting.md#fields):
 
-- General symbols are defined in the [`sym` module](/docs/reference/symbols/sym/) and are accessible without the `sym.` prefix in math mode.
-- Emoji are defined in the [`emoji` module](/docs/reference/symbols/emoji/)
+- General symbols are defined in the [`sym` module](../symbols/sym.md) and are accessible without the `sym.` prefix in math mode.
+- Emoji are defined in the [`emoji` module](../symbols/emoji.md)
 
 Moreover, you can define custom symbols with this type's constructor function.
 

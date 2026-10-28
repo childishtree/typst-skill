@@ -4,9 +4,9 @@
 
 Places content relatively to its parent container.
 
-Placed content can be either overlaid (the default) or floating. Overlaid content is aligned with the parent container according to the given [`alignment`](/docs/reference/layout/place/#parameters-alignment), and shown over any other content added so far in the container. Floating content is placed at the top or bottom of the container, displacing other content down or up respectively. In both cases, the content position can be adjusted with [`dx`](/docs/reference/layout/place/#parameters-dx) and [`dy`](/docs/reference/layout/place/#parameters-dy) offsets without affecting the layout.
+Placed content can be either overlaid (the default) or floating. Overlaid content is aligned with the parent container according to the given [`alignment`](place.md#parameters-alignment), and shown over any other content added so far in the container. Floating content is placed at the top or bottom of the container, displacing other content down or up respectively. In both cases, the content position can be adjusted with [`dx`](place.md#parameters-dx) and [`dy`](place.md#parameters-dy) offsets without affecting the layout.
 
-The parent can be any container such as a [`block`](/docs/reference/layout/block/), [`box`](/docs/reference/layout/box/), [`rect`](/docs/reference/visualize/rect/), etc. A top level `place` call will place content directly in the text area of the current page. This can be used for absolute positioning on the page: with a `top + left` [`alignment`](/docs/reference/layout/place/#parameters-alignment), the offsets `dx` and `dy` will set the position of the element's top left corner relatively to the top left corner of the text area. For absolute positioning on the full page including margins, you can use `place` in [`page.foreground`](/docs/reference/layout/page/#parameters-foreground) or [`page.background`](/docs/reference/layout/page/#parameters-background).
+The parent can be any container such as a [`block`](block.md), [`box`](box.md), [`rect`](../visualize/rect.md), etc. A top level `place` call will place content directly in the text area of the current page. This can be used for absolute positioning on the page: with a `top + left` [`alignment`](place.md#parameters-alignment), the offsets `dx` and `dy` will set the position of the element's top left corner relatively to the top left corner of the text area. For absolute positioning on the full page including margins, you can use `place` in [`page.foreground`](page.md#parameters-foreground) or [`page.background`](page.md#parameters-background).
 
 ## Examples
 
@@ -29,7 +29,7 @@ Hello, world!
 
 ## Effect on the position of other elements
 
-Overlaid elements don't take space in the flow of content, but a `place` call inserts an invisible block-level element in the flow. This can affect the layout by breaking the current paragraph. To avoid this, you can wrap the `place` call in a [`box`](/docs/reference/layout/box/) when the call is made in the middle of a paragraph. The alignment and offsets will then be relative to this zero-size box. To make sure it doesn't interfere with spacing, the box should be attached to a word using a word joiner.
+Overlaid elements don't take space in the flow of content, but a `place` call inserts an invisible block-level element in the flow. This can affect the layout by breaking the current paragraph. To avoid this, you can wrap the `place` call in a [`box`](box.md) when the call is made in the middle of a paragraph. The alignment and offsets will then be relative to this zero-size box. To make sure it doesn't interfere with spacing, the box should be attached to a word using a word joiner.
 
 For example, the following defines a function for attaching an annotation to the following word:
 
@@ -69,11 +69,11 @@ Assistive Technology (AT) will always read the placed element at the point where
   - type: auto | alignment
   - default: start
 - scope:
-  - description: Relative to which containing scope something is placed. The parent scope is primarily used with figures and, for this reason, the figure function has a mirrored [`scope` parameter](/docs/reference/model/figure/#parameters-scope). Nonetheless, it can also be more generally useful to break out of the columns. A typical example would be to [create a single-column title section](/docs/guides/page-setup/#columns) in a two-column document. Note that parent-scoped placement is currently only supported if `float` is `true`. This may change in the future. ```typst #set page(height: 150pt, columns: 2) #place(  top + center,  scope: "parent",  float: true,  rect(width: 80%, fill: aqua), ) #lorem(25) ```
+  - description: Relative to which containing scope something is placed. The parent scope is primarily used with figures and, for this reason, the figure function has a mirrored [`scope` parameter](../model/figure.md#parameters-scope). Nonetheless, it can also be more generally useful to break out of the columns. A typical example would be to [create a single-column title section](../../guides/page-setup.md#columns) in a two-column document. Note that parent-scoped placement is currently only supported if `float` is `true`. This may change in the future. ```typst #set page(height: 150pt, columns: 2) #place(  top + center,  scope: "parent",  float: true,  rect(width: 80%, fill: aqua), ) #lorem(25) ```
   - type: str
   - default: "column"
 - float:
-  - description: Whether the placed element has floating layout. Floating elements are positioned at the top or bottom of the parent container, displacing in-flow content. They are always placed in the in-flow order relative to each other, as well as before any content following a later [`place.flush`](/docs/reference/layout/place/#definitions-flush) element. ```typst #set page(height: 150pt) #let note(where, body) = place(  center + where,  float: true,  clearance: 6pt,  rect(body), ) #lorem(10) #note(bottom)[Bottom 1] #note(bottom)[Bottom 2] #lorem(40) #note(top)[Top] #lorem(10) ```
+  - description: Whether the placed element has floating layout. Floating elements are positioned at the top or bottom of the parent container, displacing in-flow content. They are always placed in the in-flow order relative to each other, as well as before any content following a later [`place.flush`](place.md#definitions-flush) element. ```typst #set page(height: 150pt) #let note(where, body) = place(  center + where,  float: true,  clearance: 6pt,  rect(body), ) #lorem(10) #note(bottom)[Bottom 1] #note(bottom)[Bottom 2] #lorem(40) #note(top)[Top] #lorem(10) ```
   - type: bool
   - default: false
 - clearance:
@@ -81,11 +81,11 @@ Assistive Technology (AT) will always read the placed element at the point where
   - type: length
   - default: 1.5em
 - dx:
-  - description: The horizontal displacement of the placed content. ```typst #set page(height: 100pt) #for x in range(-8, 8) {  place(center + horizon,   dx: x * 8pt, dy: x * 4pt,   text(    size: calc.root(x + 10, 3) * 6pt,    fill: color.mix((green, 8 - x), (blue, 8 + x)),   )[T]  ) } ``` This does not affect the layout of in-flow content. In other words, the placed content is treated as if it were wrapped in a [`move`](/docs/reference/layout/move/) element.
+  - description: The horizontal displacement of the placed content. ```typst #set page(height: 100pt) #for x in range(-8, 8) {  place(center + horizon,   dx: x * 8pt, dy: x * 4pt,   text(    size: calc.root(x + 10, 3) * 6pt,    fill: color.mix((green, 8 - x), (blue, 8 + x)),   )[T]  ) } ``` This does not affect the layout of in-flow content. In other words, the placed content is treated as if it were wrapped in a [`move`](move.md) element.
   - type: relative
   - default: 0 % + 0pt
 - dy:
-  - description: The vertical displacement of the placed content. This does not affect the layout of in-flow content. In other words, the placed content is treated as if it were wrapped in a [`move`](/docs/reference/layout/move/) element.
+  - description: The vertical displacement of the placed content. This does not affect the layout of in-flow content. In other words, the placed content is treated as if it were wrapped in a [`move`](move.md) element.
   - type: relative
   - default: 0 % + 0pt
 - body:

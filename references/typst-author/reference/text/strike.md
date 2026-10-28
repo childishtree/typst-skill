@@ -23,7 +23,7 @@ This is #strike[not] relevant.
 ## Parameters
 
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the line. If set to `auto`, takes on the text\'s color and a thickness defined in the current font. _Note:_ Please don\'t use this for real redaction as you can still copy paste the text. ```typst This is #strike(stroke: 1.5pt + red)[very stricken through]. \\ This is #strike(stroke: 10pt)[redacted]. ```
+  - description: How to [stroke](../visualize/stroke.md) the line. If set to `auto`, takes on the text\'s color and a thickness defined in the current font. _Note:_ Please don\'t use this for real redaction as you can still copy paste the text. ```typst This is #strike(stroke: 1.5pt + red)[very stricken through]. \\ This is #strike(stroke: 10pt)[redacted]. ```
   - type: auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - offset:

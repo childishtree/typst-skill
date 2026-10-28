@@ -37,7 +37,7 @@ You can easily switch all your enumerations to a different numbering style with 
 + Don't forget step two
 ```
 
-You can also use [`enum.item`](/docs/reference/model/enum/#definitions-item) to programmatically customize the number of each item in the enumeration:
+You can also use [`enum.item`](enum.md#definitions-item) to programmatically customize the number of each item in the enumeration:
 
 ```typst
 #enum(
@@ -74,11 +74,11 @@ Enumeration items can contain multiple paragraphs and other block-level content.
 ## Parameters
 
 - tight:
-  - description: Defines the default [spacing](/docs/reference/model/enum/#parameters-spacing) of the enumeration. If it is `false`, the items are spaced apart with [paragraph spacing](/docs/reference/model/par/#parameters-spacing). If it is `true`, they use [paragraph leading](/docs/reference/model/par/#parameters-leading) instead. This makes the list more compact, which can look better if the items are short. In markup mode, the value of this parameter is determined based on whether items are separated with a blank line. If items directly follow each other, this is set to `true`; if items are separated by a blank line, this is set to `false`. The markup-defined tightness cannot be overridden with set rules. ```typst + If an enum has a lot of text, and  maybe other inline content, it  should not be tight anymore. + To make an enum wide, simply  insert a blank line between the  items. ```
+  - description: Defines the default [spacing](enum.md#parameters-spacing) of the enumeration. If it is `false`, the items are spaced apart with [paragraph spacing](par.md#parameters-spacing). If it is `true`, they use [paragraph leading](par.md#parameters-leading) instead. This makes the list more compact, which can look better if the items are short. In markup mode, the value of this parameter is determined based on whether items are separated with a blank line. If items directly follow each other, this is set to `true`; if items are separated by a blank line, this is set to `false`. The markup-defined tightness cannot be overridden with set rules. ```typst + If an enum has a lot of text, and  maybe other inline content, it  should not be tight anymore. + To make an enum wide, simply  insert a blank line between the  items. ```
   - type: bool
   - default: true
 - numbering:
-  - description: How to number the enumeration. Accepts a [numbering pattern or function](/docs/reference/model/numbering/). If the numbering pattern contains multiple counting symbols, they apply to nested enums. If given a function, the function receives one argument if `full` is `false` and multiple arguments if `full` is `true`. ```typst #set enum(numbering: "1.a)") + Different + Numbering  + Nested  + Items + Style #set enum(numbering: n => super[#n]) + Superscript + Numbering! ```
+  - description: How to number the enumeration. Accepts a [numbering pattern or function](numbering.md). If the numbering pattern contains multiple counting symbols, they apply to nested enums. If given a function, the function receives one argument if `full` is `false` and multiple arguments if `full` is `true`. ```typst #set enum(numbering: "1.a)") + Different + Numbering  + Nested  + Items + Style #set enum(numbering: n => super[#n]) + Superscript + Numbering! ```
   - type: str | function
   - default: "1."
 - start:
@@ -102,11 +102,11 @@ Enumeration items can contain multiple paragraphs and other block-level content.
   - type: length
   - default: 0.5em
 - spacing:
-  - description: The spacing between the items of the enumeration. If set to `auto`, uses paragraph [`leading`](/docs/reference/model/par/#parameters-leading) for tight enumerations and paragraph [`spacing`](/docs/reference/model/par/#parameters-spacing) for wide (non-tight) enumerations.
+  - description: The spacing between the items of the enumeration. If set to `auto`, uses paragraph [`leading`](par.md#parameters-leading) for tight enumerations and paragraph [`spacing`](par.md#parameters-spacing) for wide (non-tight) enumerations.
   - type: auto | length
   - default: auto
 - number-align:
-  - description: The alignment that enum numbers should have. By default, this is set to `end + top`, which aligns enum numbers towards end of the current text direction (in left-to-right script, for example, this is the same as `right`) and at the top of the line. The choice of `end` for horizontal alignment of enum numbers is usually preferred over `start`, as numbers then grow away from the text instead of towards it, avoiding certain visual issues. This option lets you override this behaviour, however. (Also to note is that the [unordered list](/docs/reference/model/list/) uses a different method for this, by giving the `marker` content an alignment directly.). ```typst #set enum(number-align: start + bottom) Here are some powers of two: 1. One 2. Two 4. Four 8. Eight 16. Sixteen 32. Thirty two ```
+  - description: The alignment that enum numbers should have. By default, this is set to `end + top`, which aligns enum numbers towards end of the current text direction (in left-to-right script, for example, this is the same as `right`) and at the top of the line. The choice of `end` for horizontal alignment of enum numbers is usually preferred over `start`, as numbers then grow away from the text instead of towards it, avoiding certain visual issues. This option lets you override this behaviour, however. (Also to note is that the [unordered list](list.md) uses a different method for this, by giving the `marker` content an alignment directly.). ```typst #set enum(number-align: start + bottom) Here are some powers of two: 1. One 2. Two 4. Four 8. Eight 16. Sixteen 32. Thirty two ```
   - type: alignment
   - default: end + top
 - children:

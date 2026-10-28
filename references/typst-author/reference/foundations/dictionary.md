@@ -4,11 +4,11 @@ A map from string keys to values.
 
 You can construct a dictionary by enclosing comma-separated `key: value` pairs in parentheses. The values do not have to be of the same type. Since empty parentheses already yield an empty array, you have to use the special `(:)` syntax to create an empty dictionary.
 
-A dictionary is conceptually similar to an [array](/docs/reference/foundations/array/), but it is indexed by strings instead of integers. You can access and create dictionary entries with the `.at()` method. If you know the key statically, you can alternatively use [field access notation](/docs/reference/scripting/#fields) (`.key`) to access the value. To check whether a key is present in the dictionary, use the `in` keyword.
+A dictionary is conceptually similar to an [array](array.md), but it is indexed by strings instead of integers. You can access and create dictionary entries with the `.at()` method. If you know the key statically, you can alternatively use [field access notation](../scripting.md#fields) (`.key`) to access the value. To check whether a key is present in the dictionary, use the `in` keyword.
 
-You can iterate over the pairs in a dictionary using a [for loop](/docs/reference/scripting/#loops). This will iterate in the order the pairs were inserted / declared initially.
+You can iterate over the pairs in a dictionary using a [for loop](../scripting.md#loops). This will iterate in the order the pairs were inserted / declared initially.
 
-Dictionaries can be added with the `+` operator and [joined together](/docs/reference/scripting/#blocks). They can also be [spread](/docs/reference/foundations/arguments/#spreading) into a function call or another dictionary[1](#1) with the `..spread` operator. In each case, if a key appears multiple times, the last value will override the others.
+Dictionaries can be added with the `+` operator and [joined together](../scripting.md#blocks). They can also be [spread](arguments.md#spreading) into a function call or another dictionary[1](#1) with the `..spread` operator. In each case, if a key appears multiple times, the last value will override the others.
 
 ## Example
 

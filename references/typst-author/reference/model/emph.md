@@ -4,7 +4,7 @@
 
 Emphasizes content by toggling italics.
 
-- If the current [text style](/docs/reference/text/text/#parameters-style) is `"normal"`, this turns it into `"italic"`.
+- If the current [text style](../text/text.md#parameters-style) is `"normal"`, this turns it into `"italic"`.
 - If it is already `"italic"` or `"oblique"`, it turns it back to `"normal"`.
 
 ## Example

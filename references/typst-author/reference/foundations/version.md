@@ -8,7 +8,7 @@ The list of components is semantically extended by an infinite list of zeros. Th
 
 The current version of the Typst compiler is available as `sys.version`.
 
-You can convert a version to an array of explicitly given components using the [`array`](/docs/reference/foundations/array/) constructor.
+You can convert a version to an array of explicitly given components using the [`array`](array.md) constructor.
 
 ## Constructor
 ## version
@@ -25,7 +25,7 @@ It can have any number of components (even zero).
 #version((1, 2), 3)
 ```
 
-As a practical use case, this allows comparing the current version ([`sys.version`](/docs/reference/foundations/version/)) to a specific one.
+As a practical use case, this allows comparing the current version ([`sys.version`](version.md)) to a specific one.
 
 ```typst
 Current version: #sys.version \

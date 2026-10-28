@@ -12,27 +12,27 @@ The function returns a dictionary, an array or, depending on the CBOR file, anot
 
 | CBOR value | Converted into Typst |
 | --- | --- |
-| integer | [`int`](/docs/reference/foundations/int/) (or [`float`](/docs/reference/foundations/float/)) |
-| bytes | [`bytes`](/docs/reference/foundations/bytes/) |
-| float | [`float`](/docs/reference/foundations/float/) |
-| text | [`str`](/docs/reference/foundations/str/) |
-| bool | [`bool`](/docs/reference/foundations/bool/) |
+| integer | [`int`](../foundations/int.md) (or [`float`](../foundations/float.md)) |
+| bytes | [`bytes`](../foundations/bytes.md) |
+| float | [`float`](../foundations/float.md) |
+| text | [`str`](../foundations/str.md) |
+| bool | [`bool`](../foundations/bool.md) |
 | null | `none` |
-| array | [`array`](/docs/reference/foundations/array/) |
-| map | [`dictionary`](/docs/reference/foundations/dictionary/) |
+| array | [`array`](../foundations/array.md) |
+| map | [`dictionary`](../foundations/dictionary.md) |
 
 | Typst value | Converted into CBOR |
 | --- | --- |
 | types that can be converted from CBOR | corresponding CBOR value |
-| [`symbol`](/docs/reference/foundations/symbol/) | text |
-| [`content`](/docs/reference/foundations/content/) | a map describing the content |
-| other types ([`length`](/docs/reference/layout/length/), etc.) | text via [`repr`](/docs/reference/foundations/repr/) |
+| [`symbol`](../foundations/symbol.md) | text |
+| [`content`](../foundations/content.md) | a map describing the content |
+| other types ([`length`](../layout/length.md), etc.) | text via [`repr`](../foundations/repr.md) |
 
 ### Notes
 
 - Be aware that CBOR integers larger than 263-1 or smaller than -263 will be converted to floating point numbers, which may result in an approximative value.
 - CBOR tags are not supported, and an error will be thrown.
-- The `repr` function is [for debugging purposes only](/docs/reference/foundations/repr/#debugging-only), and its output is not guaranteed to be stable across Typst versions.
+- The `repr` function is [for debugging purposes only](../foundations/repr.md#debugging-only), and its output is not guaranteed to be stable across Typst versions.
 
 ```typst
 #cbor(
@@ -43,7 +43,7 @@ The function returns a dictionary, an array or, depending on the CBOR file, anot
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to a CBOR file or raw CBOR bytes.
+  - description: A [path](../syntax.md#paths) to a CBOR file or raw CBOR bytes.
   - type: str | bytes
   - default: None
 

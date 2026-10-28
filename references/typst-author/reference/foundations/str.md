@@ -2,9 +2,9 @@
 
 A sequence of Unicode codepoints.
 
-You can iterate over the grapheme clusters of the string using a [for loop](/docs/reference/scripting/#loops). Grapheme clusters are basically characters but keep together things that belong together, e.g. multiple codepoints that together form a flag emoji. Strings can be added with the `+` operator, [joined together](/docs/reference/scripting/#blocks) and multiplied with integers.
+You can iterate over the grapheme clusters of the string using a [for loop](../scripting.md#loops). Grapheme clusters are basically characters but keep together things that belong together, e.g. multiple codepoints that together form a flag emoji. Strings can be added with the `+` operator, [joined together](../scripting.md#blocks) and multiplied with integers.
 
-Typst provides utility methods for string manipulation. Many of these methods (e.g., [`split`](/docs/reference/foundations/str/#definitions-split), [`trim`](/docs/reference/foundations/str/#definitions-trim) and [`replace`](/docs/reference/foundations/str/#definitions-replace)) operate on _patterns:_ A pattern can be either a string or a [regular expression](/docs/reference/foundations/regex/). This makes the methods quite versatile.
+Typst provides utility methods for string manipulation. Many of these methods (e.g., [`split`](str.md#definitions-split), [`trim`](str.md#definitions-trim) and [`replace`](str.md#definitions-replace)) operate on _patterns:_ A pattern can be either a string or a [regular expression](regex.md). This makes the methods quite versatile.
 
 All lengths and indices are expressed in terms of UTF-8 bytes. Indices are zero-based and negative indices wrap around to the end of the string.
 
@@ -43,7 +43,7 @@ Converts a value to a string.
 - From labels the name is extracted.
 - Bytes are decoded as UTF-8.
 
-If you wish to convert from and to Unicode code points, see the [`to-unicode`](/docs/reference/foundations/str/#definitions-to-unicode) and [`from-unicode`](/docs/reference/foundations/str/#definitions-from-unicode) functions.
+If you wish to convert from and to Unicode code points, see the [`to-unicode`](str.md#definitions-to-unicode) and [`from-unicode`](str.md#definitions-from-unicode) functions.
 
 ```typst
 #str(10) \
@@ -366,7 +366,7 @@ The returned dictionary has the following keys:
 
 ## str.matches
 
-Searches for the specified pattern in the string and returns an array of dictionaries with details about all matches. For details about the returned dictionaries, see [above](/docs/reference/foundations/str/#definitions-match).
+Searches for the specified pattern in the string and returns an array of dictionaries with details about all matches. For details about the returned dictionaries, see [above](str.md#definitions-match).
 
 ```typst
 #"Day by Day.".matches("Day")
@@ -404,7 +404,7 @@ Replace at most `count` occurrences of the given pattern with a replacement stri
   - type: str | regex
   - default: None
 - replacement:
-  - description: The string to replace the matches with or a function that gets a dictionary for each match and can return individual replacement strings. The dictionary passed to the function has the same shape as the dictionary returned by [`match`](/docs/reference/foundations/str/#definitions-match).
+  - description: The string to replace the matches with or a function that gets a dictionary for each match and can return individual replacement strings. The dictionary passed to the function has the same shape as the dictionary returned by [`match`](str.md#definitions-match).
   - type: str | function
   - default: None
 - count:

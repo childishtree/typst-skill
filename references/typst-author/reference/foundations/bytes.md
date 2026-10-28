@@ -2,15 +2,15 @@
 
 A sequence of bytes.
 
-This is conceptually similar to an array of [integers](/docs/reference/foundations/int/) between `0` and `255`, but represented much more efficiently. You can iterate over it using a [for loop](/docs/reference/scripting/#loops).
+This is conceptually similar to an array of [integers](int.md) between `0` and `255`, but represented much more efficiently. You can iterate over it using a [for loop](../scripting.md#loops).
 
 You can convert
 
-- a [string](/docs/reference/foundations/str/) or an [array](/docs/reference/foundations/array/) of integers to bytes with the [`bytes`](/docs/reference/foundations/bytes/) constructor
-- bytes to a string with the [`str`](/docs/reference/foundations/str/) constructor, with UTF-8 encoding
-- bytes to an array of integers with the [`array`](/docs/reference/foundations/array/) constructor
+- a [string](str.md) or an [array](array.md) of integers to bytes with the [`bytes`](bytes.md) constructor
+- bytes to a string with the [`str`](str.md) constructor, with UTF-8 encoding
+- bytes to an array of integers with the [`array`](array.md) constructor
 
-When [reading](/docs/reference/data-loading/read/) data from a file, you can decide whether to load it as a string or as raw bytes.
+When [reading](../data-loading/read.md) data from a file, you can decide whether to load it as a string or as raw bytes.
 
 ```typst
 #bytes((123, 160, 22, 0)) \

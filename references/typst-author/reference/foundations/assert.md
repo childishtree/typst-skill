@@ -6,7 +6,7 @@ Ensures that a condition is fulfilled.
 
 Fails with an error if the condition is not fulfilled. Does not produce any output in the document.
 
-If you wish to test equality between two values, see [`assert.eq`](/docs/reference/foundations/assert/#definitions-eq) and [`assert.ne`](/docs/reference/foundations/assert/#definitions-ne).
+If you wish to test equality between two values, see [`assert.eq`](assert.md#definitions-eq) and [`assert.ne`](assert.md#definitions-ne).
 
 ## Example
 

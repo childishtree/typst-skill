@@ -4,9 +4,9 @@
 
 A column vector.
 
-Content in the vector's elements can be aligned with the [`align`](/docs/reference/math/vec/#parameters-align) parameter, or the `&` symbol.
+Content in the vector's elements can be aligned with the [`align`](vec.md#parameters-align) parameter, or the `&` symbol.
 
-This function is for typesetting vector components. To typeset a symbol that represents a vector, [`arrow`](/docs/reference/math/accent/) and [`bold`](/docs/reference/math/styles/#functions-bold) are commonly used.
+This function is for typesetting vector components. To typeset a symbol that represents a vector, [`arrow`](accent.md) and [`bold`](styles.md#functions-bold) are commonly used.
 
 ## Example
 

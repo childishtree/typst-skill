@@ -24,7 +24,7 @@ Adds a line over text.
 ## Parameters
 
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the line. If set to `auto`, takes on the text\'s color and a thickness defined in the current font. ```typst #set text(fill: olive) #overline(  stroke: green.darken(20%),  offset: -12pt,  [The Forest Theme], ) ```
+  - description: How to [stroke](../visualize/stroke.md) the line. If set to `auto`, takes on the text\'s color and a thickness defined in the current font. ```typst #set text(fill: olive) #overline(  stroke: green.darken(20%),  offset: -12pt,  [The Forest Theme], ) ```
   - type: auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - offset:

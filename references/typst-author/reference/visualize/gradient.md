@@ -2,14 +2,14 @@
 
 A color gradient.
 
-Typst supports linear gradients through the [`gradient.linear` function](/docs/reference/visualize/gradient/#definitions-linear), radial gradients through the [`gradient.radial` function](/docs/reference/visualize/gradient/#definitions-radial), and conic gradients through the [`gradient.conic` function](/docs/reference/visualize/gradient/#definitions-conic).
+Typst supports linear gradients through the [`gradient.linear` function](gradient.md#definitions-linear), radial gradients through the [`gradient.radial` function](gradient.md#definitions-radial), and conic gradients through the [`gradient.conic` function](gradient.md#definitions-conic).
 
 A gradient can be used for the following purposes:
 
 - As a fill to paint the interior of a shape: `rect(fill: gradient.linear(..))`
 - As a stroke to paint the outline of a shape: `rect(stroke: 1pt + gradient.linear(..))`
 - As the fill of text: `set text(fill: gradient.linear(..))`
-- As a color map you can [sample](/docs/reference/visualize/gradient/#definitions-sample) from: `gradient.linear(..).sample(50%)`
+- As a color map you can [sample](gradient.md#definitions-sample) from: `gradient.linear(..).sample(50%)`
 
 ## Examples
 
@@ -23,7 +23,7 @@ A gradient can be used for the following purposes:
 )
 ```
 
-Gradients are also supported on text, but only when setting the [relativeness](/docs/reference/visualize/gradient/#definitions-relative) to either `auto` (the default value) or `"parent"`. To create word-by-word or glyph-by-glyph gradients, you can wrap the words or characters of your text in [boxes](/docs/reference/layout/box/) manually or through a [show rule](/docs/reference/styling/#show-rules).
+Gradients are also supported on text, but only when setting the [relativeness](gradient.md#definitions-relative) to either `auto` (the default value) or `"parent"`. To create word-by-word or glyph-by-glyph gradients, you can wrap the words or characters of your text in [boxes](../layout/box.md) manually or through a [show rule](../styling.md#show-rules).
 
 ```typst
 #set text(fill: gradient.linear(red, blue))
@@ -37,9 +37,9 @@ This is a gradient on text, but with a #rainbow[twist]!
 
 ## Stops
 
-A gradient is composed of a series of stops. Each of these stops has a color and an offset. The offset is a [ratio](/docs/reference/layout/ratio/) between `0%` and `100%` or an angle between `0deg` and `360deg`. The offset is a relative position that determines how far along the gradient the stop is located. The stop's color is the color of the gradient at that position. You can choose to omit the offsets when defining a gradient. In this case, Typst will space all stops evenly.
+A gradient is composed of a series of stops. Each of these stops has a color and an offset. The offset is a [ratio](../layout/ratio.md) between `0%` and `100%` or an angle between `0deg` and `360deg`. The offset is a relative position that determines how far along the gradient the stop is located. The stop's color is the color of the gradient at that position. You can choose to omit the offsets when defining a gradient. In this case, Typst will space all stops evenly.
 
-Typst predefines color maps that you can use as stops. See the [`color`](/docs/reference/visualize/color/#predefined-color-maps) documentation for more details.
+Typst predefines color maps that you can use as stops. See the [`color`](color.md#predefined-color-maps) documentation for more details.
 
 ## Relativeness
 
@@ -48,24 +48,24 @@ The location of the `0%` and `100%` stops depends on the dimensions of a contain
 Typst determines the ancestor container as follows:
 
 - For shapes that are placed at the root/top level of the document, the closest ancestor is the page itself.
-- For other shapes, the ancestor is the innermost [`block`](/docs/reference/layout/block/) or [`box`](/docs/reference/layout/box/) that contains the shape. This includes the boxes and blocks that are implicitly created by show rules and elements. For example, a [`rotate`](/docs/reference/layout/rotate/) will not affect the parent of a gradient, but a [`grid`](/docs/reference/layout/grid/) will.
+- For other shapes, the ancestor is the innermost [`block`](../layout/block.md) or [`box`](../layout/box.md) that contains the shape. This includes the boxes and blocks that are implicitly created by show rules and elements. For example, a [`rotate`](../layout/rotate.md) will not affect the parent of a gradient, but a [`grid`](../layout/grid.md) will.
 
 ## Color spaces and interpolation
 
-Gradients can be interpolated in any color space. By default, gradients are interpolated in the [Oklab](/docs/reference/visualize/color/#definitions-oklab) color space, which is a [perceptually uniform](https://programmingdesignsystems.com/color/perceptually-uniform-color-spaces/index.html) color space. This means that the gradient will be perceived as having a smooth progression of colors. This is particularly useful for data visualization.
+Gradients can be interpolated in any color space. By default, gradients are interpolated in the [Oklab](color.md#definitions-oklab) color space, which is a [perceptually uniform](https://programmingdesignsystems.com/color/perceptually-uniform-color-spaces/index.html) color space. This means that the gradient will be perceived as having a smooth progression of colors. This is particularly useful for data visualization.
 
 However, you can choose to interpolate the gradient in any supported color space you want, but beware that some color spaces are not suitable for perceptually interpolating between colors. Consult the table below when choosing an interpolation space.
 
 | Color space | Perceptually uniform? |
 | --- | --- |
-| [Oklab](/docs/reference/visualize/color/#definitions-oklab) | _Yes_ |
-| [Oklch](/docs/reference/visualize/color/#definitions-oklch) | _Yes_ |
-| [sRGB](/docs/reference/visualize/color/#definitions-rgb) | _No_ |
-| [linear-RGB](/docs/reference/visualize/color/#definitions-linear-rgb) | _Yes_ |
-| [CMYK](/docs/reference/visualize/color/#definitions-cmyk) | _No_ |
-| [Grayscale](/docs/reference/visualize/color/#definitions-luma) | _Yes_ |
-| [HSL](/docs/reference/visualize/color/#definitions-hsl) | _No_ |
-| [HSV](/docs/reference/visualize/color/#definitions-hsv) | _No_ |
+| [Oklab](color.md#definitions-oklab) | _Yes_ |
+| [Oklch](color.md#definitions-oklch) | _Yes_ |
+| [sRGB](color.md#definitions-rgb) | _No_ |
+| [linear-RGB](color.md#definitions-linear-rgb) | _Yes_ |
+| [CMYK](color.md#definitions-cmyk) | _No_ |
+| [Grayscale](color.md#definitions-luma) | _Yes_ |
+| [HSL](color.md#definitions-hsl) | _No_ |
+| [HSV](color.md#definitions-hsv) | _No_ |
 
 ## Direction
 
@@ -87,7 +87,7 @@ Some gradients are sensitive to direction. For example, a linear gradient has an
 Gradients can be quite large, especially if they have many stops. This is because gradients are stored as a list of colors and offsets, which can take up a lot of space. If you are concerned about file sizes, you should consider the following:
 
 - SVG gradients are currently inefficiently encoded. This will be improved in the future.
-- PDF gradients in the [`color.oklab`](/docs/reference/visualize/color/#definitions-oklab), [`color.hsv`](/docs/reference/visualize/color/#definitions-hsv), [`color.hsl`](/docs/reference/visualize/color/#definitions-hsl), and [`color.oklch`](/docs/reference/visualize/color/#definitions-oklch) color spaces are stored as a list of [`color.rgb`](/docs/reference/visualize/color/#definitions-rgb) colors with extra stops in between. This avoids needing to encode these color spaces in your PDF file, but it does add extra stops to your gradient, which can increase the file size.
+- PDF gradients in the [`color.oklab`](color.md#definitions-oklab), [`color.hsv`](color.md#definitions-hsv), [`color.hsl`](color.md#definitions-hsl), and [`color.oklch`](color.md#definitions-oklch) color spaces are stored as a list of [`color.rgb`](color.md#definitions-rgb) colors with extra stops in between. This avoids needing to encode these color spaces in your PDF file, but it does add extra stops to your gradient, which can increase the file size.
 
 
 ## Methods
@@ -123,7 +123,7 @@ Creates a new linear gradient, in which colors transition along a straight line.
   - type: color | array
   - default: None
 - space:
-  - description: The color space in which to interpolate the gradient. Defaults to a perceptually uniform color space called [Oklab](/docs/reference/visualize/color/#definitions-oklab).
+  - description: The color space in which to interpolate the gradient. Defaults to a perceptually uniform color space called [Oklab](color.md#definitions-oklab).
   - type: any
   - default: oklab
 - relative:
@@ -181,7 +181,7 @@ Using these four values, also called the focal point for the starting circle and
   - type: color | array
   - default: None
 - space:
-  - description: The color space in which to interpolate the gradient. Defaults to a perceptually uniform color space called [Oklab](/docs/reference/visualize/color/#definitions-oklab).
+  - description: The color space in which to interpolate the gradient. Defaults to a perceptually uniform color space called [Oklab](color.md#definitions-oklab).
   - type: any
   - default: oklab
 - relative:
@@ -246,7 +246,7 @@ You can control the center point of the gradient by using the `center` argument.
   - type: angle
   - default: 0deg
 - space:
-  - description: The color space in which to interpolate the gradient. Defaults to a perceptually uniform color space called [Oklab](/docs/reference/visualize/color/#definitions-oklab).
+  - description: The color space in which to interpolate the gradient. Defaults to a perceptually uniform color space called [Oklab](color.md#definitions-oklab).
   - type: any
   - default: oklab
 - relative:
@@ -371,7 +371,7 @@ Returns `none` if the gradient is not radial.
 
 Sample the gradient at a given position.
 
-The position is either a position along the gradient (a [ratio](/docs/reference/layout/ratio/) between `0%` and `100%`) or an [angle](/docs/reference/layout/angle/). Any value outside of this range will be clamped.
+The position is either a position along the gradient (a [ratio](../layout/ratio.md) between `0%` and `100%`) or an [angle](../layout/angle.md). Any value outside of this range will be clamped.
 
 ```typst
 #gradient.sample(

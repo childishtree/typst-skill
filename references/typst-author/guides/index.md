@@ -4,7 +4,7 @@ Welcome to the Guides section! Here, you'll find helpful material for specific u
 
 ## List of Guides
 
-- [Guide for LaTeX Users](/docs/guides/for-latex-users/)
-- [Page Setup Guide](/docs/guides/page-setup/)
-- [Table Guide](/docs/guides/tables/)
-- [Accessibility Guide](/docs/guides/accessibility/)
+- [Guide for LaTeX Users](for-latex-users.md)
+- [Page Setup Guide](page-setup.md)
+- [Table Guide](tables.md)
+- [Accessibility Guide](accessibility.md)

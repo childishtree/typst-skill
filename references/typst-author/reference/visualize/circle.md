@@ -46,19 +46,19 @@ A circle with optional content.
   - type: auto | relative | fraction
   - default: auto
 - fill:
-  - description: How to fill the circle. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-fill) for more details.
+  - description: How to fill the circle. See the [rectangle\'s documentation](rect.md#parameters-fill) for more details.
   - type: none | color | gradient | tiling
   - default: none
 - stroke:
-  - description: How to stroke the circle. See the [rectangle\'s documentation](/docs/reference/visualize/rect/#parameters-stroke) for more details.
+  - description: How to stroke the circle. See the [rectangle\'s documentation](rect.md#parameters-stroke) for more details.
   - type: none | auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - inset:
-  - description: How much to pad the circle\'s content. See the [box\'s documentation](/docs/reference/layout/box/#parameters-inset) for more details.
+  - description: How much to pad the circle\'s content. See the [box\'s documentation](../layout/box.md#parameters-inset) for more details.
   - type: relative | dictionary
   - default: 0 % + 5pt
 - outset:
-  - description: How much to expand the circle\'s size without affecting the layout. See the [box\'s documentation](/docs/reference/layout/box/#parameters-outset) for more details.
+  - description: How much to expand the circle\'s size without affecting the layout. See the [box\'s documentation](../layout/box.md#parameters-outset) for more details.
   - type: relative | dictionary
   - default: (:)
 - body:

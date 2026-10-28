@@ -4,9 +4,9 @@ A label for an element.
 
 Inserting a label into content attaches it to the closest preceding element that is not a space. The preceding element must be in the same scope as the label, which means that `Hello #[<label>]`, for instance, wouldn't work.
 
-A labelled element can be [referenced](/docs/reference/model/ref/), [queried](/docs/reference/introspection/query/) for, and [styled](/docs/reference/styling/) through its label.
+A labelled element can be [referenced](../model/ref.md), [queried](../introspection/query.md) for, and [styled](../styling.md) through its label.
 
-Once constructed, you can get the name of a label using [`str`](/docs/reference/foundations/str/#constructor).
+Once constructed, you can get the name of a label using [`str`](str.md#constructor).
 
 ## Example
 

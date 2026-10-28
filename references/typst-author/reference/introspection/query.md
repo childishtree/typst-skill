@@ -4,11 +4,11 @@
 
 Finds elements in the document.
 
-The `query` function lets you search your document for elements of a particular type or with a particular label. To use it, you first need to ensure that [context](/docs/reference/context/) is available.
+The `query` function lets you search your document for elements of a particular type or with a particular label. To use it, you first need to ensure that [context](../context.md) is available.
 
 ## Finding elements
 
-In the example below, we manually create a table of contents instead of using the [`outline`](/docs/reference/model/outline/) function.
+In the example below, we manually create a table of contents instead of using the [`outline`](../model/outline.md) function.
 
 To do this, we first query for all headings in the document at level 1 and where `outlined` is true. Querying only for headings at level 1 ensures that, for the purpose of this example, sub-headings are not included in the table of contents. The `outlined` field is used to exclude the "Table of Contents" heading itself.
 
@@ -48,7 +48,7 @@ Note that we open a `context` to be able to use the `query` function.
 #lorem(18)
 ```
 
-To get the page numbers, we first get the location of the elements returned by `query` with [`location`](/docs/reference/foundations/content/#definitions-location). We then also retrieve the [page numbering](/docs/reference/introspection/location/#definitions-page-numbering) and [page counter](/docs/reference/introspection/counter/#page-counter) at that location and apply the numbering to the counter.
+To get the page numbers, we first get the location of the elements returned by `query` with [`location`](../foundations/content.md#definitions-location). We then also retrieve the [page numbering](location.md#definitions-page-numbering) and [page counter](counter.md#page-counter) at that location and apply the numbering to the counter.
 
 ## A word of caution
 
@@ -56,7 +56,7 @@ To resolve all your queries, Typst evaluates and layouts parts of the document m
 
 In the example below, we query for all headings in the document. We then generate as many headings. In the beginning, there's just one heading, titled `Real`. Thus, `count` is `1` and one `Fake` heading is generated. Typst sees that the query's result has changed and processes it again. This time, `count` is `2` and two `Fake` headings are generated. This goes on and on. As we can see, the output has a finite amount of headings. This is because Typst simply gives up after a few attempts.
 
-In general, you should try not to write queries that affect themselves. The same words of caution also apply to other introspection features like [counters](/docs/reference/introspection/counter/) and [state](/docs/reference/introspection/state/).
+In general, you should try not to write queries that affect themselves. The same words of caution also apply to other introspection features like [counters](counter.md) and [state](state.md).
 
 ```typst
 = Real
@@ -69,7 +69,7 @@ In general, you should try not to write queries that affect themselves. The same
 
 ## Command line queries
 
-You can also perform queries from the command line with the `typst query` command. This command executes an arbitrary query on the document and returns the resulting elements in serialized form. Consider the following `example.typ` file which contains some invisible [metadata](/docs/reference/introspection/metadata/):
+You can also perform queries from the command line with the `typst query` command. This command executes an arbitrary query on the document and returns the resulting elements in serialized form. Consider the following `example.typ` file which contains some invisible [metadata](metadata.md):
 
 ```typst
 #metadata("This is a note") <note>
@@ -109,7 +109,7 @@ $ typst query example.typ "<note>" --field value --one
 
 ### Querying for a specific export target
 
-In case you need to query a document when exporting for a specific target, you can use the `--target` argument. Valid values are `paged`, and `html` (if the [`html`](/docs/reference/html/) feature is enabled).
+In case you need to query a document when exporting for a specific target, you can use the `--target` argument. Valid values are `paged`, and `html` (if the [`html`](../html/) feature is enabled).
 
 ```typst
 #query(
@@ -120,7 +120,7 @@ In case you need to query a document when exporting for a specific target, you c
 ## Parameters
 
 - target:
-  - description: Can be - an element function like a `heading` or `figure`, - a `<label>`, - a more complex selector like `heading.where(level: 1)`, - or `selector(heading).before(here())`. Only [locatable](/docs/reference/introspection/location/#locatable) element functions are supported.
+  - description: Can be - an element function like a `heading` or `figure`, - a `<label>`, - a more complex selector like `heading.where(level: 1)`, - or `selector(heading).before(here())`. Only [locatable](location.md#locatable) element functions are supported.
   - type: label | selector | location | function
   - default: None
 

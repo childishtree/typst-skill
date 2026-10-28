@@ -4,11 +4,11 @@ Counts through pages, elements, and more.
 
 With the counter function, you can access and modify counters for pages, headings, figures, and more. Moreover, you can define custom counters for other things you want to count.
 
-Since counters change throughout the course of the document, their current value is _contextual._ It is recommended to read the chapter on [context](/docs/reference/context/) before continuing here.
+Since counters change throughout the course of the document, their current value is _contextual._ It is recommended to read the chapter on [context](../context.md) before continuing here.
 
 ## Accessing a counter
 
-To access the raw value of a counter, we can use the [`get`](/docs/reference/introspection/counter/#definitions-get) function. This function returns an [array](/docs/reference/foundations/array/): Counters can have multiple levels (in the case of headings for sections, subsections, and so on), and each item in the array corresponds to one level.
+To access the raw value of a counter, we can use the [`get`](counter.md#definitions-get) function. This function returns an [array](../foundations/array.md): Counters can have multiple levels (in the case of headings for sections, subsections, and so on), and each item in the array corresponds to one level.
 
 ```typst
 #set heading(numbering: "1.")
@@ -20,7 +20,7 @@ Raw value of heading counter is
 
 ## Displaying a counter
 
-Often, we want to display the value of a counter in a more human-readable way. To do that, we can call the [`display`](/docs/reference/introspection/counter/#definitions-display) function on the counter. This function retrieves the current counter value and formats it either with a provided or with an automatically inferred [numbering](/docs/reference/model/numbering/).
+Often, we want to display the value of a counter in a more human-readable way. To do that, we can call the [`display`](counter.md#definitions-display) function on the counter. This function retrieves the current counter value and formats it either with a provided or with an automatically inferred [numbering](../model/numbering.md).
 
 ```typst
 #set heading(numbering: "1.")
@@ -146,7 +146,7 @@ Counters can travel through time! You can find out the final value of the counte
 
 ## Other kinds of state
 
-The `counter` type is closely related to [state](/docs/reference/introspection/state/) type. Read its documentation for more details on state management in Typst and why it doesn't just use normal variables for counters.
+The `counter` type is closely related to [state](state.md) type. Read its documentation for more details on state management in Typst and why it doesn't just use normal variables for counters.
 
 ## Constructor
 ## counter
@@ -162,7 +162,7 @@ Create a new counter identified by a key.
 ### Parameters
 
 - key:
-  - description: The key that identifies this counter globally. - If it is a string, creates a custom counter that is only affected by manual updates, - If it is the [`page`](/docs/reference/layout/page/) function, counts through pages, - If it is a [selector](/docs/reference/foundations/selector/), counts through elements that match the selector. For example,  - provide an element function: counts elements of that type,  - provide a [`where`](/docs/reference/foundations/function/#definitions-where) selector: counts a type of element with specific fields,  - provide a [`<label>`](/docs/reference/foundations/label/): counts elements with that label.
+  - description: The key that identifies this counter globally. - If it is a string, creates a custom counter that is only affected by manual updates, - If it is the [`page`](../layout/page.md) function, counts through pages, - If it is a [selector](../foundations/selector.md), counts through elements that match the selector. For example,  - provide an element function: counts elements of that type,  - provide a [`where`](../foundations/function.md#definitions-where) selector: counts a type of element with specific fields,  - provide a [`<label>`](../foundations/label.md): counts elements with that label.
   - type: str | label | selector | location | function
   - default: None
 
@@ -189,7 +189,7 @@ Displays the current value of the counter with a numbering and returns the forma
 ### Parameters
 
 - numbering:
-  - description: A [numbering pattern or a function](/docs/reference/model/numbering/), which specifies how to display the counter. If given a function, that function receives each number of the counter as a separate argument. If the amount of numbers varies, e.g. for the heading argument, you can use an [argument sink](/docs/reference/foundations/arguments/). If this is omitted or set to `auto`, displays the counter with the numbering style for the counted element or with the pattern `"1.1"` if no such style exists.
+  - description: A [numbering pattern or a function](../model/numbering.md), which specifies how to display the counter. If given a function, that function receives each number of the counter as a separate argument. If the amount of numbers varies, e.g. for the heading argument, you can use an [argument sink](../foundations/arguments.md). If this is omitted or set to `auto`, displays the counter with the numbering style for the counted element or with the pattern `"1.1"` if no such style exists.
   - type: auto | str | function
   - default: auto
 - both:
@@ -201,7 +201,7 @@ Displays the current value of the counter with a numbering and returns the forma
 
 Retrieves the value of the counter at the given location. Always returns an array of integers, even if the counter has just one number.
 
-The `selector` must match exactly one element in the document. The most useful kinds of selectors for this are [labels](/docs/reference/foundations/label/) and [locations](/docs/reference/introspection/location/).
+The `selector` must match exactly one element in the document. The most useful kinds of selectors for this are [labels](../foundations/label.md) and [locations](location.md).
 
 ```typst
 #counter.at(

@@ -11,7 +11,7 @@ In contrast to Typst's other export formats, PNGs are bound to a specific resolu
 
 Because PNGs only contain a pixel raster, the text within cannot be extracted automatically (without OCR), for example by copy/paste or a screen reader. If you need the text to be accessible, export a PDF or HTML file instead.
 
-PNGs can have transparent backgrounds. By default, Typst will output a PNG with an opaque white background. You can make the background transparent using `#set page(fill: none)`. Learn more on the [`page` function's reference page](/docs/reference/layout/page/#parameters-fill).
+PNGs can have transparent backgrounds. By default, Typst will output a PNG with an opaque white background. You can make the background transparent using `#set page(fill: none)`. Learn more on the [`page` function's reference page](layout/page.md#parameters-fill).
 
 ## Exporting as PNG
 

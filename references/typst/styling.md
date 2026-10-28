@@ -136,6 +136,10 @@ Inline pattern: `#set text(font: "Your Variable Font", weight: 650, variations: 
 
 ## CJK 伪粗体与伪斜体（中文加粗/斜体不生效）
 
+> 以下结论的实测环境：**typst 0.15.0 / cuti 0.4.0 / Windows**，字体见「症状」那张表。
+> 换 typst 或 cuti 的大版本时，先重跑「复现与验证」一节再相信这里的判断——
+> 尤其"`show strong` 不丢拉丁粗体"这条，它是实测结论，不是规范保证。
+
 ### 症状
 
 中文的 `*粗体*` 和 `_斜体_` 可能**静默失效**：拉丁字母正常变粗/变斜，汉字纹丝不动，

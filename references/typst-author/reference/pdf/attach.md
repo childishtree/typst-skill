@@ -37,7 +37,7 @@ Some international standards use this mechanism to attach machine-readable data 
 ## Parameters
 
 - path:
-  - description: The [path](/docs/reference/syntax/#paths) of the file to be attached. Must always be specified, but is only read from if no data is provided in the following argument.
+  - description: The [path](../syntax.md#paths) of the file to be attached. Must always be specified, but is only read from if no data is provided in the following argument.
   - type: str
   - default: None
 - data:

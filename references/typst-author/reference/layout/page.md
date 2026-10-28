@@ -8,7 +8,7 @@ Although this function is primarily used in set rules to affect page properties,
 
 Pages can be set to use `auto` as their width or height. In this case, the pages will grow to fit their content on the respective axis.
 
-The [Guide for Page Setup](/docs/guides/page-setup/) explains how to use this and related functions to set up a document with many examples.
+The [Guide for Page Setup](../../guides/page-setup.md) explains how to use this and related functions to set up a document with many examples.
 
 ## Example
 
@@ -56,7 +56,7 @@ The contents of the page's header, footer, foreground, and background are invisi
   - type: auto | length
   - default: 595.28pt
 - height:
-  - description: The height of the page. If this is set to `auto`, page breaks can only be triggered manually by inserting a [page break](/docs/reference/layout/pagebreak/) or by adding another non-empty page set rule. Most examples throughout this documentation use `auto` for the height of the page to dynamically grow and shrink to fit their content.
+  - description: The height of the page. If this is set to `auto`, page breaks can only be triggered manually by inserting a [page break](pagebreak.md) or by adding another non-empty page set rule. Most examples throughout this documentation use `auto` for the height of the page to dynamically grow and shrink to fit their content.
   - type: auto | length
   - default: 841.89pt
 - flipped:
@@ -64,15 +64,15 @@ The contents of the page's header, footer, foreground, and background are invisi
   - type: bool
   - default: false
 - margin:
-  - description: The page\'s margins. - `auto`: The margins are set automatically to 2.5/21 times the smaller dimension of the page. This results in 2.5 cm margins for an A4 page. - A single length: The same margin on all sides. - A dictionary: With a dictionary, the margins can be set individually. The dictionary can contain the following keys in order of precedence:  - `top`: The top margin.  - `right`: The right margin.  - `bottom`: The bottom margin.  - `left`: The left margin.  - `inside`: The margin at the inner side of the page (where the [binding](/docs/reference/layout/page/#parameters-binding) is).  - `outside`: The margin at the outer side of the page (opposite to the [binding](/docs/reference/layout/page/#parameters-binding)).  - `x`: The horizontal margins.  - `y`: The vertical margins.  - `rest`: The margins on all sides except those for which the dictionary explicitly sets a size. All keys are optional; omitted keys will use their previously set value, or the default margin if never set. In addition, the values for `left` and `right` are mutually exclusive with the values for `inside` and `outside`. ```typst #set page( width: 3cm, height: 4cm, margin: (x: 8pt, y: 4pt), ) #rect(  width: 100%,  height: 100%,  fill: aqua, ) ```
+  - description: The page\'s margins. - `auto`: The margins are set automatically to 2.5/21 times the smaller dimension of the page. This results in 2.5 cm margins for an A4 page. - A single length: The same margin on all sides. - A dictionary: With a dictionary, the margins can be set individually. The dictionary can contain the following keys in order of precedence:  - `top`: The top margin.  - `right`: The right margin.  - `bottom`: The bottom margin.  - `left`: The left margin.  - `inside`: The margin at the inner side of the page (where the [binding](page.md#parameters-binding) is).  - `outside`: The margin at the outer side of the page (opposite to the [binding](page.md#parameters-binding)).  - `x`: The horizontal margins.  - `y`: The vertical margins.  - `rest`: The margins on all sides except those for which the dictionary explicitly sets a size. All keys are optional; omitted keys will use their previously set value, or the default margin if never set. In addition, the values for `left` and `right` are mutually exclusive with the values for `inside` and `outside`. ```typst #set page( width: 3cm, height: 4cm, margin: (x: 8pt, y: 4pt), ) #rect(  width: 100%,  height: 100%,  fill: aqua, ) ```
   - type: auto | relative | dictionary
   - default: auto
 - binding:
-  - description: On which side the pages will be bound. - `auto`: Equivalent to `left` if the [text direction](/docs/reference/text/text/#parameters-dir) is left-to-right and `right` if it is right-to-left. - `left`: Bound on the left side. - `right`: Bound on the right side. This affects the meaning of the `inside` and `outside` options for margins.
+  - description: On which side the pages will be bound. - `auto`: Equivalent to `left` if the [text direction](../text/text.md#parameters-dir) is left-to-right and `right` if it is right-to-left. - `left`: Bound on the left side. - `right`: Bound on the right side. This affects the meaning of the `inside` and `outside` options for margins.
   - type: auto | alignment
   - default: auto
 - columns:
-  - description: How many columns the page has. If you need to insert columns into a page or other container, you can also use the [`columns` function](/docs/reference/layout/columns/). ```typst #set page(columns: 2, height: 4.8cm) Climate change is one of the most pressing issues of our time, with the potential to devastate communities, ecosystems, and economies around the world. It\'s clear that we need to take urgent action to reduce our carbon emissions and mitigate the impacts of a rapidly changing climate. ```
+  - description: How many columns the page has. If you need to insert columns into a page or other container, you can also use the [`columns` function](columns.md). ```typst #set page(columns: 2, height: 4.8cm) Climate change is one of the most pressing issues of our time, with the potential to devastate communities, ecosystems, and economies around the world. It\'s clear that we need to take urgent action to reduce our carbon emissions and mitigate the impacts of a rapidly changing climate. ```
   - type: int
   - default: 1
 - fill:
@@ -80,7 +80,7 @@ The contents of the page's header, footer, foreground, and background are invisi
   - type: none | auto | color | gradient | tiling
   - default: auto
 - numbering:
-  - description: How to number the pages. You can refer to the Page Setup Guide for [customizing page numbers](/docs/guides/page-setup/#page-numbers). Accepts a [numbering pattern or function](/docs/reference/model/numbering/) taking one or two numbers: 1. The first number is the current page number. 2. The second number is the total number of pages. In a numbering pattern, the second number can be omitted. If a function is passed, it will receive one argument in the context of links or references, and two arguments when producing the visible page numbers. These are logical numbers controlled by the page counter, and may thus not match the physical numbers. Specifically, they are the [current](/docs/reference/introspection/counter/#definitions-get) and the [final](/docs/reference/introspection/counter/#definitions-final) value of `counter(page)`. See the [`counter`](/docs/reference/introspection/counter/#page-counter) documentation for more details. If an explicit [`footer`](/docs/reference/layout/page/#parameters-footer) (or [`header`](/docs/reference/layout/page/#parameters-header) for [top-aligned](/docs/reference/layout/page/#parameters-number-align) numbering) is given, the numbering is ignored. ```typst #set page(  height: 100pt,  margin: (top: 16pt, bottom: 24pt),  numbering: "1 / 1", ) #lorem(48) ```
+  - description: How to number the pages. You can refer to the Page Setup Guide for [customizing page numbers](../../guides/page-setup.md#page-numbers). Accepts a [numbering pattern or function](../model/numbering.md) taking one or two numbers: 1. The first number is the current page number. 2. The second number is the total number of pages. In a numbering pattern, the second number can be omitted. If a function is passed, it will receive one argument in the context of links or references, and two arguments when producing the visible page numbers. These are logical numbers controlled by the page counter, and may thus not match the physical numbers. Specifically, they are the [current](../introspection/counter.md#definitions-get) and the [final](../introspection/counter.md#definitions-final) value of `counter(page)`. See the [`counter`](../introspection/counter.md#page-counter) documentation for more details. If an explicit [`footer`](page.md#parameters-footer) (or [`header`](page.md#parameters-header) for [top-aligned](page.md#parameters-number-align) numbering) is given, the numbering is ignored. ```typst #set page(  height: 100pt,  margin: (top: 16pt, bottom: 24pt),  numbering: "1 / 1", ) #lorem(48) ```
   - type: none | str | function
   - default: none
 - supplement:
@@ -92,7 +92,7 @@ The contents of the page's header, footer, foreground, and background are invisi
   - type: alignment
   - default: center + bottom
 - header:
-  - description: The page\'s header. Fills the top margin of each page. - Content: Shows the content as the header. - `auto`: Shows the page number if a [`numbering`](/docs/reference/layout/page/#parameters-numbering) is set and [`number-align`](/docs/reference/layout/page/#parameters-number-align) is `top`. - `none`: Suppresses the header. ```typst #set par(justify: true) #set page(  margin: (top: 32pt, bottom: 20pt),  header: [   #set text(8pt)   #smallcaps[Typst Academy]   #h(1fr) _Exercise Sheet 3_  ], ) #lorem(19) ```
+  - description: The page\'s header. Fills the top margin of each page. - Content: Shows the content as the header. - `auto`: Shows the page number if a [`numbering`](page.md#parameters-numbering) is set and [`number-align`](page.md#parameters-number-align) is `top`. - `none`: Suppresses the header. ```typst #set par(justify: true) #set page(  margin: (top: 32pt, bottom: 20pt),  header: [   #set text(8pt)   #smallcaps[Typst Academy]   #h(1fr) _Exercise Sheet 3_  ], ) #lorem(19) ```
   - type: none | auto | content
   - default: auto
 - header-ascent:
@@ -100,7 +100,7 @@ The contents of the page's header, footer, foreground, and background are invisi
   - type: relative
   - default: 30 % + 0pt
 - footer:
-  - description: The page\'s footer. Fills the bottom margin of each page. - Content: Shows the content as the footer. - `auto`: Shows the page number if a [`numbering`](/docs/reference/layout/page/#parameters-numbering) is set and [`number-align`](/docs/reference/layout/page/#parameters-number-align) is `bottom`. - `none`: Suppresses the footer. For just a page number, the `numbering` property typically suffices. If you want to create a custom footer but still display the page number, you can directly access the [page counter](/docs/reference/introspection/counter/). ```typst #set par(justify: true) #set page(  height: 100pt,  margin: 20pt,  footer: context [   #set align(right)   #set text(8pt)   #counter(page).display(    "1 of I",    both: true,   )  ] ) #lorem(48) ```
+  - description: The page\'s footer. Fills the bottom margin of each page. - Content: Shows the content as the footer. - `auto`: Shows the page number if a [`numbering`](page.md#parameters-numbering) is set and [`number-align`](page.md#parameters-number-align) is `bottom`. - `none`: Suppresses the footer. For just a page number, the `numbering` property typically suffices. If you want to create a custom footer but still display the page number, you can directly access the [page counter](../introspection/counter.md). ```typst #set par(justify: true) #set page(  height: 100pt,  margin: 20pt,  footer: context [   #set align(right)   #set text(8pt)   #counter(page).display(    "1 of I",    both: true,   )  ] ) #lorem(48) ```
   - type: none | auto | content
   - default: auto
 - footer-descent:

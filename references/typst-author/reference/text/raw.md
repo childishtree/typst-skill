@@ -6,7 +6,7 @@ Raw text with optional syntax highlighting.
 
 Displays the text verbatim and in a monospace font. This is typically used to embed computer code into your document.
 
-Note that text given to this element cannot contain arbitrary formatting, such as `*strong*` or `_emphasis_`, as it is displayed verbatim. If you'd like to display any kind of content with a monospace font, instead of using [`raw`](/docs/reference/text/raw/), you should change its font to a monospace font using the [`text`](/docs/reference/text/text/) function.
+Note that text given to this element cannot contain arbitrary formatting, such as `*strong*` or `_emphasis_`, as it is displayed verbatim. If you'd like to display any kind of content with a monospace font, instead of using [`raw`](raw.md), you should change its font to a monospace font using the [`text`](text.md) function.
 
 ## Example
 
@@ -29,7 +29,7 @@ This has ``` `backticks` ``` in it
 also trimmed.
 ```
 
-You can also construct a [`raw`](/docs/reference/text/raw/) element programmatically from a string (and provide the language tag via the optional [`lang`](/docs/reference/text/raw/#parameters-lang) argument).
+You can also construct a [`raw`](raw.md) element programmatically from a string (and provide the language tag via the optional [`lang`](raw.md#parameters-lang) argument).
 
 ```typst
 #raw("fn " + "main() {}", lang: "rust")
@@ -43,7 +43,7 @@ When you use three or more backticks, you can additionally specify a language ta
 
 The language tag is an identifier that directly follows the opening backticks only if there are three or more backticks. If your text starts with something that looks like an identifier, but no syntax highlighting is needed, start the text with a single space (which will be trimmed) or use the single backtick syntax. If your text should start or end with a backtick, put a space before or after it (it will be trimmed).
 
-If no syntax highlighting is available by default for your specified language tag (or if you want to override the built-in definition), you may provide a custom syntax specification file to the [`syntaxes`](/docs/reference/text/raw/#parameters-syntaxes) field.
+If no syntax highlighting is available by default for your specified language tag (or if you want to override the built-in definition), you may provide a custom syntax specification file to the [`syntaxes`](raw.md#parameters-syntaxes) field.
 
 ## Styling
 
@@ -69,11 +69,11 @@ def python():
 ```
 ```
 
-In addition, you can customize the syntax highlighting colors by setting a custom theme through the [`theme`](/docs/reference/text/raw/#parameters-theme) field.
+In addition, you can customize the syntax highlighting colors by setting a custom theme through the [`theme`](raw.md#parameters-theme) field.
 
-For complete customization of the appearance of a raw block, a show rule on [`raw.line`](/docs/reference/text/raw/#definitions-line) could be helpful, such as to add line numbers.
+For complete customization of the appearance of a raw block, a show rule on [`raw.line`](raw.md#definitions-line) could be helpful, such as to add line numbers.
 
-Note that, in raw text, typesetting features like [hyphenation](/docs/reference/text/text/#parameters-hyphenate), [overhang](/docs/reference/text/text/#parameters-overhang), [CJK-Latin spacing](/docs/reference/text/text/#parameters-cjk-latin-spacing) (and [justification](/docs/reference/model/par/#parameters-justify) for [raw blocks](/docs/reference/text/raw/#parameters-block)) will be disabled by default.
+Note that, in raw text, typesetting features like [hyphenation](text.md#parameters-hyphenate), [overhang](text.md#parameters-overhang), [CJK-Latin spacing](text.md#parameters-cjk-latin-spacing) (and [justification](../model/par.md#parameters-justify) for [raw blocks](raw.md#parameters-block)) will be disabled by default.
 
 ```typst
 #raw(
@@ -98,7 +98,7 @@ Note that, in raw text, typesetting features like [hyphenation](/docs/reference/
   - type: bool
   - default: false
 - lang:
-  - description: The language to syntax-highlight in. Apart from typical language tags known from Markdown, this supports the `"typ"`, `"typc"`, and `"typm"` tags for [Typst markup](/docs/reference/syntax/#markup), [Typst code](/docs/reference/syntax/#code), and [Typst math](/docs/reference/syntax/#math), respectively. ```typst ```typ This is *Typst!* ``` This is ```typ also *Typst*```, but inline! ```
+  - description: The language to syntax-highlight in. Apart from typical language tags known from Markdown, this supports the `"typ"`, `"typc"`, and `"typm"` tags for [Typst markup](../syntax.md#markup), [Typst code](../syntax.md#code), and [Typst math](../syntax.md#math), respectively. ```typst ```typ This is *Typst!* ``` This is ```typ also *Typst*```, but inline! ```
   - type: none | str
   - default: none
 - align:
@@ -106,11 +106,11 @@ Note that, in raw text, typesetting features like [hyphenation](/docs/reference/
   - type: alignment
   - default: start
 - syntaxes:
-  - description: Additional syntax definitions to load. The syntax definitions should be in the [`sublime-syntax` file format](https://www.sublimetext.com/docs/syntax.html). You can pass any of the following values: - A path string to load a syntax file from the given path. For more details about paths, see the [Paths section](/docs/reference/syntax/#paths). - Raw bytes from which the syntax should be decoded. - An array where each item is one of the above. ```typst #set raw(syntaxes: "SExpressions.sublime-syntax") ```sexp (defun factorial (x)  (if (zerop x)   ; with a comment   1   (* x (factorial (- x 1))))) ``` ```
+  - description: Additional syntax definitions to load. The syntax definitions should be in the [`sublime-syntax` file format](https://www.sublimetext.com/docs/syntax.html). You can pass any of the following values: - A path string to load a syntax file from the given path. For more details about paths, see the [Paths section](../syntax.md#paths). - Raw bytes from which the syntax should be decoded. - An array where each item is one of the above. ```typst #set raw(syntaxes: "SExpressions.sublime-syntax") ```sexp (defun factorial (x)  (if (zerop x)   ; with a comment   1   (* x (factorial (- x 1))))) ``` ```
   - type: str | bytes | array
   - default: ()
 - theme:
-  - description: The theme to use for syntax highlighting. Themes should be in the [`tmTheme` file format](https://www.sublimetext.com/docs/color_schemes_tmtheme.html). You can pass any of the following values: - `none`: Disables syntax highlighting. - `auto`: Highlights with Typst\'s default theme. - A path string to load a theme file from the given path. For more details about paths, see the [Paths section](/docs/reference/syntax/#paths). - Raw bytes from which the theme should be decoded. Applying a theme only affects the color of specifically highlighted text. It does not consider the theme\'s foreground and background properties, so that you retain control over the color of raw text. You can apply the foreground color yourself with the [`text`](/docs/reference/text/text/) function and the background with a [filled block](/docs/reference/layout/block/#parameters-fill). You could also use the [`xml`](/docs/reference/data-loading/xml/) function to extract these properties from the theme. ```typst #set raw(theme: "halcyon.tmTheme") #show raw: it => block(  fill: rgb("#1d2433"),  inset: 8pt,  radius: 5pt,  text(fill: rgb("#a2aabc"), it) ) ```typ = Chapter 1 #let hi = "Hello World" ``` ```
+  - description: The theme to use for syntax highlighting. Themes should be in the [`tmTheme` file format](https://www.sublimetext.com/docs/color_schemes_tmtheme.html). You can pass any of the following values: - `none`: Disables syntax highlighting. - `auto`: Highlights with Typst\'s default theme. - A path string to load a theme file from the given path. For more details about paths, see the [Paths section](../syntax.md#paths). - Raw bytes from which the theme should be decoded. Applying a theme only affects the color of specifically highlighted text. It does not consider the theme\'s foreground and background properties, so that you retain control over the color of raw text. You can apply the foreground color yourself with the [`text`](text.md) function and the background with a [filled block](../layout/block.md#parameters-fill). You could also use the [`xml`](../data-loading/xml.md) function to extract these properties from the theme. ```typst #set raw(theme: "halcyon.tmTheme") #show raw: it => block(  fill: rgb("#1d2433"),  inset: 8pt,  radius: 5pt,  text(fill: rgb("#a2aabc"), it) ) ```typ = Chapter 1 #let hi = "Hello World" ``` ```
   - type: none | auto | str | bytes
   - default: auto
 - tab-size:
@@ -124,7 +124,7 @@ Note that, in raw text, typesetting features like [hyphenation](/docs/reference/
 
 A highlighted line of raw text.
 
-This is a helper element that is synthesized by [`raw`](/docs/reference/text/raw/) elements.
+This is a helper element that is synthesized by [`raw`](raw.md) elements.
 
 It allows you to access various properties of the line, such as the line number, the raw non-highlighted text, the highlighted text, and whether it is the first or last line of the raw block.
 

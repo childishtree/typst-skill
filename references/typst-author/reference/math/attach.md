@@ -4,7 +4,7 @@ Subscript, superscripts, and limits.
 
 Attachments can be displayed either as sub/superscripts, or limits. Typst automatically decides which is more suitable depending on the base, but you can also control this manually with the `scripts` and `limits` functions.
 
-If you want the base to stretch to fit long top and bottom attachments (for example, an arrow with text above it), use the [`stretch`](/docs/reference/math/stretch/) function.
+If you want the base to stretch to fit long top and bottom attachments (for example, an arrow with text above it), use the [`stretch`](stretch.md) function.
 
 ## Example
 

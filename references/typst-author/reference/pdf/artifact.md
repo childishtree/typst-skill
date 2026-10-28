@@ -10,7 +10,7 @@ Typst will automatically mark certain content, such as page headers, footers, ba
 
 Once something is marked as an artifact, you cannot make any of its contents accessible again. If you need to mark only part of something as an artifact, you may need to use this function multiple times.
 
-If you are unsure what constitutes an artifact, check the [Accessibility Guide](/docs/guides/accessibility/#artifacts).
+If you are unsure what constitutes an artifact, check the [Accessibility Guide](../../guides/accessibility.md#artifacts).
 
 In the future, this function may be moved out of the `pdf` module, making it possible to hide content in HTML export from AT.
 

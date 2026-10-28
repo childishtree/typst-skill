@@ -35,15 +35,15 @@ The polygon is defined by its corner points and is closed automatically.
   - type: none | color | gradient | tiling
   - default: none
 - fill-rule:
-  - description: The drawing rule used to fill the polygon. See the [curve documentation](/docs/reference/visualize/curve/#parameters-fill-rule) for an example.
+  - description: The drawing rule used to fill the polygon. See the [curve documentation](curve.md#parameters-fill-rule) for an example.
   - type: str
   - default: "non - zero"
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the polygon. Can be set to `none` to disable the stroke or to `auto` for a stroke of `1pt` black if and only if no fill is given.
+  - description: How to [stroke](stroke.md) the polygon. Can be set to `none` to disable the stroke or to `auto` for a stroke of `1pt` black if and only if no fill is given.
   - type: none | auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - vertices:
-  - description: The vertices of the polygon. Each point is specified as an array of two [relative lengths](/docs/reference/layout/relative/).
+  - description: The vertices of the polygon. Each point is specified as an array of two [relative lengths](../layout/relative.md).
   - type: array
   - default: None
 
@@ -74,11 +74,11 @@ A regular polygon, defined by its size and number of vertices.
 #### Parameters
 
 - fill:
-  - description: How to fill the polygon. See the general [polygon\'s documentation](/docs/reference/visualize/polygon/#parameters-fill) for more details.
+  - description: How to fill the polygon. See the general [polygon\'s documentation](polygon.md#parameters-fill) for more details.
   - type: none | color | gradient | tiling
   - default: None
 - stroke:
-  - description: How to stroke the polygon. See the general [polygon\'s documentation](/docs/reference/visualize/polygon/#parameters-stroke) for more details.
+  - description: How to stroke the polygon. See the general [polygon\'s documentation](polygon.md#parameters-stroke) for more details.
   - type: none | auto | length | color | gradient | stroke | tiling | dictionary
   - default: None
 - size:

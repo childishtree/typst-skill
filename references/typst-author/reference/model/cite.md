@@ -4,7 +4,7 @@
 
 Cite a work from the bibliography.
 
-Before you starting citing, you need to add a [bibliography](/docs/reference/model/bibliography/) somewhere in your document.
+Before you starting citing, you need to add a [bibliography](bibliography.md) somewhere in your document.
 
 ## Example
 
@@ -30,7 +30,7 @@ Computer Modern is an example of a modernist serif typeface.
 
 ## Syntax
 
-This function indirectly has dedicated syntax. [References](/docs/reference/model/ref/) can be used to cite works from the bibliography. The label then corresponds to the citation key.
+This function indirectly has dedicated syntax. [References](ref.md) can be used to cite works from the bibliography. The label then corresponds to the citation key.
 
 ```typst
 #cite(
@@ -56,7 +56,7 @@ This function indirectly has dedicated syntax. [References](/docs/reference/mode
   - type: none | str
   - default: "normal"
 - style:
-  - description: The citation style. This can be: - `auto` to automatically use the [bibliography\'s style](/docs/reference/model/bibliography/#parameters-style) for citations. - A string with the name of one of the built-in styles (see below). Some of the styles listed below appear twice, once with their full name and once with a short alias. - A path string to a [CSL file](https://citationstyles.org/). For more details about paths, see the [Paths section](/docs/reference/syntax/#paths). - Raw bytes from which a CSL style should be decoded.
+  - description: The citation style. This can be: - `auto` to automatically use the [bibliography\'s style](bibliography.md#parameters-style) for citations. - A string with the name of one of the built-in styles (see below). Some of the styles listed below appear twice, once with their full name and once with a short alias. - A path string to a [CSL file](https://citationstyles.org/). For more details about paths, see the [Paths section](../syntax.md#paths). - Raw bytes from which a CSL style should be decoded.
   - type: auto | str | bytes
   - default: auto
 

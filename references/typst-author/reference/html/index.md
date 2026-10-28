@@ -6,7 +6,7 @@ HTML files describe a document structurally. The aim of Typst's HTML export is t
 
 PDF, PNG, and SVG export, in contrast, all produce _visual_ representations of a fully-laid out document. This divergence in the formats' intents means that Typst cannot simply produce perfect HTML for your existing Typst documents. It cannot always know what the best semantic HTML representation of your content is.
 
-Instead, it gives _you_ full control: You can check the current export format through the [`target`](/docs/reference/foundations/target/) function and when it is set to HTML, generate [raw HTML elements](/docs/reference/html/elem/). The primary intended use of these elements is in templates and show rules. This way, the document's contents can be fully agnostic to the export target and content can be shared between PDF and HTML export.
+Instead, it gives _you_ full control: You can check the current export format through the [`target`](../foundations/target.md) function and when it is set to HTML, generate [raw HTML elements](elem.md). The primary intended use of these elements is in templates and show rules. This way, the document's contents can be fully agnostic to the export target and content can be shared between PDF and HTML export.
 
 Currently, Typst will always output a single HTML file. Support for outputting directories with multiple HTML documents and assets, as well as support for outputting fragments that can be integrated into other HTML documents is planned.
 
@@ -36,7 +36,7 @@ Typst exposes HTML-specific functionality in the global `html` module. See below
 
 | Name | Description |
 | --- | --- |
-| [`elem`](/reference/html/elem/) | An HTML element that can contain Typst content. |
-| [`frame`](/reference/html/frame/) | An element that lays out its content as an inline SVG. |
-| [`typed`](/reference/html/typed/) | A typed layer over raw HTML elements. |
+| [`elem`](elem.md) | An HTML element that can contain Typst content. |
+| [`frame`](frame.md) | An element that lays out its content as an inline SVG. |
+| [`typed`](typed.md) | A typed layer over raw HTML elements. |
 

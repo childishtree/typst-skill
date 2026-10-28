@@ -4,17 +4,17 @@
 
 - **Breaking changes:** 
   - Enumerations now require a space after their marker, that is, `1.ok` must now be written as `1. ok`
-  - Changed default style for [term lists](/docs/reference/model/terms/): Does not include a colon anymore and has a bit more indent
+  - Changed default style for [term lists](../reference/model/terms.md): Does not include a colon anymore and has a bit more indent
 - Command line interface 
   - Added `--font-path` argument for CLI
   - Embedded default fonts in CLI binary
   - Fixed build of CLI if `git` is not installed
 - Miscellaneous improvements 
-  - Added support for disabling [matrix](/docs/reference/math/mat/) and [vector](/docs/reference/math/vec/) delimiters. Generally with `#set math.mat(delim: none)` or one-off with `$mat(delim: #none, 1, 2; 3, 4)$`.
-  - Added [`separator`](/docs/reference/model/terms/#parameters-separator) argument to term lists
-  - Added [`round`](/docs/reference/math/lr/#functions-round) function for equations
+  - Added support for disabling [matrix](../reference/math/mat.md) and [vector](../reference/math/vec.md) delimiters. Generally with `#set math.mat(delim: none)` or one-off with `$mat(delim: #none, 1, 2; 3, 4)$`.
+  - Added [`separator`](../reference/model/terms.md#parameters-separator) argument to term lists
+  - Added [`round`](../reference/math/lr.md#functions-round) function for equations
   - Numberings now allow zeros. To reset a counter, you can write `#counter(..).update(0)`
-  - Added documentation for `page()` and `position()` methods on [`location`](/docs/reference/introspection/location/) type
+  - Added documentation for `page()` and `position()` methods on [`location`](../reference/introspection/location.md) type
   - Added symbols for double, triple, and quadruple dot accent
   - Added smart quotes for Norwegian Bokmål
   - Added Nix flake
@@ -23,9 +23,9 @@
   - Fixed parsing of unbalanced delimiters in fractions: `$1/(2 (x)$`
   - Fixed unexpected parsing of numbers as enumerations, e.g. in `1.2`
   - Fixed combination of page fill and header
-  - Fixed compiler crash if [`repeat`](/docs/reference/layout/repeat/) is used in page with automatic width
-  - Fixed [matrices](/docs/reference/math/mat/) with explicit delimiter
-  - Fixed [`indent`](/docs/reference/model/terms/#parameters-indent) property of term lists
+  - Fixed compiler crash if [`repeat`](../reference/layout/repeat.md) is used in page with automatic width
+  - Fixed [matrices](../reference/math/mat.md) with explicit delimiter
+  - Fixed [`indent`](../reference/model/terms.md#parameters-indent) property of term lists
   - Numerous documentation fixes
   - Links in bibliographies are now affected by link styling
   - Fixed hovering over comments in web app
@@ -33,57 +33,57 @@
 ## March 21, 2023
 
 - Reference and bibliography management 
-  - [Bibliographies](/docs/reference/model/bibliography/) and [citations](/docs/reference/model/cite/) (currently supported styles are APA, Chicago Author Date, IEEE, and MLA)
-  - You can now [reference](/docs/reference/model/ref/) sections, figures, formulas, and works from the bibliography with `@label`
+  - [Bibliographies](../reference/model/bibliography.md) and [citations](../reference/model/cite.md) (currently supported styles are APA, Chicago Author Date, IEEE, and MLA)
+  - You can now [reference](../reference/model/ref.md) sections, figures, formulas, and works from the bibliography with `@label`
   - You can make an element referenceable with a label: 
     - `= Introduction <intro>`
     - `$ A = pi r^2 $ <area>`
 - Introspection system for interactions between different parts of the document 
-  - [`counter`](/docs/reference/introspection/counter/) function 
+  - [`counter`](../reference/introspection/counter.md) function 
     - Access and modify counters for pages, headings, figures, and equations
     - Define and use your own custom counters
     - Time travel: Find out what the counter value was or will be at some other point in the document (e.g. when you're building a list of figures, you can determine the value of the figure counter at any given figure).
     - Counters count in layout order and not in code order
-  - [`state`](/docs/reference/introspection/state/) function 
+  - [`state`](../reference/introspection/state.md) function 
     - Manage arbitrary state across your document
     - Time travel: Find out the value of your state at any position in the document
     - State is modified in layout order and not in code order
-  - [`query`](/docs/reference/introspection/query/) function 
+  - [`query`](../reference/introspection/query.md) function 
     - Find all occurrences of an element or a label, either in the whole document or before/after some location
     - Link to elements, find out their position on the pages and access their fields
     - Example use cases: Custom list of figures or page header with current chapter title
-  - [`locate`](/docs/reference/introspection/locate/) function 
+  - [`locate`](../reference/introspection/locate.md) function 
     - Determines the location of itself in the final layout
     - Can be accessed to get the `page` and `x`, `y` coordinates
     - Can be used with counters and state to find out their values at that location
     - Can be used with queries to find elements before or after its location
-- New [`measure`](/docs/reference/layout/measure/) function 
+- New [`measure`](../reference/layout/measure.md) function 
   - Measure the layouted size of elements
   - To be used in combination with the new `style` function that lets you generate different content based on the style context something is inserted into (because that affects the measured size of content)
 - Exposed content representation 
   - Content is not opaque anymore
   - Content can be compared for equality
   - The tree of content elements can be traversed with code
-  - Can be observed in hover tooltips or with [`repr`](/docs/reference/foundations/repr/)
-  - New [methods](/docs/reference/foundations/content/) on content: `func`, `has`, `at`, and `location`
+  - Can be observed in hover tooltips or with [`repr`](../reference/foundations/repr.md)
+  - New [methods](../reference/foundations/content.md) on content: `func`, `has`, `at`, and `location`
   - All optional fields on elements are now settable
   - More uniform field names (`heading.title` becomes `heading.body`, `list.items` becomes `list.children`, and a few more changes)
 - Further improvements 
-  - Added [`figure`](/docs/reference/model/figure/) function
-  - Added [`numbering`](/docs/reference/math/equation/#parameters-numbering) parameter on equation function
-  - Added [`numbering`](/docs/reference/layout/page/#parameters-numbering) and [`number-align`](/docs/reference/layout/page/#parameters-number-align) parameters on page function
-  - The page function's [`header`](/docs/reference/layout/page/#parameters-header) and [`footer`](/docs/reference/layout/page/#parameters-footer) parameters do not take functions anymore. If you want to customize them based on the page number, use the new [`numbering`](/docs/reference/layout/page/#parameters-numbering) parameter or [`counter`](/docs/reference/introspection/counter/) function instead.
-  - Added [`footer-descent`](/docs/reference/layout/page/#parameters-footer-descent) and [`header-ascent`](/docs/reference/layout/page/#parameters-header-ascent) parameters
+  - Added [`figure`](../reference/model/figure.md) function
+  - Added [`numbering`](../reference/math/equation.md#parameters-numbering) parameter on equation function
+  - Added [`numbering`](../reference/layout/page.md#parameters-numbering) and [`number-align`](../reference/layout/page.md#parameters-number-align) parameters on page function
+  - The page function's [`header`](../reference/layout/page.md#parameters-header) and [`footer`](../reference/layout/page.md#parameters-footer) parameters do not take functions anymore. If you want to customize them based on the page number, use the new [`numbering`](../reference/layout/page.md#parameters-numbering) parameter or [`counter`](../reference/introspection/counter.md) function instead.
+  - Added [`footer-descent`](../reference/layout/page.md#parameters-footer-descent) and [`header-ascent`](../reference/layout/page.md#parameters-header-ascent) parameters
   - Better default alignment in header and footer
   - Fixed Arabic vowel placement
   - Fixed PDF font embedding issues
-  - Renamed `math.formula` to [`math.equation`](/docs/reference/math/equation/)
+  - Renamed `math.formula` to [`math.equation`](../reference/math/equation.md)
   - Font family must be a named argument now: `#set text(font: "..")`
-  - Added support for [hanging indent](/docs/reference/model/par/#parameters-hanging-indent)
-  - Renamed paragraph `indent` to [`first-line-indent`](/docs/reference/model/par/#parameters-first-line-indent)
-  - More accurate [logarithm](/docs/reference/foundations/calc/#functions-log) when base is `2` or `10`
+  - Added support for [hanging indent](../reference/model/par.md#parameters-hanging-indent)
+  - Renamed paragraph `indent` to [`first-line-indent`](../reference/model/par.md#parameters-first-line-indent)
+  - More accurate [logarithm](../reference/foundations/calc.md#functions-log) when base is `2` or `10`
   - Improved some error messages
-  - Fixed layout of [`terms`](/docs/reference/model/terms/) list
+  - Fixed layout of [`terms`](../reference/model/terms.md) list
 - Web app improvements 
   - Added template gallery
   - Added buttons to insert headings, equations, raw blocks, and references
@@ -107,11 +107,11 @@
   - New default font for math: Book weight of New Computer Modern Math
   - Lots of new math fonts available
   - Removed Latin Modern fonts in favor of New Computer Modern family
-  - Removed unnecessary smallcaps fonts which are already accessible through the corresponding main font and the [`smallcaps`](/docs/reference/text/smallcaps/) function
+  - Removed unnecessary smallcaps fonts which are already accessible through the corresponding main font and the [`smallcaps`](../reference/text/smallcaps.md) function
 - Improved default spacing for headings
-- Added [`panic`](/docs/reference/foundations/panic/) function
-- Added [`clusters`](/docs/reference/foundations/str/#definitions-clusters) and [`codepoints`](/docs/reference/foundations/str/#definitions-codepoints) methods for strings
-- Support for multiple authors in [`set document`](/docs/reference/model/document/#parameters-author)
+- Added [`panic`](../reference/foundations/panic.md) function
+- Added [`clusters`](../reference/foundations/str.md#definitions-clusters) and [`codepoints`](../reference/foundations/str.md#definitions-codepoints) methods for strings
+- Support for multiple authors in [`set document`](../reference/model/document.md#parameters-author)
 - Fixed crash when string is accessed at a position that is not a char boundary
 - Fixed semicolon parsing in `#var ;`
 - Fixed incremental parsing when inserting backslash at end of `#"abc"`
@@ -121,12 +121,12 @@
 
 ## February 15, 2023
 
-- [Box](/docs/reference/layout/box/) and [block](/docs/reference/layout/block/) have gained `fill`, `stroke`, `radius`, and `inset` properties
+- [Box](../reference/layout/box.md) and [block](../reference/layout/block.md) have gained `fill`, `stroke`, `radius`, and `inset` properties
 - Blocks may now be explicitly sized, fixed-height blocks can still break across pages
-- Blocks can now be configured to be [`breakable`](/docs/reference/layout/block/#parameters-breakable) or not
-- [Numbering style](/docs/reference/model/enum/#parameters-numbering) can now be configured for nested enums
-- [Markers](/docs/reference/model/list/#parameters-marker) can now be configured for nested lists
-- The [`eval`](/docs/reference/foundations/eval/) function now expects code instead of markup and returns an arbitrary value. Markup can still be evaluated by surrounding the string with brackets.
+- Blocks can now be configured to be [`breakable`](../reference/layout/block.md#parameters-breakable) or not
+- [Numbering style](../reference/model/enum.md#parameters-numbering) can now be configured for nested enums
+- [Markers](../reference/model/list.md#parameters-marker) can now be configured for nested lists
+- The [`eval`](../reference/foundations/eval.md) function now expects code instead of markup and returns an arbitrary value. Markup can still be evaluated by surrounding the string with brackets.
 - PDFs generated by Typst now contain XMP metadata
 - Link boxes are now disabled in PDF output
 - Tables don't produce small empty cells before a pagebreak anymore
@@ -134,25 +134,25 @@
 
 ## February 12, 2023
 
-- Shapes, images, and transformations (move/rotate/scale/repeat) are now block-level. To integrate them into a paragraph, use a [`box`](/docs/reference/layout/box/) as with other elements.
+- Shapes, images, and transformations (move/rotate/scale/repeat) are now block-level. To integrate them into a paragraph, use a [`box`](../reference/layout/box.md) as with other elements.
 - A colon is now required in an "everything" show rule: Write `show: it => ..` instead of `show it => ..`. This prevents intermediate states that ruin your whole document.
 - Non-math content like a shape or table in a math formula is now centered vertically
 - Support for widow and orphan prevention within containers
-- Support for [RTL](/docs/reference/text/text/#parameters-dir) in lists, grids, and tables
+- Support for [RTL](../reference/text/text.md#parameters-dir) in lists, grids, and tables
 - Support for explicit `auto` sizing for boxes and shapes
 - Support for fractional (i.e. `1fr`) widths for boxes
 - Fixed bug where columns jump to next page
 - Fixed bug where list items have no leading
 - Fixed relative sizing in lists, squares and grid auto columns
-- Fixed relative displacement in [`place`](/docs/reference/layout/place/) function
+- Fixed relative displacement in [`place`](../reference/layout/place.md) function
 - Fixed that lines don't have a size
 - Fixed bug where `set document(..)` complains about being after content
 - Fixed parsing of `not in` operation
 - Fixed hover tooltips in math
 - Fixed bug where a heading show rule may not contain a pagebreak when an outline is present
-- Added [`baseline`](/docs/reference/layout/box/#parameters-baseline) property on [`box`](/docs/reference/layout/box/)
-- Added [`tg`](/docs/reference/math/op/) and [`ctg`](/docs/reference/math/op/) operators in math
-- Added delimiter setting for [`cases`](/docs/reference/math/cases/) function
+- Added [`baseline`](../reference/layout/box.md#parameters-baseline) property on [`box`](../reference/layout/box.md)
+- Added [`tg`](../reference/math/op.md) and [`ctg`](../reference/math/op.md) operators in math
+- Added delimiter setting for [`cases`](../reference/math/cases.md) function
 - Parentheses are now included when accepting a function autocompletion
 
 ## February 2, 2023

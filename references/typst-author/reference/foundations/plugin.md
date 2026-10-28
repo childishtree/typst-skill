@@ -4,9 +4,9 @@
 
 Loads a WebAssembly module.
 
-The resulting [module](/docs/reference/foundations/module/) will contain one Typst [function](/docs/reference/foundations/function/) for each function export of the loaded WebAssembly module.
+The resulting [module](module.md) will contain one Typst [function](function.md) for each function export of the loaded WebAssembly module.
 
-Typst WebAssembly plugins need to follow a specific [protocol](/docs/reference/foundations/plugin/#protocol). To run as a plugin, a program needs to be compiled to a 32-bit shared WebAssembly library. Plugin functions may accept multiple [byte buffers](/docs/reference/foundations/bytes/) as arguments and return a single byte buffer. They should typically be wrapped in idiomatic Typst functions that perform the necessary conversions between native Typst types and bytes by leveraging [`str`](/docs/reference/foundations/str/#constructor), [`bytes`](/docs/reference/foundations/bytes/#constructor), and [data loading functions](/docs/reference/data-loading/).
+Typst WebAssembly plugins need to follow a specific [protocol](plugin.md#protocol). To run as a plugin, a program needs to be compiled to a 32-bit shared WebAssembly library. Plugin functions may accept multiple [byte buffers](bytes.md) as arguments and return a single byte buffer. They should typically be wrapped in idiomatic Typst functions that perform the necessary conversions between native Typst types and bytes by leveraging [`str`](str.md#constructor), [`bytes`](bytes.md#constructor), and [data loading functions](../data-loading/).
 
 For security reasons, plugins run in isolation from your system. This means that printing, reading files, or similar things are not supported.
 
@@ -38,7 +38,7 @@ The reason for this is that Typst functions must be pure (which is quite fundame
 
 Typst does not enforce plugin function purity (for efficiency reasons), but calling an impure function will lead to unpredictable and irreproducible results and must be avoided.
 
-That said, mutable operations _can be_ useful for plugins that require costly runtime initialization. Due to the purity requirement, such initialization cannot be performed through a normal function call. Instead, Typst exposes a [plugin transition API](/docs/reference/foundations/plugin/#definitions-transition), which executes a function call and then creates a derived module with new functions which will observe the side effects produced by the transition call. The original plugin remains unaffected.
+That said, mutable operations _can be_ useful for plugins that require costly runtime initialization. Due to the purity requirement, such initialization cannot be performed through a normal function call. Instead, Typst exposes a [plugin transition API](plugin.md#definitions-transition), which executes a function call and then creates a derived module with new functions which will observe the side effects produced by the transition call. The original plugin remains unaffected.
 
 ## Plugins and Packages
 
@@ -87,7 +87,7 @@ For more resources, check out the [wasm-minimal-protocol repository](https://git
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to a WebAssembly file or raw WebAssembly bytes.
+  - description: A [path](../syntax.md#paths) to a WebAssembly file or raw WebAssembly bytes.
   - type: str | bytes
   - default: None
 
@@ -97,7 +97,7 @@ For more resources, check out the [wasm-minimal-protocol repository](https://git
 
 Calls a plugin function that has side effects and returns a new module with plugin functions that are guaranteed to have observed the results of the mutable call.
 
-Note that calling an impure function through a normal function call (without use of the transition API) is forbidden and leads to unpredictable behaviour. Read the [section on purity](/docs/reference/foundations/plugin/#purity) for more details.
+Note that calling an impure function through a normal function call (without use of the transition API) is forbidden and leads to unpredictable behaviour. Read the [section on purity](plugin.md#purity) for more details.
 
 In the example below, we load the plugin `hello-mut.wasm` which exports two functions: The `get()` function retrieves a global array as a string. The `add(value)` function adds a value to the global array.
 

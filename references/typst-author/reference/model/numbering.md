@@ -25,9 +25,9 @@ A numbering pattern consists of counting symbols, for which the actual number is
 
 ## Numbering patterns and numbering functions
 
-There are multiple instances where you can provide a numbering pattern or function in Typst. For example, when defining how to number [headings](/docs/reference/model/heading/) or [figures](/docs/reference/model/figure/). Every time, the expected format is the same as the one described below for the [`numbering`](/docs/reference/model/numbering/#parameters-numbering) parameter.
+There are multiple instances where you can provide a numbering pattern or function in Typst. For example, when defining how to number [headings](heading.md) or [figures](figure.md). Every time, the expected format is the same as the one described below for the [`numbering`](numbering.md#parameters-numbering) parameter.
 
-The following example illustrates that a numbering function is just a regular [function](/docs/reference/foundations/function/) that accepts numbers and returns [`content`](/docs/reference/foundations/content/).
+The following example illustrates that a numbering function is just a regular [function](../foundations/function.md) that accepts numbers and returns [`content`](../foundations/content.md).
 
 ```typst
 #let unary(.., last) = "|" * last

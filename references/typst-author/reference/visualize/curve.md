@@ -49,7 +49,7 @@ Bézier curve control points can be skipped by passing `none` or automatically m
   - type: str
   - default: "non - zero"
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the curve. Can be set to `none` to disable the stroke or to `auto` for a stroke of `1pt` black if and only if no fill is given. ```typst #let down = curve.line((40pt, 40pt), relative: true) #let up = curve.line((40pt, -40pt), relative: true) #curve(  stroke: 4pt + gradient.linear(red, blue),  down, up, down, up, down, ) ```
+  - description: How to [stroke](stroke.md) the curve. Can be set to `none` to disable the stroke or to `auto` for a stroke of `1pt` black if and only if no fill is given. ```typst #let down = curve.line((40pt, 40pt), relative: true) #let up = curve.line((40pt, -40pt), relative: true) #curve(  stroke: 4pt + gradient.linear(red, blue),  down, up, down, up, down, ) ```
   - type: none | auto | length | color | gradient | stroke | tiling | dictionary
   - default: auto
 - components:

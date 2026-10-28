@@ -4,7 +4,7 @@ Typst includes a flexible styling system that automatically applies styling of y
 
 ## Set rules
 
-With set rules, you can customize the appearance of elements. They are written as a [function call](/docs/reference/foundations/function/) to an [element function](/docs/reference/foundations/function/#element-functions) preceded by the `set` keyword (or `#set` in markup). Only optional parameters of that function can be provided to the set rule. Refer to each function's documentation to see which parameters are optional. In the example below, we use two set rules to change the [font family](/docs/reference/text/text/#parameters-font) and [heading numbering](/docs/reference/model/heading/#parameters-numbering).
+With set rules, you can customize the appearance of elements. They are written as a [function call](foundations/function.md) to an [element function](foundations/function.md#element-functions) preceded by the `set` keyword (or `#set` in markup). Only optional parameters of that function can be provided to the set rule. Refer to each function's documentation to see which parameters are optional. In the example below, we use two set rules to change the [font family](text/text.md#parameters-font) and [heading numbering](model/heading.md#parameters-numbering).
 
 ```typst
 #set heading(numbering: "I.")
@@ -43,7 +43,7 @@ Sometimes, you'll want to apply a set rule conditionally. For this, you can use 
 
 ## Show rules
 
-With show rules, you can deeply customize the look of a type of element. The most basic form of show rule is a _show-set rule._ Such a rule is written as the `show` keyword followed by a [selector](/docs/reference/foundations/selector/), a colon and then a set rule. The most basic form of selector is an [element function](/docs/reference/foundations/function/#element-functions). This lets the set rule only apply to the selected element. In the example below, headings become dark blue while all other text stays black.
+With show rules, you can deeply customize the look of a type of element. The most basic form of show rule is a _show-set rule._ Such a rule is written as the `show` keyword followed by a [selector](foundations/selector.md), a colon and then a set rule. The most basic form of selector is an [element function](foundations/function.md#element-functions). This lets the set rule only apply to the selected element. In the example below, headings become dark blue while all other text stays black.
 
 ```typst
 #show heading: set text(navy)
@@ -52,9 +52,9 @@ With show rules, you can deeply customize the look of a type of element. The mos
 But this stays black.
 ```
 
-With show-set rules you can mix and match properties from different functions to achieve many different effects. But they still limit you to what is predefined in Typst. For maximum flexibility, you can instead write a _transformational_ show rule that defines how to format an element from scratch. To write such a show rule, replace the set rule after the colon with an arbitrary [function](/docs/reference/foundations/function/). This function receives the element in question and can return arbitrary content. The function is often defined inline as `it => ..` using the [unnamed function syntax](/docs/reference/foundations/function/#unnamed). The function's parameter is typically named `it` by convention.
+With show-set rules you can mix and match properties from different functions to achieve many different effects. But they still limit you to what is predefined in Typst. For maximum flexibility, you can instead write a _transformational_ show rule that defines how to format an element from scratch. To write such a show rule, replace the set rule after the colon with an arbitrary [function](foundations/function.md). This function receives the element in question and can return arbitrary content. The function is often defined inline as `it => ..` using the [unnamed function syntax](foundations/function.md#unnamed). The function's parameter is typically named `it` by convention.
 
-The available [fields](/docs/reference/scripting/#fields) on the element passed to the function match the parameters of the respective element function. Below, we define a show rule that formats headings for a fantasy encyclopedia.
+The available [fields](scripting.md#fields) on the element passed to the function match the parameters of the respective element function. Below, we define a show rule that formats headings for a fantasy encyclopedia.
 
 The show rule itself adds tilde characters around the title (these must be escaped with a backslash because otherwise they would indicate a non-breaking space), emphasizes the title with italics, and then displays the heading counter after the title.
 
@@ -86,9 +86,9 @@ Instead of a function, the right-hand side of a show rule can also take a litera
 
 - **Everything:** `show: rest => ..`  Transform everything after the show rule. This is useful to apply a more complex layout to your whole document without wrapping everything in a giant function call.
 - **Text:** `show "Text": ..`  Style, transform or replace text.
-- **Regex:** `show regex("\w+"): ..`  Select and transform text with a regular expression for even more flexibility. See the documentation of the [`regex` type](/docs/reference/foundations/regex/) for details.
+- **Regex:** `show regex("\w+"): ..`  Select and transform text with a regular expression for even more flexibility. See the documentation of the [`regex` type](foundations/regex.md) for details.
 - **Function with fields:** `show heading.where(level: 1): ..`  Transform only elements that have the specified fields. For example, you might want to only change the style of level-1 headings.
-- **Label:** `show <intro>: ..`  Select and transform elements that have the specified label. See the documentation of the [`label` type](/docs/reference/foundations/label/) for more details.
+- **Label:** `show <intro>: ..`  Select and transform elements that have the specified label. See the documentation of the [`label` type](foundations/label.md) for more details.
 
 ```typst
 #show "Project": smallcaps

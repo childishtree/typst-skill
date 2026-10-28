@@ -4,7 +4,7 @@ Sometimes, we want to create content that reacts to its location in the document
 
 To produce content that is reactive to its surroundings, we must thus specifically instruct Typst: We do this with the `context` keyword, which precedes an expression and ensures that it is computed with knowledge of its environment. In return, the context expression itself ends up opaque. We cannot directly access whatever results from it in our code, precisely because it is contextual: There is no one correct result, there may be multiple results in different places of the document. For this reason, everything that depends on the contextual data must happen inside of the context expression.
 
-Aside from explicit context expressions, context is also established implicitly in some places that are also aware of their location in the document: [Show rules](/docs/reference/styling/#show-rules) provide context[1](#1) and numberings in the outline, for instance, also provide the proper context to resolve counters.
+Aside from explicit context expressions, context is also established implicitly in some places that are also aware of their location in the document: [Show rules](styling.md#show-rules) provide context[1](#1) and numberings in the outline, for instance, also provide the proper context to resolve counters.
 
 ## Style context
 
@@ -28,13 +28,13 @@ As explained above, a context expression is reactive to the different environmen
 #value
 ```
 
-Crucially, upon creation, `value` becomes opaque [content](/docs/reference/foundations/content/) that we cannot peek into. It can only be resolved when placed somewhere because only then the context is known. The body of a context expression may be evaluated zero, one, or multiple times, depending on how many different places it is put into.
+Crucially, upon creation, `value` becomes opaque [content](foundations/content.md) that we cannot peek into. It can only be resolved when placed somewhere because only then the context is known. The body of a context expression may be evaluated zero, one, or multiple times, depending on how many different places it is put into.
 
 ## Location context
 
 We've already seen that context gives us access to set rule values. But it can do more: It also lets us know _where_ in the document we currently are, relative to other elements, and absolutely on the pages. We can use this information to create very flexible interactions between different document parts. This underpins features like heading numbering, the table of contents, or page headers dependent on section headings.
 
-Some functions like [`counter.get`](/docs/reference/introspection/counter/#definitions-get) implicitly access the current location. In the example below, we want to retrieve the value of the heading counter. Since it changes throughout the document, we need to first enter a context expression. Then, we use `get` to retrieve the counter's current value. This function accesses the current location from the context to resolve the counter value. Counters have multiple levels and `get` returns an array with the resolved numbers. Thus, we get the following result:
+Some functions like [`counter.get`](introspection/counter.md#definitions-get) implicitly access the current location. In the example below, we want to retrieve the value of the heading counter. Since it changes throughout the document, we need to first enter a context expression. Then, we use `get` to retrieve the counter's current value. This function accesses the current location from the context to resolve the counter value. Counters have multiple levels and `get` returns an array with the resolved numbers. Thus, we get the following result:
 
 ```typst
 #set heading(numbering: "1.")
@@ -50,11 +50,11 @@ Some functions like [`counter.get`](/docs/reference/introspection/counter/#defin
 #context counter(heading).get()
 ```
 
-For more flexibility, we can also use the [`here`](/docs/reference/introspection/here/) function to directly extract the current [location](/docs/reference/introspection/location/) from the context. The example below demonstrates this:
+For more flexibility, we can also use the [`here`](introspection/here.md) function to directly extract the current [location](introspection/location.md) from the context. The example below demonstrates this:
 
 - We first have `counter(heading).get()`, which resolves to `(2,)` as before.
-- We then use the more powerful  [`counter.at`](/docs/reference/introspection/counter/#definitions-at) with [`here`](/docs/reference/introspection/here/), which in combination is equivalent to `get`, and thus get `(2,)`.
-- Finally, we use `at` with a [label](/docs/reference/foundations/label/) to retrieve the value of the counter at a _different_ location in the document, in our case that of the introduction heading. This yields `(1,)`. Typst's context system gives us time travel abilities and lets us retrieve the values of any counters and states at _any_ location in the document.
+- We then use the more powerful  [`counter.at`](introspection/counter.md#definitions-at) with [`here`](introspection/here.md), which in combination is equivalent to `get`, and thus get `(2,)`.
+- Finally, we use `at` with a [label](foundations/label.md) to retrieve the value of the counter at a _different_ location in the document, in our case that of the introduction heading. This yields `(1,)`. Typst's context system gives us time travel abilities and lets us retrieve the values of any counters and states at _any_ location in the document.
 
 ```typst
 #set heading(numbering: "1.")
@@ -72,7 +72,7 @@ For more flexibility, we can also use the [`here`](/docs/reference/introspection
 ]
 ```
 
-As mentioned before, we can also use context to get the physical position of elements on the pages. We do this with the [`locate`](/docs/reference/introspection/locate/) function, which works similarly to `counter.at`: It takes a location or other [selector](/docs/reference/foundations/selector/) that resolves to a unique element (could also be a label) and returns the position on the pages for that element.
+As mentioned before, we can also use context to get the physical position of elements on the pages. We do this with the [`locate`](introspection/locate.md) function, which works similarly to `counter.at`: It takes a location or other [selector](foundations/selector.md) that resolves to a unique element (could also be a label) and returns the position on the pages for that element.
 
 ```typst
 Background is at: \
@@ -86,11 +86,11 @@ Background is at: \
 #lorem(5)
 ```
 
-There are other functions that make use of the location context, most prominently [`query`](/docs/reference/introspection/query/). Take a look at the [introspection](/docs/reference/introspection/) category for more details on those.
+There are other functions that make use of the location context, most prominently [`query`](introspection/query.md). Take a look at the [introspection](introspection/) category for more details on those.
 
 ## Nested contexts
 
-Context is also accessible from within function calls nested in context blocks. In the example below, `foo` itself becomes a contextual function, just like [`to-absolute`](/docs/reference/layout/length/#definitions-to-absolute) is.
+Context is also accessible from within function calls nested in context blocks. In the example below, `foo` itself becomes a contextual function, just like [`to-absolute`](layout/length.md#definitions-to-absolute) is.
 
 ```typst
 #let foo() = 1em.to-absolute()
@@ -142,8 +142,8 @@ The same also holds true for the location context. Below, the first `c.display()
 
 ## Compiler iterations
 
-To resolve contextual interactions, the Typst compiler processes your document multiple times. For instance, to resolve a `locate` call, Typst first provides a placeholder position, layouts your document and then recompiles with the known position from the finished layout. The same approach is taken to resolve counters, states, and queries. In certain cases, Typst may even need more than two iterations to resolve everything. While that's sometimes a necessity, it may also be a sign of misuse of contextual functions (e.g. of [state](/docs/reference/introspection/state/#caution)). If Typst cannot resolve everything within five attempts, it will stop and output the warning "layout did not converge within 5 attempts."
+To resolve contextual interactions, the Typst compiler processes your document multiple times. For instance, to resolve a `locate` call, Typst first provides a placeholder position, layouts your document and then recompiles with the known position from the finished layout. The same approach is taken to resolve counters, states, and queries. In certain cases, Typst may even need more than two iterations to resolve everything. While that's sometimes a necessity, it may also be a sign of misuse of contextual functions (e.g. of [state](introspection/state.md#caution)). If Typst cannot resolve everything within five attempts, it will stop and output the warning "layout did not converge within 5 attempts."
 
 A very careful reader might have noticed that not all of the functions presented above actually make use of the current location. While `counter(heading).get()` definitely depends on it, `counter(heading).at(<intro>)`, for instance, does not. However, it still requires context. While its value is always the same _within_ one compilation iteration, it may change over the course of multiple compiler iterations. If one could call it directly at the top level of a module, the whole module and its exports could change over the course of multiple compiler iterations, which would not be desirable.
 
-[^1]: Currently, all show rules provide [style context](#style-context), but only show rules on [locatable](/docs/reference/introspection/location/#locatable) elements provide a [location context](#location-context).
+[^1]: Currently, all show rules provide [style context](#style-context), but only show rules on [locatable](introspection/location.md#locatable) elements provide a [location context](#location-context).

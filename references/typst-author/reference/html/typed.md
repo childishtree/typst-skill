@@ -2,7 +2,7 @@
 
 A typed layer over raw HTML elements.
 
-The `html` module provides a typed layer over the raw [`html.elem`](/docs/reference/html/elem/) function that allows you to conveniently create HTML elements. HTML attributes are exposed as function parameters that accept Typst types and automatically take care of converting those into the appropriate HTML.
+The `html` module provides a typed layer over the raw [`html.elem`](elem.md) function that allows you to conveniently create HTML elements. HTML attributes are exposed as function parameters that accept Typst types and automatically take care of converting those into the appropriate HTML.
 
 Some parameters are common to all typed HTML functions. These are listed at the bottom in the [Global Attributes](#global-attributes) section instead of explicitly on each element for readability.
 

@@ -46,7 +46,7 @@ A line from one point to another.
   - type: angle
   - default: 0deg
 - stroke:
-  - description: How to [stroke](/docs/reference/visualize/stroke/) the line. ```typst #set line(length: 100%) #stack(  spacing: 1em,  line(stroke: 2pt + red),  line(stroke: (paint: blue, thickness: 4pt, cap: "round")),  line(stroke: (paint: blue, thickness: 1pt, dash: "dashed")),  line(stroke: (paint: blue, thickness: 1pt, dash: ("dot", 2pt, 4pt, 2pt))), ) ```
+  - description: How to [stroke](stroke.md) the line. ```typst #set line(length: 100%) #stack(  spacing: 1em,  line(stroke: 2pt + red),  line(stroke: (paint: blue, thickness: 4pt, cap: "round")),  line(stroke: (paint: blue, thickness: 1pt, dash: "dashed")),  line(stroke: (paint: blue, thickness: 1pt, dash: ("dot", 2pt, 4pt, 2pt))), ) ```
   - type: length | color | gradient | stroke | tiling | dictionary
   - default: 1pt + black
 

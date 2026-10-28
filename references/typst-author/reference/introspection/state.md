@@ -47,8 +47,8 @@ Here, Typst first processes the body of the document after the show rule, sees t
 
 So what do we do instead? We use Typst's state management system. Calling the `state` function with an identifying string key and an optional initial value gives you a state value which exposes a few functions. The two most important ones are `get` and `update`:
 
-- The [`get`](/docs/reference/introspection/state/#definitions-get) function retrieves the current value of the state. Because the value can vary over the course of the document, it is a _contextual_ function that can only be used when [context](/docs/reference/context/) is available.
-- The [`update`](/docs/reference/introspection/state/#definitions-update) function modifies the state. You can give it any value. If given a non-function value, it sets the state to that value. If given a function, that function receives the previous state and has to return the new state.
+- The [`get`](state.md#definitions-get) function retrieves the current value of the state. Because the value can vary over the course of the document, it is a _contextual_ function that can only be used when [context](../context.md) is available.
+- The [`update`](state.md#definitions-update) function modifies the state. You can give it any value. If given a non-function value, it sets the state to that value. If given a function, that function receives the previous state and has to return the new state.
 
 Our initial example would now look like this:
 
@@ -84,7 +84,7 @@ As a result, we can now also store some of the computations in variables, but th
 #more
 ```
 
-This example is of course a bit silly, but in practice this is often exactly what you want! A good example are heading counters, which is why Typst's [counting system](/docs/reference/introspection/counter/) is very similar to its state system.
+This example is of course a bit silly, but in practice this is often exactly what you want! A good example are heading counters, which is why Typst's [counting system](counter.md) is very similar to its state system.
 
 ## Time Travel
 
@@ -133,7 +133,7 @@ Create a new state identified by a key.
 ### Parameters
 
 - key:
-  - description: The key that identifies this state. Any [updates](/docs/reference/introspection/state/#definitions-update) to the state will be identified with the string key. If you construct multiple states with the same `key`, then updating any one will affect all of them.
+  - description: The key that identifies this state. Any [updates](state.md#definitions-update) to the state will be identified with the string key. If you construct multiple states with the same `key`, then updating any one will affect all of them.
   - type: str
   - default: None
 - init:
@@ -154,7 +154,7 @@ This is equivalent to `state.at(here())`.
 
 Retrieves the value of the state at the given selector's unique match.
 
-The `selector` must match exactly one element in the document. The most useful kinds of selectors for this are [labels](/docs/reference/foundations/label/) and [locations](/docs/reference/introspection/location/).
+The `selector` must match exactly one element in the document. The most useful kinds of selectors for this are [labels](../foundations/label.md) and [locations](location.md).
 
 ```typst
 #state.at(
@@ -177,15 +177,15 @@ Retrieves the value of the state at the end of the document.
 
 Updates the value of the state.
 
-Returns an invisible piece of [content](/docs/reference/foundations/content/) that must be inserted into the document to take effect. This invisible content tells Typst that the specified update should take place wherever the content is inserted into the document.
+Returns an invisible piece of [content](../foundations/content.md) that must be inserted into the document to take effect. This invisible content tells Typst that the specified update should take place wherever the content is inserted into the document.
 
 State is a part of your document and runs like a thread embedded in the document content. The value of a state is the result of all state updates that happened in the document up until that point.
 
-That's why `state.update` returns an invisible sliver of content that you need to return and include in the document — a state update that is not "placed" in the document does not happen, and "when" it happens is determined by where you place it. That's also why you need [context](/docs/reference/context/) to read state: You need to use the current document position to know where on the state's "thread" you are.
+That's why `state.update` returns an invisible sliver of content that you need to return and include in the document — a state update that is not "placed" in the document does not happen, and "when" it happens is determined by where you place it. That's also why you need [context](../context.md) to read state: You need to use the current document position to know where on the state's "thread" you are.
 
 Storing a state update in a variable (e.g. `let my-update = state("key").update(c => c * 2)`) will have no effect by itself. Only once you insert the variable `#my-update` somewhere into the document content, the update will take effect — at the position where it was inserted. You can also use `#my-update` multiple times at different positions. Then, the update will take effect multiple times as well.
 
-In contrast to [`get`](/docs/reference/introspection/state/#definitions-get), [`at`](/docs/reference/introspection/state/#definitions-at), and [`final`](/docs/reference/introspection/state/#definitions-final), this function does not require [context](/docs/reference/context/). This is because, to create the state update, we do not need to know where in the document we are. We only need this information to resolve the state's value.
+In contrast to [`get`](state.md#definitions-get), [`at`](state.md#definitions-at), and [`final`](state.md#definitions-final), this function does not require [context](../context.md). This is because, to create the state update, we do not need to know where in the document we are. We only need this information to resolve the state's value.
 
 ```typst
 #state.update(
@@ -196,7 +196,7 @@ In contrast to [`get`](/docs/reference/introspection/state/#definitions-get), [`
 ### Parameters
 
 - update:
-  - description: A value to update to or a function to update with. - If given a non-function value, sets the state to that value. - If given a function, that function receives the state\'s previous value and has to return the state\'s new value. When updating the state based on its previous value, you should prefer the function form instead of retrieving the previous value from the [context](/docs/reference/context/). This allows the compiler to resolve the final state efficiently, minimizing the number of [layout iterations](/docs/reference/context/#compiler-iterations) required. In the following example, `fill.update(f => not f)` will paint odd [items in the bullet list](/docs/reference/model/list/#definitions-item) as expected. However, if it\'s replaced with `context fill.update(not fill.get())`, then layout will not converge within 5 attempts, as each update will take one additional iteration to propagate. ```typst #let fill = state("fill", false) #show list.item: it => {  fill.update(f => not f)  context {   set text(fill: fuchsia) if fill.get()   it  } } #lorem(5).split().map(list.item).join() ```
+  - description: A value to update to or a function to update with. - If given a non-function value, sets the state to that value. - If given a function, that function receives the state\'s previous value and has to return the state\'s new value. When updating the state based on its previous value, you should prefer the function form instead of retrieving the previous value from the [context](../context.md). This allows the compiler to resolve the final state efficiently, minimizing the number of [layout iterations](../context.md#compiler-iterations) required. In the following example, `fill.update(f => not f)` will paint odd [items in the bullet list](../model/list.md#definitions-item) as expected. However, if it\'s replaced with `context fill.update(not fill.get())`, then layout will not converge within 5 attempts, as each update will take one additional iteration to propagate. ```typst #let fill = state("fill", false) #show list.item: it => {  fill.update(f => not f)  context {   set text(fill: fuchsia) if fill.get()   it  } } #lorem(5).split().map(list.item).join() ```
   - type: any | function
   - default: None
 

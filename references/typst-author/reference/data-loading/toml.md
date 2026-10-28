@@ -27,28 +27,28 @@ First of all, TOML documents are tables. Other values must be put in a table to 
 
 | TOML value | Converted into Typst |
 | --- | --- |
-| string | [`str`](/docs/reference/foundations/str/) |
-| integer | [`int`](/docs/reference/foundations/int/) |
-| float | [`float`](/docs/reference/foundations/float/) |
-| boolean | [`bool`](/docs/reference/foundations/bool/) |
-| datetime | [`datetime`](/docs/reference/foundations/datetime/) |
-| array | [`array`](/docs/reference/foundations/array/) |
-| table | [`dictionary`](/docs/reference/foundations/dictionary/) |
+| string | [`str`](../foundations/str.md) |
+| integer | [`int`](../foundations/int.md) |
+| float | [`float`](../foundations/float.md) |
+| boolean | [`bool`](../foundations/bool.md) |
+| datetime | [`datetime`](../foundations/datetime.md) |
+| array | [`array`](../foundations/array.md) |
+| table | [`dictionary`](../foundations/dictionary.md) |
 
 | Typst value | Converted into TOML |
 | --- | --- |
 | types that can be converted from TOML | corresponding TOML value |
 | `none` | ignored |
-| [`bytes`](/docs/reference/foundations/bytes/) | string via [`repr`](/docs/reference/foundations/repr/) |
-| [`symbol`](/docs/reference/foundations/symbol/) | string |
-| [`content`](/docs/reference/foundations/content/) | a table describing the content |
-| other types ([`length`](/docs/reference/layout/length/), etc.) | string via [`repr`](/docs/reference/foundations/repr/) |
+| [`bytes`](../foundations/bytes.md) | string via [`repr`](../foundations/repr.md) |
+| [`symbol`](../foundations/symbol.md) | string |
+| [`content`](../foundations/content.md) | a table describing the content |
+| other types ([`length`](../layout/length.md), etc.) | string via [`repr`](../foundations/repr.md) |
 
 ### Notes
 
 - Be aware that TOML integers larger than 263-1 or smaller than -263 cannot be represented losslessly in Typst, and an error will be thrown according to the [specification](https://toml.io/en/v1.0.0#integer).
-- Bytes are not encoded as TOML arrays for performance and readability reasons. Consider using [`cbor.encode`](/docs/reference/data-loading/cbor/#definitions-encode) for binary data.
-- The `repr` function is [for debugging purposes only](/docs/reference/foundations/repr/#debugging-only), and its output is not guaranteed to be stable across Typst versions.
+- Bytes are not encoded as TOML arrays for performance and readability reasons. Consider using [`cbor.encode`](cbor.md#definitions-encode) for binary data.
+- The `repr` function is [for debugging purposes only](../foundations/repr.md#debugging-only), and its output is not guaranteed to be stable across Typst versions.
 
 ```typst
 #toml(
@@ -59,7 +59,7 @@ First of all, TOML documents are tables. Other values must be put in a table to 
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to a TOML file or raw TOML bytes.
+  - description: A [path](../syntax.md#paths) to a TOML file or raw TOML bytes.
   - type: str | bytes
   - default: None
 

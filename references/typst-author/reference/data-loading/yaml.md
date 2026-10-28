@@ -32,26 +32,26 @@ The YAML files in the example contain objects with authors as keys, each with a 
 | YAML value | Converted into Typst |
 | --- | --- |
 | null-values (`null`, `~` or empty ``) | `none` |
-| boolean | [`bool`](/docs/reference/foundations/bool/) |
-| number | [`float`](/docs/reference/foundations/float/) or [`int`](/docs/reference/foundations/int/) |
-| string | [`str`](/docs/reference/foundations/str/) |
-| sequence | [`array`](/docs/reference/foundations/array/) |
-| mapping | [`dictionary`](/docs/reference/foundations/dictionary/) |
+| boolean | [`bool`](../foundations/bool.md) |
+| number | [`float`](../foundations/float.md) or [`int`](../foundations/int.md) |
+| string | [`str`](../foundations/str.md) |
+| sequence | [`array`](../foundations/array.md) |
+| mapping | [`dictionary`](../foundations/dictionary.md) |
 
 | Typst value | Converted into YAML |
 | --- | --- |
 | types that can be converted from YAML | corresponding YAML value |
-| [`bytes`](/docs/reference/foundations/bytes/) | string via [`repr`](/docs/reference/foundations/repr/) |
-| [`symbol`](/docs/reference/foundations/symbol/) | string |
-| [`content`](/docs/reference/foundations/content/) | a mapping describing the content |
-| other types ([`length`](/docs/reference/layout/length/), etc.) | string via [`repr`](/docs/reference/foundations/repr/) |
+| [`bytes`](../foundations/bytes.md) | string via [`repr`](../foundations/repr.md) |
+| [`symbol`](../foundations/symbol.md) | string |
+| [`content`](../foundations/content.md) | a mapping describing the content |
+| other types ([`length`](../layout/length.md), etc.) | string via [`repr`](../foundations/repr.md) |
 
 ### Notes
 
 - In most cases, YAML numbers will be converted to floats or integers depending on whether they are whole numbers. However, be aware that integers larger than 263-1 or smaller than -263 will be converted to floating-point numbers, which may result in an approximative value.
 - Custom YAML tags are ignored, though the loaded value will still be present.
-- Bytes are not encoded as YAML sequences for performance and readability reasons. Consider using [`cbor.encode`](/docs/reference/data-loading/cbor/#definitions-encode) for binary data.
-- The `repr` function is [for debugging purposes only](/docs/reference/foundations/repr/#debugging-only), and its output is not guaranteed to be stable across Typst versions.
+- Bytes are not encoded as YAML sequences for performance and readability reasons. Consider using [`cbor.encode`](cbor.md#definitions-encode) for binary data.
+- The `repr` function is [for debugging purposes only](../foundations/repr.md#debugging-only), and its output is not guaranteed to be stable across Typst versions.
 
 ```typst
 #yaml(
@@ -62,7 +62,7 @@ The YAML files in the example contain objects with authors as keys, each with a 
 ## Parameters
 
 - source:
-  - description: A [path](/docs/reference/syntax/#paths) to a YAML file or raw YAML bytes.
+  - description: A [path](../syntax.md#paths) to a YAML file or raw YAML bytes.
   - type: str | bytes
   - default: None
 

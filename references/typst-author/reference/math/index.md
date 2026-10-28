@@ -1,10 +1,10 @@
 # Math
 
-Typst has special [syntax](/docs/reference/syntax/#math) and library functions to typeset mathematical formulas. Math formulas can be displayed inline with text or as separate blocks. They will be typeset into their own block if they start and end with at least one space (e.g. `$ x^2 $`).
+Typst has special [syntax](../syntax.md#math) and library functions to typeset mathematical formulas. Math formulas can be displayed inline with text or as separate blocks. They will be typeset into their own block if they start and end with at least one space (e.g. `$ x^2 $`).
 
 ## Variables
 
-In math, single letters are always displayed as is. Multiple letters, however, are interpreted as variables and functions. To display multiple letters verbatim, you can place them into quotes and to access single letter variables, you can use the [hash syntax](/docs/reference/scripting/#expressions).
+In math, single letters are always displayed as is. Multiple letters, however, are interpreted as variables and functions. To display multiple letters verbatim, you can place them into quotes and to access single letter variables, you can use the [hash syntax](../scripting.md#expressions).
 
 ```typst
 $ A = pi r^2 $
@@ -17,7 +17,7 @@ $ #x < 17 $
 
 ## Symbols
 
-Math mode makes a wide selection of [symbols](/docs/reference/symbols/sym/) like `pi`, `dot`, or `RR` available. Many mathematical symbols are available in different variants. You can select between different variants by applying [modifiers](/docs/reference/foundations/symbol/) to the symbol. Typst further recognizes a number of shorthand sequences like `=>` that approximate a symbol. When such a shorthand exists, the symbol's documentation lists it.
+Math mode makes a wide selection of [symbols](../symbols/sym.md) like `pi`, `dot`, or `RR` available. Many mathematical symbols are available in different variants. You can select between different variants by applying [modifiers](../foundations/symbol.md) to the symbol. Typst further recognizes a number of shorthand sequences like `=>` that approximate a symbol. When such a shorthand exists, the symbol's documentation lists it.
 
 ```typst
 $ x < y => x gt.eq.not y $
@@ -68,7 +68,7 @@ $ (3x + y) / 7 &= 9 && "given" \
 
 ## Math fonts
 
-You can set the math font by with a [show-set rule](/docs/reference/styling/#show-rules) as demonstrated below. Note that only special OpenType math fonts are suitable for typesetting maths.
+You can set the math font by with a [show-set rule](../styling.md#show-rules) as demonstrated below. Note that only special OpenType math fonts are suitable for typesetting maths.
 
 ```typst
 #show math.equation: set text(font: "Fira Math")
@@ -77,11 +77,11 @@ $ sum_(i in NN) 1 + i $
 
 ## Math module
 
-All math functions are part of the `math` [module](/docs/reference/scripting/#modules), which is available by default in equations. Outside of equations, they can be accessed with the `math.` prefix.
+All math functions are part of the `math` [module](../scripting.md#modules), which is available by default in equations. Outside of equations, they can be accessed with the `math.` prefix.
 
 ## Accessibility
 
-To make math accessible, you must provide alternative descriptions of equations in natural language using the [`alt` parameter of `math.equation`](/docs/reference/math/equation/#parameters-alt). For more information, see the [Textual Representations section of the Accessibility Guide](/docs/guides/accessibility/#textual-representations).
+To make math accessible, you must provide alternative descriptions of equations in natural language using the [`alt` parameter of `math.equation`](equation.md#parameters-alt). For more information, see the [Textual Representations section of the Accessibility Guide](../../guides/accessibility.md#textual-representations).
 
 ```typst
 #math.equation(
@@ -97,23 +97,23 @@ In the future, Typst will automatically make equations without alternative descr
 
 | Name | Description |
 | --- | --- |
-| [`accent`](/reference/math/accent/) | Attaches an accent to a base. |
-| [`attach`](/reference/math/attach/) | Subscript, superscripts, and limits. |
-| [`binom`](/reference/math/binom/) | A binomial expression. |
-| [`cancel`](/reference/math/cancel/) | Displays a diagonal line over a part of an equation. |
-| [`cases`](/reference/math/cases/) | A case distinction. |
-| [`class`](/reference/math/class/) | Forced use of a certain math class. |
-| [`equation`](/reference/math/equation/) | A mathematical equation. |
-| [`frac`](/reference/math/frac/) | A mathematical fraction. |
-| [`lr`](/reference/math/lr/) | Delimiter matching. |
-| [`mat`](/reference/math/mat/) | A matrix. |
-| [`op`](/reference/math/op/) | A text operator in an equation. |
-| [`primes`](/reference/math/primes/) | Grouped primes. |
-| [`roots`](/reference/math/roots/) | Square and non-square roots. |
-| [`sizes`](/reference/math/sizes/) | Forced size styles for expressions within formulas. |
-| [`stretch`](/reference/math/stretch/) | Stretches a glyph. |
-| [`styles`](/reference/math/styles/) | Alternate letterforms within formulas. |
-| [`underover`](/reference/math/underover/) | Delimiters above or below parts of an equation. |
-| [`variants`](/reference/math/variants/) | Alternate typefaces within formulas. |
-| [`vec`](/reference/math/vec/) | A column vector. |
+| [`accent`](accent.md) | Attaches an accent to a base. |
+| [`attach`](attach.md) | Subscript, superscripts, and limits. |
+| [`binom`](binom.md) | A binomial expression. |
+| [`cancel`](cancel.md) | Displays a diagonal line over a part of an equation. |
+| [`cases`](cases.md) | A case distinction. |
+| [`class`](class.md) | Forced use of a certain math class. |
+| [`equation`](equation.md) | A mathematical equation. |
+| [`frac`](frac.md) | A mathematical fraction. |
+| [`lr`](lr.md) | Delimiter matching. |
+| [`mat`](mat.md) | A matrix. |
+| [`op`](op.md) | A text operator in an equation. |
+| [`primes`](primes.md) | Grouped primes. |
+| [`roots`](roots.md) | Square and non-square roots. |
+| [`sizes`](sizes.md) | Forced size styles for expressions within formulas. |
+| [`stretch`](stretch.md) | Stretches a glyph. |
+| [`styles`](styles.md) | Alternate letterforms within formulas. |
+| [`underover`](underover.md) | Delimiters above or below parts of an equation. |
+| [`variants`](variants.md) | Alternate typefaces within formulas. |
+| [`vec`](vec.md) | A column vector. |
 

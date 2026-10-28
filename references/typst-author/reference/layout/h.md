@@ -15,7 +15,7 @@ First #h(30%) Second
 
 ## Fractional spacing
 
-With fractional spacing, you can align things within a line without forcing a paragraph break (like [`align`](/docs/reference/layout/align/) would). Each fractionally sized element gets space based on the ratio of its fraction to the sum of all fractions.
+With fractional spacing, you can align things within a line without forcing a paragraph break (like [`align`](align.md) would). Each fractionally sized element gets space based on the ratio of its fraction to the sum of all fractions.
 
 ```typst
 First #h(1fr) Second \
@@ -25,7 +25,7 @@ First #h(2fr) Second #h(1fr) Third
 
 ## Mathematical Spacing
 
-In [mathematical formulas](/docs/reference/math/), you can additionally use these constants to add spacing between elements: `thin` (1/6 em), `med` (2/9 em), `thick` (5/18 em), `quad` (1 em), `wide` (2 em).
+In [mathematical formulas](../math/), you can additionally use these constants to add spacing between elements: `thin` (1/6 em), `med` (2/9 em), `thick` (5/18 em), `quad` (1 em), `wide` (2 em).
 
 ```typst
 #h(

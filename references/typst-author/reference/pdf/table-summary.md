@@ -6,7 +6,7 @@ A summary of the purpose and structure of a complex table.
 
 This will be available for Assistive Technology (AT), such as screen readers, when exporting to PDF, but not for sighted readers of your file.
 
-This field is intended for instructions that help the user navigate the table using AT. It is not an alternative description, so do not duplicate the contents of the table within. Likewise, do not use this for the core takeaway of the table. Instead, include that in the text around the table or, even better, in a [figure caption](/docs/reference/model/figure/#definitions-caption).
+This field is intended for instructions that help the user navigate the table using AT. It is not an alternative description, so do not duplicate the contents of the table within. Likewise, do not use this for the core takeaway of the table. Instead, include that in the text around the table or, even better, in a [figure caption](../model/figure.md#definitions-caption).
 
 If in doubt whether your table is complex enough to warrant a summary, err on the side of not including one. If you are certain that your table is complex enough, consider whether a sighted user might find it challenging. They might benefit from the instructions you put here, so consider printing them visibly in the document instead.
 

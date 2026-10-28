@@ -4,7 +4,7 @@ A sequence of values.
 
 You can construct an array by enclosing a comma-separated sequence of values in parentheses. The values do not have to be of the same type.
 
-You can access and update array items with the `.at()` method. Indices are zero-based and negative indices wrap around to the end of the array. You can iterate over an array using a [for loop](/docs/reference/scripting/#loops). Arrays can be added together with the `+` operator, [joined together](/docs/reference/scripting/#blocks) and multiplied with integers.
+You can access and update array items with the `.at()` method. Indices are zero-based and negative indices wrap around to the end of the array. You can iterate over an array using a [for loop](../scripting.md#loops). Arrays can be added together with the `+` operator, [joined together](../scripting.md#blocks) and multiplied with integers.
 
 **Note:** An array of length one needs a trailing comma, as in `(1,)`. This is to disambiguate from a simple parenthesized expressions like `(1 + 2) * 3`. An empty array is written as `()`.
 
@@ -138,7 +138,7 @@ Removes the last item from the array and returns it. Fails with an error if the 
 
 Inserts a value into the array at the specified index, shifting all subsequent elements to the right. Fails with an error if the index is out of bounds.
 
-To replace an element of an array, use [`at`](/docs/reference/foundations/array/#definitions-at).
+To replace an element of an array, use [`at`](array.md#definitions-at).
 
 ```typst
 #array.insert(
@@ -337,7 +337,7 @@ Produces a new array in which all items from the original one were transformed w
 
 Returns a new array with the values alongside their indices.
 
-The returned array consists of `(index, value)` pairs in the form of length-2 arrays. These can be [destructured](/docs/reference/scripting/#bindings) with a let binding or for loop.
+The returned array consists of `(index, value)` pairs in the form of length-2 arrays. These can be [destructured](../scripting.md#bindings) with a let binding or for loop.
 
 ```typst
 #for (i, value) in ("A", "B", "C").enumerate() {
@@ -694,7 +694,7 @@ If the array is empty, returns `none`, otherwise, returns the result of the redu
 
 The reducing function is a closure with two arguments: an "accumulator", and an element.
 
-For arrays with at least one element, this is the same as [`array.fold`](/docs/reference/foundations/array/#definitions-fold) with the first element of the array as the initial accumulator value, folding every subsequent element into it.
+For arrays with at least one element, this is the same as [`array.fold`](array.md#definitions-fold) with the first element of the array as the initial accumulator value, folding every subsequent element into it.
 
 ```typst
 #let array = (2, 1, 4, 3)

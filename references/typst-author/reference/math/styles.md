@@ -2,7 +2,7 @@
 
 Alternate letterforms within formulas.
 
-These functions are distinct from the [`text`](/docs/reference/text/text/) function because math fonts contain multiple variants of each letter.
+These functions are distinct from the [`text`](../text/text.md) function because math fonts contain multiple variants of each letter.
 
 # math.upright
 

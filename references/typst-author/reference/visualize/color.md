@@ -4,14 +4,14 @@ A color in a specific color space.
 
 Typst supports:
 
-- sRGB through the [`rgb` function](/docs/reference/visualize/color/#definitions-rgb)
-- Device CMYK through the [`cmyk` function](/docs/reference/visualize/color/#definitions-cmyk)
-- D65 Gray through the [`luma` function](/docs/reference/visualize/color/#definitions-luma)
-- Oklab through the [`oklab` function](/docs/reference/visualize/color/#definitions-oklab)
-- Oklch through the [`oklch` function](/docs/reference/visualize/color/#definitions-oklch)
-- Linear RGB through the [`color.linear-rgb` function](/docs/reference/visualize/color/#definitions-linear-rgb)
-- HSL through the [`color.hsl` function](/docs/reference/visualize/color/#definitions-hsl)
-- HSV through the [`color.hsv` function](/docs/reference/visualize/color/#definitions-hsv)
+- sRGB through the [`rgb` function](color.md#definitions-rgb)
+- Device CMYK through the [`cmyk` function](color.md#definitions-cmyk)
+- D65 Gray through the [`luma` function](color.md#definitions-luma)
+- Oklab through the [`oklab` function](color.md#definitions-oklab)
+- Oklch through the [`oklch` function](color.md#definitions-oklch)
+- Linear RGB through the [`color.linear-rgb` function](color.md#definitions-linear-rgb)
+- HSL through the [`color.hsl` function](color.md#definitions-hsl)
+- HSV through the [`color.hsv` function](color.md#definitions-hsv)
 
 ## Example
 
@@ -48,7 +48,7 @@ The predefined colors and the most important color constructors are available gl
 
 ## Predefined color maps
 
-Typst also includes a number of preset color maps that can be used for [gradients](/docs/reference/visualize/gradient/#stops). These are simply arrays of colors defined in the module `color.map`.
+Typst also includes a number of preset color maps that can be used for [gradients](gradient.md#stops). These are simply arrays of colors defined in the module `color.map`.
 
 ```typst
 #circle(fill: gradient.linear(..color.map.crest))
@@ -58,7 +58,7 @@ Typst also includes a number of preset color maps that can be used for [gradient
 | --- | --- |
 | `turbo` | A perceptually uniform rainbow-like color map. Read [this blog post](https://ai.googleblog.com/2019/08/turbo-improved-rainbow-colormap-for.html) for more details. |
 | `cividis` | A blue to gray to yellow color map. See [this blog post](https://bids.github.io/colormap/) for more details. |
-| `rainbow` | Cycles through the full color spectrum. This color map is best used by setting the interpolation color space to [HSL](/docs/reference/visualize/color/#definitions-hsl). The rainbow gradient is **not suitable** for data visualization because it is not perceptually uniform, so the differences between values become unclear to your readers. It should only be used for decorative purposes. |
+| `rainbow` | Cycles through the full color spectrum. This color map is best used by setting the interpolation color space to [HSL](color.md#definitions-hsl). The rainbow gradient is **not suitable** for data visualization because it is not perceptually uniform, so the differences between values become unclear to your readers. It should only be used for decorative purposes. |
 | `spectral` | Red to yellow to blue color map. |
 | `viridis` | A purple to teal to yellow color map. |
 | `inferno` | A black to red to yellow color map. |
@@ -82,7 +82,7 @@ Create a grayscale color.
 
 A grayscale color is represented internally by a single `lightness` component.
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #for x in range(250, step: 50) {
@@ -125,12 +125,12 @@ This color space is well suited for the following use cases:
 
 A linear Oklab color is represented internally by an array of four components:
 
-- lightness ([`ratio`](/docs/reference/layout/ratio/))
-- a ([`float`](/docs/reference/foundations/float/) or [`ratio`](/docs/reference/layout/ratio/). Ratios are relative to `0.4`; meaning `50%` is equal to `0.2`)
-- b ([`float`](/docs/reference/foundations/float/) or [`ratio`](/docs/reference/layout/ratio/). Ratios are relative to `0.4`; meaning `50%` is equal to `0.2`)
-- alpha ([`ratio`](/docs/reference/layout/ratio/))
+- lightness ([`ratio`](../layout/ratio.md))
+- a ([`float`](../foundations/float.md) or [`ratio`](../layout/ratio.md). Ratios are relative to `0.4`; meaning `50%` is equal to `0.2`)
+- b ([`float`](../foundations/float.md) or [`ratio`](../layout/ratio.md). Ratios are relative to `0.4`; meaning `50%` is equal to `0.2`)
+- alpha ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #square(
@@ -183,12 +183,12 @@ This color space is well suited for the following use cases:
 
 A linear Oklch color is represented internally by an array of four components:
 
-- lightness ([`ratio`](/docs/reference/layout/ratio/))
-- chroma ([`float`](/docs/reference/foundations/float/) or [`ratio`](/docs/reference/layout/ratio/). Ratios are relative to `0.4`; meaning `50%` is equal to `0.2`)
-- hue ([`angle`](/docs/reference/layout/angle/))
-- alpha ([`ratio`](/docs/reference/layout/ratio/))
+- lightness ([`ratio`](../layout/ratio.md))
+- chroma ([`float`](../foundations/float.md) or [`ratio`](../layout/ratio.md). Ratios are relative to `0.4`; meaning `50%` is equal to `0.2`)
+- hue ([`angle`](../layout/angle.md))
+- alpha ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #square(
@@ -233,16 +233,16 @@ These components are also available using the [`components`](/docs/reference/vis
 
 Create an RGB(A) color with linear luma.
 
-This color space is similar to sRGB, but with the distinction that the color component are not gamma corrected. This makes it easier to perform color operations such as blending and interpolation. Although, you should prefer to use the [`oklab` function](/docs/reference/visualize/color/#definitions-oklab) for these.
+This color space is similar to sRGB, but with the distinction that the color component are not gamma corrected. This makes it easier to perform color operations such as blending and interpolation. Although, you should prefer to use the [`oklab` function](color.md#definitions-oklab) for these.
 
 A linear RGB(A) color is represented internally by an array of four components:
 
-- red ([`ratio`](/docs/reference/layout/ratio/))
-- green ([`ratio`](/docs/reference/layout/ratio/))
-- blue ([`ratio`](/docs/reference/layout/ratio/))
-- alpha ([`ratio`](/docs/reference/layout/ratio/))
+- red ([`ratio`](../layout/ratio.md))
+- green ([`ratio`](../layout/ratio.md))
+- blue ([`ratio`](../layout/ratio.md))
+- alpha ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #square(fill: color.linear-rgb(
@@ -291,12 +291,12 @@ The color is specified in the sRGB color space.
 
 An RGB(A) color is represented internally by an array of four components:
 
-- red ([`ratio`](/docs/reference/layout/ratio/))
-- green ([`ratio`](/docs/reference/layout/ratio/))
-- blue ([`ratio`](/docs/reference/layout/ratio/))
-- alpha ([`ratio`](/docs/reference/layout/ratio/))
+- red ([`ratio`](../layout/ratio.md))
+- green ([`ratio`](../layout/ratio.md))
+- blue ([`ratio`](../layout/ratio.md))
+- alpha ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #square(fill: rgb("#b1f2eb"))
@@ -350,12 +350,12 @@ This is useful if you want to target a specific printer. The conversion to RGB f
 
 A CMYK color is represented internally by an array of four components:
 
-- cyan ([`ratio`](/docs/reference/layout/ratio/))
-- magenta ([`ratio`](/docs/reference/layout/ratio/))
-- yellow ([`ratio`](/docs/reference/layout/ratio/))
-- key ([`ratio`](/docs/reference/layout/ratio/))
+- cyan ([`ratio`](../layout/ratio.md))
+- magenta ([`ratio`](../layout/ratio.md))
+- yellow ([`ratio`](../layout/ratio.md))
+- key ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 Note that CMYK colors are not currently supported when PDF/A output is enabled.
 
@@ -406,12 +406,12 @@ This color space is useful for specifying colors by hue, saturation and lightnes
 
 An HSL color is represented internally by an array of four components:
 
-- hue ([`angle`](/docs/reference/layout/angle/))
-- saturation ([`ratio`](/docs/reference/layout/ratio/))
-- lightness ([`ratio`](/docs/reference/layout/ratio/))
-- alpha ([`ratio`](/docs/reference/layout/ratio/))
+- hue ([`angle`](../layout/angle.md))
+- saturation ([`ratio`](../layout/ratio.md))
+- lightness ([`ratio`](../layout/ratio.md))
+- alpha ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #square(
@@ -460,12 +460,12 @@ This color space is useful for specifying colors by hue, saturation and value. I
 
 An HSV color is represented internally by an array of four components:
 
-- hue ([`angle`](/docs/reference/layout/angle/))
-- saturation ([`ratio`](/docs/reference/layout/ratio/))
-- value ([`ratio`](/docs/reference/layout/ratio/))
-- alpha ([`ratio`](/docs/reference/layout/ratio/))
+- hue ([`angle`](../layout/angle.md))
+- saturation ([`ratio`](../layout/ratio.md))
+- value ([`ratio`](../layout/ratio.md))
+- alpha ([`ratio`](../layout/ratio.md))
 
-These components are also available using the [`components`](/docs/reference/visualize/color/#definitions-components) method.
+These components are also available using the [`components`](color.md#definitions-components) method.
 
 ```typst
 #square(
@@ -510,18 +510,18 @@ These components are also available using the [`components`](/docs/reference/vis
 
 Extracts the components of this color.
 
-The size and values of this array depends on the color space. You can obtain the color space using [`space`](/docs/reference/visualize/color/#definitions-space). Below is a table of the color spaces and their components:
+The size and values of this array depends on the color space. You can obtain the color space using [`space`](color.md#definitions-space). Below is a table of the color spaces and their components:
 
 | Color space | C1 | C2 | C3 | C4 |
 | --- | --- | --- | --- | --- |
-| [`luma`](/docs/reference/visualize/color/#definitions-luma) | Lightness |  |  |  |
-| [`oklab`](/docs/reference/visualize/color/#definitions-oklab) | Lightness | `a` | `b` | Alpha |
-| [`oklch`](/docs/reference/visualize/color/#definitions-oklch) | Lightness | Chroma | Hue | Alpha |
-| [`linear-rgb`](/docs/reference/visualize/color/#definitions-linear-rgb) | Red | Green | Blue | Alpha |
-| [`rgb`](/docs/reference/visualize/color/#definitions-rgb) | Red | Green | Blue | Alpha |
-| [`cmyk`](/docs/reference/visualize/color/#definitions-cmyk) | Cyan | Magenta | Yellow | Key |
-| [`hsl`](/docs/reference/visualize/color/#definitions-hsl) | Hue | Saturation | Lightness | Alpha |
-| [`hsv`](/docs/reference/visualize/color/#definitions-hsv) | Hue | Saturation | Value | Alpha |
+| [`luma`](color.md#definitions-luma) | Lightness |  |  |  |
+| [`oklab`](color.md#definitions-oklab) | Lightness | `a` | `b` | Alpha |
+| [`oklch`](color.md#definitions-oklch) | Lightness | Chroma | Hue | Alpha |
+| [`linear-rgb`](color.md#definitions-linear-rgb) | Red | Green | Blue | Alpha |
+| [`rgb`](color.md#definitions-rgb) | Red | Green | Blue | Alpha |
+| [`cmyk`](color.md#definitions-cmyk) | Cyan | Magenta | Yellow | Key |
+| [`hsl`](color.md#definitions-hsl) | Hue | Saturation | Lightness | Alpha |
+| [`hsv`](color.md#definitions-hsv) | Hue | Saturation | Value | Alpha |
 
 For the meaning and type of each individual value, see the documentation of the corresponding color space. The alpha component is optional and only included if the `alpha` argument is `true`. The length of the returned array depends on the number of components and whether the alpha component is included.
 
@@ -549,14 +549,14 @@ Returns the constructor function for this color's space.
 
 Returns one of:
 
-- [`luma`](/docs/reference/visualize/color/#definitions-luma)
-- [`oklab`](/docs/reference/visualize/color/#definitions-oklab)
-- [`oklch`](/docs/reference/visualize/color/#definitions-oklch)
-- [`linear-rgb`](/docs/reference/visualize/color/#definitions-linear-rgb)
-- [`rgb`](/docs/reference/visualize/color/#definitions-rgb)
-- [`cmyk`](/docs/reference/visualize/color/#definitions-cmyk)
-- [`hsl`](/docs/reference/visualize/color/#definitions-hsl)
-- [`hsv`](/docs/reference/visualize/color/#definitions-hsv)
+- [`luma`](color.md#definitions-luma)
+- [`oklab`](color.md#definitions-oklab)
+- [`oklch`](color.md#definitions-oklch)
+- [`linear-rgb`](color.md#definitions-linear-rgb)
+- [`rgb`](color.md#definitions-rgb)
+- [`cmyk`](color.md#definitions-cmyk)
+- [`hsl`](color.md#definitions-hsl)
+- [`hsv`](color.md#definitions-hsv)
 
 ```typst
 #let color = cmyk(1%, 2%, 3%, 4%)
@@ -676,7 +676,7 @@ Rotates the hue of the color by a given angle.
   - type: angle
   - default: None
 - space:
-  - description: The color space used to rotate. By default, this happens in a perceptual color space ([`oklch`](/docs/reference/visualize/color/#definitions-oklch)).
+  - description: The color space used to rotate. By default, this happens in a perceptual color space ([`oklch`](color.md#definitions-oklch)).
   - type: any
   - default: oklch
 
@@ -708,7 +708,7 @@ In color spaces with a hue component (hsl, hsv, oklch), only two colors can be m
   - type: color | array
   - default: None
 - space:
-  - description: The color space to mix in. By default, this happens in a perceptual color space ([`oklab`](/docs/reference/visualize/color/#definitions-oklab)).
+  - description: The color space to mix in. By default, this happens in a perceptual color space ([`oklab`](color.md#definitions-oklab)).
   - type: any
   - default: oklab
 

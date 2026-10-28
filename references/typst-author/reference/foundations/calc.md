@@ -47,7 +47,7 @@ Raises a value to some exponent.
 ## Parameters
 
 - base:
-  - description: The base of the power. If this is a [`decimal`](/docs/reference/foundations/decimal/), the exponent can only be an [integer](/docs/reference/foundations/int/).
+  - description: The base of the power. If this is a [`decimal`](decimal.md), the exponent can only be an [integer](int.md).
   - type: int | float | decimal
   - default: None
 - exponent:
@@ -547,7 +547,7 @@ Rounds a number down to the nearest integer.
 
 If the number is already an integer, it is returned unchanged.
 
-Note that this function will always return an [integer](/docs/reference/foundations/int/), and will error if the resulting [`float`](/docs/reference/foundations/float/) or [`decimal`](/docs/reference/foundations/decimal/) is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
+Note that this function will always return an [integer](int.md), and will error if the resulting [`float`](float.md) or [`decimal`](decimal.md) is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
 
 ```typst
 #calc.floor(500.1)
@@ -575,7 +575,7 @@ Rounds a number up to the nearest integer.
 
 If the number is already an integer, it is returned unchanged.
 
-Note that this function will always return an [integer](/docs/reference/foundations/int/), and will error if the resulting [`float`](/docs/reference/foundations/float/) or [`decimal`](/docs/reference/foundations/decimal/) is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
+Note that this function will always return an [integer](int.md), and will error if the resulting [`float`](float.md) or [`decimal`](decimal.md) is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
 
 ```typst
 #calc.ceil(500.1)
@@ -603,7 +603,7 @@ Returns the integer part of a number.
 
 If the number is already an integer, it is returned unchanged.
 
-Note that this function will always return an [integer](/docs/reference/foundations/int/), and will error if the resulting [`float`](/docs/reference/foundations/float/) or [`decimal`](/docs/reference/foundations/decimal/) is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
+Note that this function will always return an [integer](int.md), and will error if the resulting [`float`](float.md) or [`decimal`](decimal.md) is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
 
 ```typst
 #calc.trunc(15.9)
@@ -658,7 +658,7 @@ Half-integers are rounded away from zero.
 
 Optionally, a number of decimal places can be specified. If negative, its absolute value will indicate the amount of significant integer digits to remove before the decimal point.
 
-Note that this function will return the same type as the operand. That is, applying `round` to a [`float`](/docs/reference/foundations/float/) will return a `float`, and to a [`decimal`](/docs/reference/foundations/decimal/), another `decimal`. You may explicitly convert the output of this function to an integer with [`int`](/docs/reference/foundations/int/), but note that such a conversion will error if the `float` or `decimal` is larger than the maximum 64-bit signed integer or smaller than the minimum integer.
+Note that this function will return the same type as the operand. That is, applying `round` to a [`float`](float.md) will return a `float`, and to a [`decimal`](decimal.md), another `decimal`. You may explicitly convert the output of this function to an integer with [`int`](int.md), but note that such a conversion will error if the `float` or `decimal` is larger than the maximum 64-bit signed integer or smaller than the minimum integer.
 
 In addition, this function can error if there is an attempt to round beyond the maximum or minimum integer or `decimal`. If the number is a `float`, such an attempt will cause `float.inf` or `-float.inf` to be returned for maximum and minimum respectively.
 
@@ -826,7 +826,7 @@ Calculates the remainder of two numbers.
 
 The value `calc.rem(x, y)` always has the same sign as `x`, and is smaller in magnitude than `y`.
 
-This can error if given a [`decimal`](/docs/reference/foundations/decimal/) input and the dividend is too small in magnitude compared to the divisor.
+This can error if given a [`decimal`](decimal.md) input and the dividend is too small in magnitude compared to the divisor.
 
 ```typst
 #calc.rem(7, 3) \
@@ -895,7 +895,7 @@ This calculates the least nonnegative remainder of a division.
 
 Warning: Due to a floating point round-off error, the remainder may equal the absolute value of the divisor if the dividend is much smaller in magnitude than the divisor and the dividend is negative. This only applies for floating point inputs.
 
-In addition, this can error if given a [`decimal`](/docs/reference/foundations/decimal/) input and the dividend is too small in magnitude compared to the divisor.
+In addition, this can error if given a [`decimal`](decimal.md) input and the dividend is too small in magnitude compared to the divisor.
 
 ```typst
 #calc.rem-euclid(7, 3) \
@@ -928,7 +928,7 @@ In addition, this can error if given a [`decimal`](/docs/reference/foundations/d
 
 Calculates the quotient (floored division) of two numbers.
 
-Note that this function will always return an [integer](/docs/reference/foundations/int/), and will error if the resulting number is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
+Note that this function will always return an [integer](int.md), and will error if the resulting number is larger than the maximum 64-bit signed integer or smaller than the minimum for that type.
 
 ```typst
 $ "quo"(a, b) &= floor(a/b) \

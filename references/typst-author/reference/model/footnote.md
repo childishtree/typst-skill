@@ -6,7 +6,7 @@ A footnote.
 
 Includes additional remarks and references on the same page with footnotes. A footnote will insert a superscript number that links to the note at the bottom of the page. Notes are numbered sequentially throughout your document and can break across multiple pages.
 
-To customize the appearance of the entry in the footnote listing, see [`footnote.entry`](/docs/reference/model/footnote/#definitions-entry). The footnote itself is realized as a normal superscript, so you can use a set rule on the [`super`](/docs/reference/text/super/) function to customize it. You can also apply a show rule to customize only the footnote marker (superscript number) in the running text.
+To customize the appearance of the entry in the footnote listing, see [`footnote.entry`](footnote.md#definitions-entry). The footnote itself is realized as a normal superscript, so you can use a set rule on the [`super`](../text/super.md) function to customize it. You can also apply a show rule to customize only the footnote marker (superscript number) in the running text.
 
 ## Example
 
@@ -15,7 +15,7 @@ Check the docs for more details.
 #footnote[https://typst.app/docs]
 ```
 
-The footnote automatically attaches itself to the preceding word, even if there is a space before it in the markup. To force space, you can use the string `#" "` or explicit [horizontal spacing](/docs/reference/layout/h/).
+The footnote automatically attaches itself to the preceding word, even if there is a space before it in the markup. To force space, you can use the string `#" "` or explicit [horizontal spacing](../layout/h.md).
 
 By giving a label to a footnote, you can have multiple references to it.
 
@@ -42,7 +42,7 @@ Footnotes will be read by Assistive Technology (AT) immediately after the spot i
 ## Parameters
 
 - numbering:
-  - description: How to number footnotes. Accepts a [numbering pattern or function](/docs/reference/model/numbering/) taking a single number. By default, the footnote numbering continues throughout your document. If you prefer per-page footnote numbering, you can reset the footnote [counter](/docs/reference/introspection/counter/) in the page [header](/docs/reference/layout/page/#parameters-header). In the future, there might be a simpler way to achieve this. ```typst #set footnote(numbering: "*") Footnotes: #footnote[Star], #footnote[Dagger] ```
+  - description: How to number footnotes. Accepts a [numbering pattern or function](numbering.md) taking a single number. By default, the footnote numbering continues throughout your document. If you prefer per-page footnote numbering, you can reset the footnote [counter](../introspection/counter.md) in the page [header](../layout/page.md#parameters-header). In the future, there might be a simpler way to achieve this. ```typst #set footnote(numbering: "*") Footnotes: #footnote[Star], #footnote[Dagger] ```
   - type: str | function
   - default: "1"
 - body:

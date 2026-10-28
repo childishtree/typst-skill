@@ -61,7 +61,7 @@ This function behaves like `let args(..sink) = sink`.
 
 Returns the positional argument at the specified index, or the named argument with the specified name.
 
-If the key is an [integer](/docs/reference/foundations/int/), this is equivalent to first calling [`pos`](/docs/reference/foundations/arguments/#definitions-pos) and then [`array.at`](/docs/reference/foundations/array/#definitions-at). If it is a [string](/docs/reference/foundations/str/), this is equivalent to first calling [`named`](/docs/reference/foundations/arguments/#definitions-named) and then [`dictionary.at`](/docs/reference/foundations/dictionary/#definitions-at).
+If the key is an [integer](int.md), this is equivalent to first calling [`pos`](arguments.md#definitions-pos) and then [`array.at`](array.md#definitions-at). If it is a [string](str.md), this is equivalent to first calling [`named`](arguments.md#definitions-named) and then [`dictionary.at`](dictionary.md#definitions-at).
 
 ```typst
 #arguments.at(

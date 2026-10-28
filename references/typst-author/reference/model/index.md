@@ -8,24 +8,24 @@ Here, you can find functions to structure your document and interact with that s
 
 | Name | Description |
 | --- | --- |
-| [`bibliography`](/reference/model/bibliography/) | A bibliography / reference listing. |
-| [`cite`](/reference/model/cite/) | Cite a work from the bibliography. |
-| [`document`](/reference/model/document/) | The root element of a document and its metadata. |
-| [`emph`](/reference/model/emph/) | Emphasizes content by toggling italics. |
-| [`enum`](/reference/model/enum/) | A numbered list. |
-| [`figure`](/reference/model/figure/) | A figure with an optional caption. |
-| [`footnote`](/reference/model/footnote/) | A footnote. |
-| [`heading`](/reference/model/heading/) | A section heading. |
-| [`link`](/reference/model/link/) | Links to a URL or a location in the document. |
-| [`list`](/reference/model/list/) | A bullet list. |
-| [`numbering`](/reference/model/numbering/) | Applies a numbering to a sequence of numbers. |
-| [`outline`](/reference/model/outline/) | A table of contents, figures, or other elements. |
-| [`par`](/reference/model/par/) | A logical subdivison of textual content. |
-| [`parbreak`](/reference/model/parbreak/) | A paragraph break. |
-| [`quote`](/reference/model/quote/) | Displays a quote alongside an optional attribution. |
-| [`ref`](/reference/model/ref/) | A reference to a label or bibliography. |
-| [`strong`](/reference/model/strong/) | Strongly emphasizes content by increasing the font weight. |
-| [`table`](/reference/model/table/) | A table of items. |
-| [`terms`](/reference/model/terms/) | A list of terms and their descriptions. |
-| [`title`](/reference/model/title/) | A document title. |
+| [`bibliography`](bibliography.md) | A bibliography / reference listing. |
+| [`cite`](cite.md) | Cite a work from the bibliography. |
+| [`document`](document.md) | The root element of a document and its metadata. |
+| [`emph`](emph.md) | Emphasizes content by toggling italics. |
+| [`enum`](enum.md) | A numbered list. |
+| [`figure`](figure.md) | A figure with an optional caption. |
+| [`footnote`](footnote.md) | A footnote. |
+| [`heading`](heading.md) | A section heading. |
+| [`link`](link.md) | Links to a URL or a location in the document. |
+| [`list`](list.md) | A bullet list. |
+| [`numbering`](numbering.md) | Applies a numbering to a sequence of numbers. |
+| [`outline`](outline.md) | A table of contents, figures, or other elements. |
+| [`par`](par.md) | A logical subdivison of textual content. |
+| [`parbreak`](parbreak.md) | A paragraph break. |
+| [`quote`](quote.md) | Displays a quote alongside an optional attribution. |
+| [`ref`](ref.md) | A reference to a label or bibliography. |
+| [`strong`](strong.md) | Strongly emphasizes content by increasing the font weight. |
+| [`table`](table.md) | A table of items. |
+| [`terms`](terms.md) | A list of terms and their descriptions. |
+| [`title`](title.md) | A document title. |
 

@@ -22,22 +22,22 @@ Typst provides built-in markup for the most common document elements. Most of th
 
 | Name | Example | See |
 | --- | --- | --- |
-| Paragraph break | Blank line | [`parbreak`](/docs/reference/model/parbreak/) |
-| Strong emphasis | `*strong*` | [`strong`](/docs/reference/model/strong/) |
-| Emphasis | `_emphasis_` | [`emph`](/docs/reference/model/emph/) |
-| Raw text | ``print(1)`` | [`raw`](/docs/reference/text/raw/) |
-| Link | `https://typst.app/` | [`link`](/docs/reference/model/link/) |
-| Label | `<intro>` | [`label`](/docs/reference/foundations/label/) |
-| Reference | `@intro` | [`ref`](/docs/reference/model/ref/) |
-| Heading | `= Heading` | [`heading`](/docs/reference/model/heading/) |
-| Bullet list | `- item` | [`list`](/docs/reference/model/list/) |
-| Numbered list | `+ item` | [`enum`](/docs/reference/model/enum/) |
-| Term list | `/ Term: description` | [`terms`](/docs/reference/model/terms/) |
-| Math | `$x^2$` | [Math](/docs/reference/math/) |
-| Line break | `\` | [`linebreak`](/docs/reference/text/linebreak/) |
-| Smart quote | `'single' or "double"` | [`smartquote`](/docs/reference/text/smartquote/) |
-| Symbol shorthand | `~`, `---` | [Symbols](/docs/reference/symbols/sym/) |
-| Code expression | `#rect(width: 1cm)` | [Scripting](/docs/reference/scripting/#expressions) |
+| Paragraph break | Blank line | [`parbreak`](model/parbreak.md) |
+| Strong emphasis | `*strong*` | [`strong`](model/strong.md) |
+| Emphasis | `_emphasis_` | [`emph`](model/emph.md) |
+| Raw text | ``print(1)`` | [`raw`](text/raw.md) |
+| Link | `https://typst.app/` | [`link`](model/link.md) |
+| Label | `<intro>` | [`label`](foundations/label.md) |
+| Reference | `@intro` | [`ref`](model/ref.md) |
+| Heading | `= Heading` | [`heading`](model/heading.md) |
+| Bullet list | `- item` | [`list`](model/list.md) |
+| Numbered list | `+ item` | [`enum`](model/enum.md) |
+| Term list | `/ Term: description` | [`terms`](model/terms.md) |
+| Math | `$x^2$` | [Math](math/) |
+| Line break | `\` | [`linebreak`](text/linebreak.md) |
+| Smart quote | `'single' or "double"` | [`smartquote`](text/smartquote.md) |
+| Symbol shorthand | `~`, `---` | [Symbols](symbols/sym.md) |
+| Code expression | `#rect(width: 1cm)` | [Scripting](scripting.md#expressions) |
 | Character escape | `Tweet at us \#ad` | [Below](#escapes) |
 | Comment | `/* block */`, `// line` | [Below](#comments) |
 
@@ -47,20 +47,20 @@ Math mode is a special markup mode that is used to typeset mathematical formulas
 
 | Name | Example | See |
 | --- | --- | --- |
-| Inline math | `$x^2$` | [Math](/docs/reference/math/) |
-| Block-level math | `$ x^2 $` | [Math](/docs/reference/math/) |
-| Bottom attachment | `$x_1$` | [`attach`](/docs/reference/math/attach/) |
-| Top attachment | `$x^2$` | [`attach`](/docs/reference/math/attach/) |
-| Fraction | `$1 + (a+b)/5$` | [`frac`](/docs/reference/math/frac/) |
-| Line break | `$x \ y$` | [`linebreak`](/docs/reference/text/linebreak/) |
-| Alignment point | `$x &= 2 \ &= 3$` | [Math](/docs/reference/math/) |
-| Variable access | `$#x$, $pi$` | [Math](/docs/reference/math/) |
-| Field access | `$arrow.r.long$` | [Scripting](/docs/reference/scripting/#fields) |
-| Implied multiplication | `$x y$` | [Math](/docs/reference/math/) |
-| Symbol shorthand | `$->$`, `$!=$` | [Symbols](/docs/reference/symbols/sym/) |
-| Text/string in math | `$a "is natural"$` | [Math](/docs/reference/math/) |
-| Math function call | `$floor(x)$` | [Math](/docs/reference/math/) |
-| Code expression | `$#rect(width: 1cm)$` | [Scripting](/docs/reference/scripting/#expressions) |
+| Inline math | `$x^2$` | [Math](math/) |
+| Block-level math | `$ x^2 $` | [Math](math/) |
+| Bottom attachment | `$x_1$` | [`attach`](math/attach.md) |
+| Top attachment | `$x^2$` | [`attach`](math/attach.md) |
+| Fraction | `$1 + (a+b)/5$` | [`frac`](math/frac.md) |
+| Line break | `$x \ y$` | [`linebreak`](text/linebreak.md) |
+| Alignment point | `$x &= 2 \ &= 3$` | [Math](math/) |
+| Variable access | `$#x$, $pi$` | [Math](math/) |
+| Field access | `$arrow.r.long$` | [Scripting](scripting.md#fields) |
+| Implied multiplication | `$x y$` | [Math](math/) |
+| Symbol shorthand | `$->$`, `$!=$` | [Symbols](symbols/sym.md) |
+| Text/string in math | `$a "is natural"$` | [Math](math/) |
+| Math function call | `$floor(x)$` | [Math](math/) |
+| Code expression | `$#rect(width: 1cm)$` | [Scripting](scripting.md#expressions) |
 | Character escape | `$x\^2$` | [Below](#escapes) |
 | Comment | `$/* comment */$` | [Below](#comments) |
 
@@ -70,49 +70,49 @@ Within code blocks and expressions, new expressions can start without a leading 
 
 | Name | Example | See |
 | --- | --- | --- |
-| None | `none` | [`none`](/docs/reference/foundations/none/) |
-| Auto | `auto` | [`auto`](/docs/reference/foundations/auto/) |
-| Boolean | `false`, `true` | [`bool`](/docs/reference/foundations/bool/) |
-| Integer | `10`, `0xff` | [`int`](/docs/reference/foundations/int/) |
-| Floating-point number | `3.14`, `1e5` | [`float`](/docs/reference/foundations/float/) |
-| Length | `2pt`, `3mm`, `1em`, .. | [`length`](/docs/reference/layout/length/) |
-| Angle | `90deg`, `1rad` | [`angle`](/docs/reference/layout/angle/) |
-| Fraction | `2fr` | [`fraction`](/docs/reference/layout/fraction/) |
-| Ratio | `50%` | [`ratio`](/docs/reference/layout/ratio/) |
-| String | `"hello"` | [`str`](/docs/reference/foundations/str/) |
-| Label | `<intro>` | [`label`](/docs/reference/foundations/label/) |
-| Math | `$x^2$` | [Math](/docs/reference/math/) |
-| Raw text | ``print(1)`` | [`raw`](/docs/reference/text/raw/) |
-| Variable access | `x` | [Scripting](/docs/reference/scripting/#blocks) |
-| Code block | `\{ let x = 1; x + 2 \}` | [Scripting](/docs/reference/scripting/#blocks) |
-| Content block | `[*Hello*]` | [Scripting](/docs/reference/scripting/#blocks) |
-| Parenthesized expression | `(1 + 2)` | [Scripting](/docs/reference/scripting/#blocks) |
-| Array | `(1, 2, 3)` | [Array](/docs/reference/foundations/array/) |
-| Dictionary | `(a: "hi", b: 2)` | [Dictionary](/docs/reference/foundations/dictionary/) |
-| Unary operator | `-x` | [Scripting](/docs/reference/scripting/#operators) |
-| Binary operator | `x + y` | [Scripting](/docs/reference/scripting/#operators) |
-| Assignment | `x = 1` | [Scripting](/docs/reference/scripting/#operators) |
-| Field access | `x.y` | [Scripting](/docs/reference/scripting/#fields) |
-| Method call | `x.flatten()` | [Scripting](/docs/reference/scripting/#methods) |
-| Function call | `min(x, y)` | [Function](/docs/reference/foundations/function/) |
-| Argument spreading | `min(..nums)` | [Arguments](/docs/reference/foundations/arguments/) |
-| Unnamed function | `(x, y) => x + y` | [Function](/docs/reference/foundations/function/) |
-| Let binding | `let x = 1` | [Scripting](/docs/reference/scripting/#bindings) |
-| Named function | `let f(x) = 2 * x` | [Function](/docs/reference/foundations/function/) |
-| Set rule | `set text(14pt)` | [Styling](/docs/reference/styling/#set-rules) |
-| Set-if rule | `set text(..) if ..` | [Styling](/docs/reference/styling/#set-rules) |
-| Show-set rule | `show heading: set block(..)` | [Styling](/docs/reference/styling/#show-rules) |
-| Show rule with function | `show raw: it => \{..\}` | [Styling](/docs/reference/styling/#show-rules) |
-| Show-everything rule | `show: template` | [Styling](/docs/reference/styling/#show-rules) |
-| Context expression | `context text.lang` | [Context](/docs/reference/context/) |
-| Conditional | `if x == 1 \{..\} else \{..\}` | [Scripting](/docs/reference/scripting/#conditionals) |
-| For loop | `for x in (1, 2, 3) \{..\}` | [Scripting](/docs/reference/scripting/#loops) |
-| While loop | `while x < 10 \{..\}` | [Scripting](/docs/reference/scripting/#loops) |
-| Loop control flow | `break, continue` | [Scripting](/docs/reference/scripting/#loops) |
-| Return from function | `return x` | [Function](/docs/reference/foundations/function/) |
-| Include module | `include "bar.typ"` | [Scripting](/docs/reference/scripting/#modules) |
-| Import module | `import "bar.typ"` | [Scripting](/docs/reference/scripting/#modules) |
-| Import items from module | `import "bar.typ": a, b, c` | [Scripting](/docs/reference/scripting/#modules) |
+| None | `none` | [`none`](foundations/none.md) |
+| Auto | `auto` | [`auto`](foundations/auto.md) |
+| Boolean | `false`, `true` | [`bool`](foundations/bool.md) |
+| Integer | `10`, `0xff` | [`int`](foundations/int.md) |
+| Floating-point number | `3.14`, `1e5` | [`float`](foundations/float.md) |
+| Length | `2pt`, `3mm`, `1em`, .. | [`length`](layout/length.md) |
+| Angle | `90deg`, `1rad` | [`angle`](layout/angle.md) |
+| Fraction | `2fr` | [`fraction`](layout/fraction.md) |
+| Ratio | `50%` | [`ratio`](layout/ratio.md) |
+| String | `"hello"` | [`str`](foundations/str.md) |
+| Label | `<intro>` | [`label`](foundations/label.md) |
+| Math | `$x^2$` | [Math](math/) |
+| Raw text | ``print(1)`` | [`raw`](text/raw.md) |
+| Variable access | `x` | [Scripting](scripting.md#blocks) |
+| Code block | `\{ let x = 1; x + 2 \}` | [Scripting](scripting.md#blocks) |
+| Content block | `[*Hello*]` | [Scripting](scripting.md#blocks) |
+| Parenthesized expression | `(1 + 2)` | [Scripting](scripting.md#blocks) |
+| Array | `(1, 2, 3)` | [Array](foundations/array.md) |
+| Dictionary | `(a: "hi", b: 2)` | [Dictionary](foundations/dictionary.md) |
+| Unary operator | `-x` | [Scripting](scripting.md#operators) |
+| Binary operator | `x + y` | [Scripting](scripting.md#operators) |
+| Assignment | `x = 1` | [Scripting](scripting.md#operators) |
+| Field access | `x.y` | [Scripting](scripting.md#fields) |
+| Method call | `x.flatten()` | [Scripting](scripting.md#methods) |
+| Function call | `min(x, y)` | [Function](foundations/function.md) |
+| Argument spreading | `min(..nums)` | [Arguments](foundations/arguments.md) |
+| Unnamed function | `(x, y) => x + y` | [Function](foundations/function.md) |
+| Let binding | `let x = 1` | [Scripting](scripting.md#bindings) |
+| Named function | `let f(x) = 2 * x` | [Function](foundations/function.md) |
+| Set rule | `set text(14pt)` | [Styling](styling.md#set-rules) |
+| Set-if rule | `set text(..) if ..` | [Styling](styling.md#set-rules) |
+| Show-set rule | `show heading: set block(..)` | [Styling](styling.md#show-rules) |
+| Show rule with function | `show raw: it => \{..\}` | [Styling](styling.md#show-rules) |
+| Show-everything rule | `show: template` | [Styling](styling.md#show-rules) |
+| Context expression | `context text.lang` | [Context](context.md) |
+| Conditional | `if x == 1 \{..\} else \{..\}` | [Scripting](scripting.md#conditionals) |
+| For loop | `for x in (1, 2, 3) \{..\}` | [Scripting](scripting.md#loops) |
+| While loop | `while x < 10 \{..\}` | [Scripting](scripting.md#loops) |
+| Loop control flow | `break, continue` | [Scripting](scripting.md#loops) |
+| Return from function | `return x` | [Function](foundations/function.md) |
+| Include module | `include "bar.typ"` | [Scripting](scripting.md#modules) |
+| Import module | `import "bar.typ"` | [Scripting](scripting.md#modules) |
+| Import items from module | `import "bar.typ": a, b, c` | [Scripting](scripting.md#modules) |
 | Comment | `/* block */`, `// line` | [Below](#comments) |
 
 ## Comments
@@ -139,7 +139,7 @@ Our study design is as follows:
 
 ## Escape sequences
 
-Escape sequences are used to insert special characters that are hard to type or otherwise have special meaning in Typst. To escape a character, precede it with a backslash. To insert any Unicode codepoint, you can write a hexadecimal escape sequence: `\u\{1f600\}`. The same kind of escape sequences also work in [strings](/docs/reference/foundations/str/).
+Escape sequences are used to insert special characters that are hard to type or otherwise have special meaning in Typst. To escape a character, precede it with a backslash. To insert any Unicode codepoint, you can write a hexadecimal escape sequence: `\u\{1f600\}`. The same kind of escape sequences also work in [strings](foundations/str.md).
 
 ```typst
 I got an ice cream for
@@ -168,7 +168,7 @@ For multi-word identifiers, the recommended case convention is [Kebab case](http
 
 ## Paths
 
-Typst has various features that require a file path to reference external resources such as images, Typst files, or data files. Paths are represented as [strings](/docs/reference/foundations/str/). There are two kinds of paths: Relative and absolute.
+Typst has various features that require a file path to reference external resources such as images, Typst files, or data files. Paths are represented as [strings](foundations/str.md). There are two kinds of paths: Relative and absolute.
 
 - A **relative path** searches from the location of the Typst file where the feature is invoked. It is the default: `#image("images/logo.png")`
 - An **absolute path** searches from the _root_ of the project. It starts with a leading `/`: `#image("/assets/logo.png")`
