@@ -88,8 +88,9 @@ Concise, pattern-first reference docs covering specific tasks. Each doc links to
 A complete mirror of the official Typst documentation, organized by category:
 
 > 镜像里的交叉引用已从站点绝对路径（`/docs/reference/model/strong/`）**本地化为相对路径**
-> （`../model/strong.md`），2402 条全部可直接打开。若从上游重新同步过镜像，跑一次
-> `python3 scripts/localize-mirror-links.py` 重新本地化（幂等，可重复跑）。
+> （`../model/strong.md`），当前镜像 2402 条全部可直接打开。若从上游重新同步过镜像，跑一次
+> `python3 scripts/localize-mirror-links.py` 重新本地化（幂等，可重复跑；`--check` 只报告，
+> 未本地化时 exit 1）。
 > 注意：URL 里的 `#anchor` 是文档站点从 frontmatter 生成的，本地 markdown 不会生成同样的
 > 锚点，所以片段可能跳不过去——落到了正确的文件里，用页内搜索找参数名即可。
 
