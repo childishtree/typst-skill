@@ -1,6 +1,6 @@
 ---
 name: typst-skill
-description: 'Typst document creation, editing, debugging, package development, and presentation slides (Touying). Use when: (1) Working with .typ files, (2) User mentions typst, typst.toml, or typst-cli, (3) Creating/editing Typst documents, templates, or packages, (4) Creating presentation slides with Touying, (5) Converting Markdown/LaTeX to Typst, (6) Troubleshooting Typst compilation or syntax issues. 中文触发：排版、Typst 模板、写论文、做幻灯片/PPT、公式排版、表格、编译报错、中文粗体/斜体不生效、.typ 文件。'
+description: 'Typst document creation, editing, debugging, package development, and presentation slides (Touying). Use when: (1) Working with .typ files, (2) User mentions typst, typst.toml, or typst-cli, (3) Creating/editing Typst documents, templates, or packages, (4) Creating presentation slides with Touying, (5) Converting Markdown/LaTeX to Typst, (6) Troubleshooting Typst compilation or syntax issues. 中文触发：Typst 排版、Typst 模板、用 Typst 写论文、Typst 幻灯片/PPT（Touying）、Typst 公式排版、typst 编译报错、中文粗体/斜体不生效、.typ 文件。'
 ---
 
 # Typst Skill
@@ -37,11 +37,20 @@ typst watch document.typ                # recompile on change
 Content goes here. #lorem(50)
 ```
 
+中文文档改成这样（`lang` 必须是 `"zh"`；CJK 字族名随发行版而异，先 `typst fonts | grep -i noto` 确认本机装的是 `Noto Serif SC` 还是 `Noto Serif CJK SC`）：
+
+```typst
+#set page(paper: "a4", margin: 2cm)
+#set text(size: 11pt, lang: "zh", font: ("Noto Serif SC", "Libertinus Serif"))
+```
+
+⚠️ 中文的 `*粗体*` / `_斜体_` **默认不生效且不报错**，必须额外接 cuti —— 见 [references/typst/styling.md](references/typst/styling.md) 的「CJK 伪粗体与伪斜体」一节。
+
 ## Documentation Structure
 
 This skill uses a **three-tier documentation system**:
 
-> Tier 1 的完整索引（含 starter 模板对照表）另见 [`references/typst/SKILL.md`](references/typst/SKILL.md)。
+> 文档索引就在下方（Tier 1 / Tier 2）。唯一不在本文件的是 **starter 模板对照表**（7 个 example 分别适合什么场景），见 [`references/typst/SKILL.md`](references/typst/SKILL.md) 的 Examples 一节。
 
 ### Tier 1: Task-Oriented Guides (`references/typst/`)
 Concise, pattern-first reference docs covering specific tasks. Each doc links to related docs.
@@ -122,11 +131,12 @@ python3 scripts/search-api.py --list-categories
 
 ### Creating a New Document
 
-1. Copy the closest starter from [assets/examples/](assets/examples/) or use the minimal document above → 产出：确定的 starter 路径
+1. Select the closest starter from [assets/examples/](assets/examples/), or use the minimal document above → 产出：选定的 starter 路径。**本步只选不写盘**
 2. Read the relevant reference docs for the task → 产出：按上方 Tier 1 表选 1–2 份，不要通读 `references/typst/` 全部 14 份
-3. 🔴 CHECKPOINT：写文件之前，如果用户没有指定模板或版式，先说明你从 `assets/examples/` 里挑了哪一个 starter、为什么挑它，等用户确认再动手
-4. Run post-edit formatting checks (see below) → 产出：`typstyle --check` 通过，或已向用户说明为何跳过
-5. Validate with `typst compile` → 产出：exit code 0 且 stderr 无 `error`；有 `warning` 需向用户说明
+3. 🔴 CHECKPOINT：**仅当**用户未指定模板/版式、且所选 starter 会明显改变成稿外观（模板类、论文类、CV、幻灯片）时，先说明选了哪个 starter、为什么，等确认再落盘。用户已指定版式、或只是要一份普通文档时跳过本步，直接第 4 步
+4. Create the `.typ` file(s)：复制第 1 步选定的 starter 或写入上面的 Minimal Document，然后填入正文 → 产出：落盘的 `.typ` 路径
+5. Run post-edit formatting checks (see below) → 产出：`typstyle --check` 通过，或已向用户说明为何跳过
+6. Validate with `typst compile` → 产出：exit code 0 且 stderr 无 `error`；出现 `warning` 时先判断是否与本次改动相关，相关才向用户说明
 
 ### Editing Existing Documents
 
@@ -162,13 +172,13 @@ python3 scripts/search-api.py --list-categories
 | 触发条件 | 一线修复 | 仍失败兜底 |
 |---|---|---|
 | `typst compile` 报语法错 | 查下方 Common Errors 表 | 读 `references/typst/debug.md`；用 `-f html --features html` 定位出错元素 |
-| 编译连续 3 次不过 | 停下，贴出完整 error + 最小复现代码问用户 | 不要继续盲改，不要改无关代码试运气 |
+| 同一处 error 修了 2 轮仍不过（在回复里明写「第 N 轮修复」，N≥2 即触发；这就是跨调用的计数器） | 把出错片段抽成最小 `.typ` 单独编译，定位真正的触发点 | 停下，贴出完整 error + 最小复现代码问用户，不要继续盲改或改无关代码试运气 |
 | `search-api.py` / `search-packages.py` 报 FileNotFoundError | 确认 cwd 在 skill 根目录；`ls references/typst/data/*.json` 确认索引在 | 直接 `grep` 对应 JSON 手工查找 |
 | `python3` 不存在或版本过低 | 试 `python` | 跳过脚本，改用 Tier 1/2 文档，并声明「索引不可用」 |
 | 导出 PNG 但读不到图像内容 | 改用 HTML 导出 + `pdftotext` | 只声明「编译通过」，明确说「未做视觉验证」 |
 | `@preview/<pkg>` 报版本不存在 | `search-packages.py "<pkg>"` 查真实版本号 | 降到上一个可用版本，并在输出里注明版本 |
-| 中文变方框 / 字体缺失 | 加 `--font-path`，或换 `"Noto Serif CJK SC"` 等系统字体 | 告知用户字体未找到，不要静默回退 |
-| 中文 `*粗体*` 看起来没变粗 | 见 [references/typst/styling.md](references/typst/styling.md) 的 cuti 方案 | 明确告知「字体无粗体字面」，不要谎称已加粗 |
+| 中文变方框 / 字体缺失 | 跑 `typst fonts` 查出本机真实的 CJK 字族名（`Noto Serif SC` / `Source Han Sans` / `SimSun`），或加 `--font-path` | 告知用户字体未找到，不要静默回退 |
+| 中文 `*粗体*` / `_斜体_` 看起来没变粗/没倾斜（编译却通过） | 按 [references/typst/styling.md](references/typst/styling.md) 的「CJK 伪粗体与伪斜体」一节接 cuti | 换一个自带 Bold 的字体家族（`Noto Sans SC` / `Source Han Sans`）重试；仍无效则告知用户该字体无粗体字面，不要谎称已加粗 |
 | Tier 2 路径打不开 | `ls references/typst-author/` 看真实结构 | 用 `search-api.py` 代替，不要猜路径 |
 
 三条工作流的末步后统一适用：**若 `typst compile` 失败，进入本表第 1 行，不要直接结束任务。**
@@ -187,7 +197,7 @@ python3 scripts/search-api.py --list-categories
 | "variables from outside are read-only"           | Mutating captured variable   | Use loop accumulation or `state()` -- see advanced.md |
 | "expected content, found string" (or vice versa) | Content/string type mismatch | Use `[#str-var]` to embed string in content          |
 | set/show rule has no effect                      | Rule placed after content    | Place set/show rules before the content they target  |
-| 中文 `*粗体*` 没变粗、`_斜体_` 没倾斜（且不报错）      | CJK 字体无粗体/斜体字面，Typst 不做合成 | 用 `@preview/cuti` 伪粗体/伪斜体，见 [styling.md](references/typst/styling.md#cjk-伪粗体与伪斜体中文加粗斜体不生效) |
+| 中文 `*粗体*` 没变粗、`_斜体_` 没倾斜（且不报错）      | CJK 字体无粗体/斜体字面，Typst 不做合成 | 用 `@preview/cuti` 伪粗体/伪斜体，见 [styling.md](references/typst/styling.md) 的「CJK 伪粗体与伪斜体」一节 |
 
 ## Critical Syntax Distinctions
 
@@ -208,10 +218,8 @@ python3 scripts/search-api.py --list-categories
 
 ## 反例清单（不要做什么）
 
-以下是实测中最高频的踩坑，逐条都是「看起来对、实际错」的写法。
+以下是实测中最高频的踩坑，逐条都是「看起来对、实际错」的写法。纯语法层面（`#` 用法、LaTeX 命令）见上方 Critical Syntax Distinctions，此处不重复。
 
-- ❌ 不要在代码上下文里写 `#`：`figure(...)` 而非 `#figure(...)`。
-- ❌ 不要用 LaTeX 命令：`\section`、`\begin{}`、`\usepackage`、`\bfseries` 在 Typst 里都不存在。
 - ❌ 不要凭记忆写包版本号 —— 用 `scripts/search-packages.py` 查。写错版本是最高频的编译失败源。
 - ❌ 不要对用户既有文件直接跑 `typstyle -i`，它会重排你没碰过的代码。
 - ❌ 不要在没有 `typst compile` 通过的情况下宣称「已完成」。
@@ -235,7 +243,7 @@ python3 scripts/search-api.py --list-categories
 | `scripts/validate-examples.py` | 校验文档内所有 ```typst 代码块能否编译 | `markdown-it-py` |
 | `scripts/perf-timings.py` | 解析 `typst compile --timings` 轨迹，输出热点表 | 无 |
 
-- `validate-examples.py` 默认只校验本 skill 自身的 20 个 md；加 `--all` 才会扫上游文档镜像
+- `validate-examples.py` 默认只校验本 skill 自身的 md（根目录 `*.md` + `references/typst/` 下全部 md，具体文件数由脚本自行枚举）；加 `--all` 才会扫上游文档镜像
   （`references/typst-author/` 等，约 1100 个代码块，耗时数十分钟）。
 - `perf-timings.py` 吃的是 JSON 轨迹，不是 `.typ` 源文件：
   `typst compile --timings trace.json doc.typ doc.pdf && python3 scripts/perf-timings.py trace.json --self-time`

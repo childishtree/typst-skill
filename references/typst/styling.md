@@ -105,10 +105,15 @@ Prefer SVG for diagrams (scales cleanly), PNG/JPG for photos. Use `fit: "contain
 ## Font Configuration
 
 ```typst
-#set text(font: "Libertinus Serif")                     // Single font
-#set text(font: ("Noto Serif CJK SC", "Libertinus Serif"))  // Fallback chain
-#set text(font: "Fira Code", size: 9pt)                 // Monospace for code
+#set text(font: "Libertinus Serif")                        // Single font
+#set text(font: ("Noto Serif SC", "Libertinus Serif"))     // Fallback chain: 缺字时按顺序往下找
+#set text(font: "Fira Code", size: 9pt)                    // Monospace for code
 ```
+
+CJK 字族名随发行版而异：Google 版本叫 `Noto Serif SC` / `Noto Sans SC`，Adobe/系统版可能叫
+`Noto Serif CJK SC` / `Source Han Serif SC`，Windows 上还有 `SimSun` / `Microsoft YaHei`。
+写死一个名字前先 `typst fonts | grep -i` 确认本机装了哪个，否则只会得到
+`warning: unknown font family` 并静默回退到默认字体。
 
 ```bash
 # List available fonts
@@ -151,7 +156,7 @@ Typst 按字重/字形去找字体，CJK 字体通常**只有 Regular**（少数
 ### 复现与验证
 
 ```typst
-#set text(font: "LXGW Neo ZhiSong")   // 只有 Regular 一个字面
+#set text(font: "LXGW Neo ZhiSong")   // 只有 Regular 一个字面（本机没装就换任意单字重中文字体）
 *中文粗体测试* ABC                     // ABC 变粗，汉字不变
 _中文斜体测试_ ABC                     // ABC 倾斜，汉字不变
 ```
@@ -185,29 +190,43 @@ typst compile doc.typ "page-{p}.png" -f png --ppi 200
 **坑 1：`show-cn-fakebold` 只挂 `weight: "bold"`。**
 它的实现是 `show text.where(weight: "bold").or(strong)`。如果你的模板全程用
 `weight: "semibold"`（常见于配合 Libertinus 这类有 Semibold 字面的拉丁字体），
-它**不会生效**。此时自己挂 show 规则：
+它**不会生效**。自己挂一条即可（实测生效）：
 
 ```typst
 #import "@preview/cuti:0.4.0": regex-fakebold
-#let han = "[\p{script=Han}！-･〇-〰—]+"
-#show text.where(weight: "semibold").or(strong): it => regex-fakebold(reg-exp: han, it, weight: "regular")
+#let han-re = "[\p{script=Han}！-･〇-〰—]+"
+#show text.where(weight: "semibold"): it => regex-fakebold(reg-exp: han-re, it, weight: "regular")
 ```
+
+这条不会自递归：`regex-fakebold` 对匹配到的汉字输出 `text(weight: "regular", ...)`，
+输出里不再有 `semibold` 的 `text` 元素，匹配不到自己。拉丁的 semibold 由外层 `text`
+继承下来，也不会丢（与坑 4 的 `strong` 情况相反，原因见坑 4）。
+
+模板若同时用 `strong`，把下方推荐写法里那条 `show strong` 一起加上——两条规则作用于
+不同元素，不冲突。
 
 **坑 2：`show-cn-fakeitalic` 名字里有 `cn`，但会把拉丁词一起 skew。**
 它内部调的 `fakeitalic` 正则同时匹配「非 CJK 的单词」和「单个 CJK 字符」。
 若拉丁字体已有真斜体，再 skew 一次就成了**双重倾斜**，比正体还难看。
 实测对比：`show-cn-fakeitalic` 下 `ABC` 明显比基线更斜。
 
-只对汉字做伪斜体：
-
-```typst
-#import "@preview/cuti:0.4.0": regex-fakeitalic
-#show emph: it => regex-fakeitalic(reg-exp: "[\p{script:Han}！-･〇-〰—]+", ang: -18.4deg, it)
-```
+处理办法：用下方「中英混排的推荐写法」里的 `han-char-re` 版 `show emph`，
+不要用 `show-cn-fakeitalic`。
 
 **坑 3：`regex-fakebold` 的默认正则 `.+` 是贪婪的。**
 不限定范围会匹配全部内容，把拉丁字母也压成 Regular + 描边（毁掉真粗体）。
 必须显式传 `reg-exp`。
+
+**坑 4：`#show strong: it => regex-fakebold(...)` 会把拉丁的粗体一起弄丢。**
+`show` 规则是**替换**而不是叠加。`strong` 的粗体挂在元素本身上，一旦渲染被
+`regex-fakebold` 的 `text(...)` 替换掉，未匹配的拉丁字母就没有任何地方继承粗体了——
+实测：不加 cuti 时 `ABC` 是粗的，加上反而变细。
+所以要在外面包一层 `text(weight: "bold", ...)`：先给整段上真粗体，再把汉字压回 regular + 描边。
+（坑 1 的 `text.where(weight: "semibold")` 不受影响，因为那里的字重来自外层继承。）
+
+**坑 5：`#show emph: it => emph(...)` 会无限递归。**
+报错 `maximum show rule depth exceeded`——show 规则匹配到了自己的输出。
+斜体要用 `text(style: "italic", ...)`，不要用 `emph(...)`。
 
 ### 中英混排的推荐写法
 
@@ -217,26 +236,17 @@ typst compile doc.typ "page-{p}.png" -f png --ppi 200
 #import "@preview/cuti:0.4.0": regex-fakebold, regex-fakeitalic
 
 #let han-re      = "[\p{script=Han}！-･〇-〰—]+"   // 汉字 + 全角标点
-#let han-char-re = "[\p{script:Han}！-･〇-〰—]"     // 逐字
+#let han-char-re = "[\p{script=Han}！-･〇-〰—]"     // 逐字
 
-// ⚠️ 必须在外面重新施加真粗体/真斜体，见下方坑 4、坑 5
+// ⚠️ 必须在外面重新施加真粗体/真斜体，见上方坑 4、坑 5
 #show strong: it => text(weight: "bold", regex-fakebold(reg-exp: han-re, it, weight: "regular"))
 #show emph:   it => text(style: "italic", regex-fakeitalic(reg-exp: han-char-re, ang: -18.4deg, it))
 ```
 
 - 字类里带上全角标点（`！-･〇-〰—`），否则会出现「汉字斜、逗号正」的割裂。
-- 逐字 vs 整串匹配：`box` 本身不可断行，所以实践中常用逐字（正则末尾不加 `+`）。
-  但在 **Typst 0.15 + cuti 0.4.0 实测两种写法换行表现一致**，未观察到差异。
-  先按上面写，若遇到异常换行再改逐字。
-
-**坑 4：`#show strong: it => regex-fakebold(...)` 会把拉丁的粗体一起弄丢。**
-`show` 规则是**替换**而不是叠加。只匹配汉字的 `regex-fakebold` 替换掉 `strong` 的默认渲染后，
-未匹配的拉丁字母就失去了原本的粗体——实测：不加 cuti 时 `ABC` 是粗的，加上反而变细。
-所以要在外面包一层 `text(weight: "bold", ...)`：先给整段上真粗体，再把汉字压回 regular + 描边。
-
-**坑 5：`#show emph: it => emph(...)` 会无限递归。**
-报错 `maximum show rule depth exceeded`——show 规则匹配到了自己的输出。
-斜体要用 `text(style: "italic", ...)`，不要用 `emph(...)`。
+- 逐字 vs 整串匹配：`box` 本身不可断行，所以默认用逐字（正则末尾不加 `+`）。
+  Typst 0.15 + cuti 0.4.0 实测两种写法的换行表现一致，改成整串匹配也不会坏；
+  但逐字粒度更保守，除非你确知整串匹配更合适，否则不要改。
 
 ### 何时不需要 cuti
 
