@@ -122,11 +122,13 @@ python3 scripts/search-api.py --list-categories
 
 1. Copy the closest starter from [assets/examples/](assets/examples/) or use the minimal document above
 2. Read the relevant reference docs for the task
-3. Create the `.typ` file(s)
+3. 🔴 CHECKPOINT：写文件之前，如果用户没有指定模板或版式，先说明你从 `assets/examples/` 里挑了哪一个 starter、为什么挑它，等用户确认再动手
 4. Run post-edit formatting checks (see below)
 5. Validate with `typst compile`
 
 ### Editing Existing Documents
+
+🛑 STOP：要覆写或删除已存在的 `.typ` 文件之前，必须先向用户确认，不要直接覆盖。
 
 1. Locate the target text and apply changes
 2. Verify syntax against reference docs when needed
@@ -180,7 +182,21 @@ python3 scripts/search-api.py --list-categories
 2. After each `.typ` file modification, run `typstyle --check <file>`.
 3. If `typstyle --check` fails, inspect with `typstyle --diff <file>`.
 4. Apply formatting with `typstyle -i <file>` only when changes are limited to newly created/edited code.
-5. Stop and ask the user when formatting would change untouched pre-existing code.
+5. 🛑 STOP：当 `typstyle -i` 会改动你并未触碰的既有代码时，停下来问用户，不要直接执行。
+
+## 反例清单（不要做什么）
+
+以下是实测中最高频的踩坑，逐条都是「看起来对、实际错」的写法。
+
+- ❌ 不要在代码上下文里写 `#`：`figure(...)` 而非 `#figure(...)`。
+- ❌ 不要用 LaTeX 命令：`\section`、`\begin{}`、`\usepackage`、`\bfseries` 在 Typst 里都不存在。
+- ❌ 不要凭记忆写包版本号 —— 用 `scripts/search-packages.py` 查。写错版本是最高频的编译失败源。
+- ❌ 不要对用户既有文件直接跑 `typstyle -i`，它会重排你没碰过的代码。
+- ❌ 不要在没有 `typst compile` 通过的情况下宣称「已完成」。
+- ❌ 不要假设 Tier 2 的路径一定存在，先 `ls references/typst-author/` 看真实结构再读。
+- ❌ 不要把 PDF 当唯一验证手段 —— agent 读不到 PDF 内容，用 `-f html` 或 `-f png`。
+- ❌ 不要在 `.typ` 里用 Markdown 语法：`**bold**` 是普通字符，Typst 用 `*bold*`。
+- ❌ 不要以为中文 `*粗体*` 和 `_斜体_` 会生效 —— 详见 [references/typst/styling.md](references/typst/styling.md) 的「CJK 伪粗体与伪斜体」一节，这是 Typst 里最隐蔽的静默失败。
 
 ## Probing Uncertain Behavior
 
