@@ -41,6 +41,8 @@ Content goes here. #lorem(50)
 
 This skill uses a **three-tier documentation system**:
 
+> Tier 1 的完整索引（含 starter 模板对照表）另见 [`references/typst/SKILL.md`](references/typst/SKILL.md)。
+
 ### Tier 1: Task-Oriented Guides (`references/typst/`)
 Concise, pattern-first reference docs covering specific tasks. Each doc links to related docs.
 
@@ -222,6 +224,21 @@ python3 scripts/search-api.py --list-categories
 - Use a probe when bundled docs do not settle runtime or evaluation behavior.
 - Prefer fileless probes through stdin: `printf '#metadata(1 + 2) <probe>\n' | typst query - "<probe>" --field value --one`
 - See `references/typst/query.md` and `references/typst-author/reference/introspection/query.md` for details.
+
+## 校验与性能脚本
+
+| 脚本 | 用途 | 依赖 |
+| --- | --- | --- |
+| `scripts/search-api.py` | 检索内置的 Typst API 索引（函数/方法/符号，支持 `--channel`） | 无 |
+| `scripts/search-packages.py` | 检索内置的 Typst Universe 包索引 | 无 |
+| `scripts/validate-examples.py` | 校验文档内所有 ```typst 代码块能否编译 | `markdown-it-py` |
+| `scripts/perf-timings.py` | 解析 `typst compile --timings` 轨迹，输出热点表 | 无 |
+
+- `validate-examples.py` 默认只校验本 skill 自身的 20 个 md；加 `--all` 才会扫上游文档镜像
+  （`references/typst-author/` 等，约 1100 个代码块，耗时数十分钟）。
+- `perf-timings.py` 吃的是 JSON 轨迹，不是 `.typ` 源文件：
+  `typst compile --timings trace.json doc.typ doc.pdf && python3 scripts/perf-timings.py trace.json --self-time`
+- 脚本不可用时的降级路径见上方「失败回边」表。
 
 ## Ecosystem Tools
 
