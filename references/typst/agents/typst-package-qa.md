@@ -51,7 +51,7 @@ If `tytanic` (`tt`) is not installed or no `tests/` directory exists, skip and n
 Use HTML export on the entrypoint directly to verify it produces expected output:
 
 ```bash
-typst compile <entrypoint> /dev/stdout -f html --features html 2>/dev/null
+typst compile <entrypoint> out.html -f html --features html
 ```
 
 ### 6. Checklist Audit
