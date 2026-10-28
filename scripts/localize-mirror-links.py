@@ -104,8 +104,14 @@ def resolve(mirror: Path, url_path: str) -> Path | None:
 
 def rewrite_file(
     md: Path, mirror: Path, apply: bool, ignore_fences: bool = False
-) -> tuple[int, int, list[str]]:
-    """Returns (rewritten, untouched_site_absolute, unresolved_paths)."""
+) -> tuple[int, int, list[str], int]:
+    """Returns (rewritten, untouched_site_absolute, unresolved_paths, fenced).
+
+    ``fenced`` counts site-absolute links skipped because they sit inside a
+    code fence. Those are exactly the links the fallback pass picks up, so
+    ``--check`` can report the fallback's yield without running it (running it
+    there would rescan the unwritten text and double count).
+    """
     text = md.read_text(encoding="utf-8")
     # Rewrite only outside fenced code blocks, unless we are in the fallback
     # pass for links stuck inside a malformed fence.
@@ -118,6 +124,7 @@ def rewrite_file(
     last = 0
     rewritten = 0
     untouched = 0
+    fenced = 0
     unresolved: list[str] = []
 
     for m in LINK_RE.finditer(text):
@@ -126,6 +133,7 @@ def rewrite_file(
         if not raw.startswith(SITE_PREFIXES):
             continue
         if in_fence(m.start()):
+            fenced += 1
             continue
         path, sep, frag = raw.partition("#")
         dest = resolve(mirror, path)
@@ -145,7 +153,7 @@ def rewrite_file(
     if rewritten and apply:
         out.append(text[last:])
         md.write_text("".join(out), encoding="utf-8")
-    return rewritten, untouched, unresolved
+    return rewritten, untouched, unresolved, fenced
 
 
 def main() -> int:
@@ -164,25 +172,32 @@ def main() -> int:
         files = sorted(mirror.rglob("*.md"))
         rw = un = forced = 0
         for md in files:
-            r, u, unresolved = rewrite_file(md, mirror, apply=not args.check)
-            rw += r
-            un += u
-            for url in unresolved:
-                all_unresolved.append((md.relative_to(SKILL_DIR).as_posix(), url))
+            r, _u, _unresolved, fenced = rewrite_file(
+                md, mirror, apply=not args.check
+            )
             # Fallback pass: a handful of links sit inside malformed fences
             # upstream (a bare ``` in prose opens a block that never closes
             # properly). Those are still doc cross-references, so localize them
-            # anyway. Pass 2 only sees links that pass 1 left behind, so it is
-            # a no-op when pass 1 already covered the file.
-            r2, u2, unresolved2 = rewrite_file(
+            # anyway. In apply mode pass 1 has already written, so pass 2 sees
+            # only the leftovers and is a no-op when pass 1 covered the file.
+            r2, u2, unresolved2, _ = rewrite_file(
                 md, mirror, apply=not args.check, ignore_fences=True
             )
-            if r2:
+            if args.check:
+                # Pass 2 rescans the unwritten text, so it would count every
+                # link pass 1 already reported a second time. Only the links
+                # pass 1 skipped because of fences are genuinely extra, and
+                # that is precisely what pass 2 would rewrite in apply mode.
+                rw += r + fenced
+                forced += fenced
+            else:
+                rw += r + r2
                 forced += r2
-                rw += r2
-                un = u2
-                for url in unresolved2:
-                    all_unresolved.append((md.relative_to(SKILL_DIR).as_posix(), url))
+            # Unresolved is reported from the final state only: after pass 1
+            # writes, the still-absolute links are the ones that never resolve.
+            un += u2
+            for url in unresolved2:
+                all_unresolved.append((md.relative_to(SKILL_DIR).as_posix(), url))
         verb = "would rewrite" if args.check else "rewrote"
         print(
             f"{mirror.name}: {len(files)} files, {verb} {rw} links "
