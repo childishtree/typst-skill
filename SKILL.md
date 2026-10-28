@@ -87,6 +87,10 @@ Concise, pattern-first reference docs covering specific tasks. Each doc links to
 ### Tier 2: Full Official Documentation (`references/typst-author/`)
 A complete mirror of the official Typst documentation, organized by category:
 
+> ⚠️ 镜像里 2385 条链接是**站点绝对路径**（`/docs/reference/model/strong/`），本地解析不了。
+> 按路径直接映射即可：`/docs/<path>/` → `references/typst-author/<path>.md`。
+> 例：`/docs/reference/model/strong/` → `references/typst-author/reference/model/strong.md`。
+
 - **Tutorial**: `references/typst-author/tutorial/writing-in-typst.md` -- Getting started
 - **Guides**: `references/typst-author/guides/` -- Page setup, tables, page-setup, etc.
 - **Reference**: `references/typst-author/reference/` -- Full API reference by category:
