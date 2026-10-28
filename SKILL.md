@@ -120,20 +120,20 @@ python3 scripts/search-api.py --list-categories
 
 ### Creating a New Document
 
-1. Copy the closest starter from [assets/examples/](assets/examples/) or use the minimal document above
-2. Read the relevant reference docs for the task
+1. Copy the closest starter from [assets/examples/](assets/examples/) or use the minimal document above → 产出：确定的 starter 路径
+2. Read the relevant reference docs for the task → 产出：按上方 Tier 1 表选 1–2 份，不要通读 `references/typst/` 全部 14 份
 3. 🔴 CHECKPOINT：写文件之前，如果用户没有指定模板或版式，先说明你从 `assets/examples/` 里挑了哪一个 starter、为什么挑它，等用户确认再动手
-4. Run post-edit formatting checks (see below)
-5. Validate with `typst compile`
+4. Run post-edit formatting checks (see below) → 产出：`typstyle --check` 通过，或已向用户说明为何跳过
+5. Validate with `typst compile` → 产出：exit code 0 且 stderr 无 `error`；有 `warning` 需向用户说明
 
 ### Editing Existing Documents
 
 🛑 STOP：要覆写或删除已存在的 `.typ` 文件之前，必须先向用户确认，不要直接覆盖。
 
-1. Locate the target text and apply changes
+1. Locate the target text and apply changes → 产出：改动前后的 diff 摘要
 2. Verify syntax against reference docs when needed
 3. Run post-edit formatting checks
-4. Validate with `typst compile`
+4. Validate with `typst compile` → 产出：exit code 0 且无 `error`；未通过则走「失败回边」
 
 ### Creating Presentations with Touying
 
@@ -141,6 +141,7 @@ python3 scripts/search-api.py --list-categories
 2. Import Touying and a theme, apply with `#show: <theme>.with(...)`
 3. Use headings to create slides; use `#slide` for custom layouts or animations
 4. For multi-file decks: `globals.typ` + `main.typ` + `content.typ` pattern
+5. `typst compile deck.typ` 验证；导出 `-f png` 抽查首页版式
 
 ```typst
 #import "@preview/touying:0.6.1": *
@@ -151,6 +152,24 @@ python3 scripts/search-api.py --list-categories
   footer: [Simple slides],
 )
 ```
+
+### 失败回边（如果 X 失败 → 做 Y）
+
+工作流不是单向的。下列任一条触发时，必须按对应分支执行，**不允许静默跳过或静默失败**。
+
+| 触发条件 | 一线修复 | 仍失败兜底 |
+|---|---|---|
+| `typst compile` 报语法错 | 查下方 Common Errors 表 | 读 `references/typst/debug.md`；用 `-f html --features html` 定位出错元素 |
+| 编译连续 3 次不过 | 停下，贴出完整 error + 最小复现代码问用户 | 不要继续盲改，不要改无关代码试运气 |
+| `search-api.py` / `search-packages.py` 报 FileNotFoundError | 确认 cwd 在 skill 根目录；`ls references/typst/data/*.json` 确认索引在 | 直接 `grep` 对应 JSON 手工查找 |
+| `python3` 不存在或版本过低 | 试 `python` | 跳过脚本，改用 Tier 1/2 文档，并声明「索引不可用」 |
+| 导出 PNG 但读不到图像内容 | 改用 HTML 导出 + `pdftotext` | 只声明「编译通过」，明确说「未做视觉验证」 |
+| `@preview/<pkg>` 报版本不存在 | `search-packages.py "<pkg>"` 查真实版本号 | 降到上一个可用版本，并在输出里注明版本 |
+| 中文变方框 / 字体缺失 | 加 `--font-path`，或换 `"Noto Serif CJK SC"` 等系统字体 | 告知用户字体未找到，不要静默回退 |
+| 中文 `*粗体*` 看起来没变粗 | 见 [references/typst/styling.md](references/typst/styling.md) 的 cuti 方案 | 明确告知「字体无粗体字面」，不要谎称已加粗 |
+| Tier 2 路径打不开 | `ls references/typst-author/` 看真实结构 | 用 `search-api.py` 代替，不要猜路径 |
+
+三条工作流的末步后统一适用：**若 `typst compile` 失败，进入本表第 1 行，不要直接结束任务。**
 
 ## Common Errors
 
