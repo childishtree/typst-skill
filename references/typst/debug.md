@@ -11,9 +11,13 @@ Agents cannot preview PDFs directly. Three methods, choose by what you need to c
 Outputs semantic HTML (headings → `<h2>`, tables → `<table>`, figures → `<figure>`). Best for verifying content, structure, and data correctness.
 
 ```bash
-typst compile document.typ /dev/stdout -f html --features html 2>/dev/null
-typst compile document.typ /dev/stdout -f html --features html 2>/dev/null | grep -i "expected text"
+typst compile document.typ out.html -f html --features html
+grep -i "expected text" out.html
 ```
+
+⚠️ 不要写 `-f html -` 或 `/dev/stdout`。Windows 上会 `error: failed to write HTML
+file (os error 3)`，而常见的 `2>/dev/null` 会把这条错误一起吞掉，让 agent 误以为
+导出成功。写到真实文件再读。
 
 HTML export is experimental and ignores page-specific features (headers, footers, page numbers).
 

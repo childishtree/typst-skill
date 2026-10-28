@@ -2,7 +2,7 @@
 
 For set/show rules, page layout, and other styling basics, see [styling.md](styling.md). For publishing as a package, see [package.md](package.md).
 
-**Complete example**: See [examples/template-report.typ](examples/template-report.typ) for a full template with headers, custom counters, note boxes, and multi-region document.
+**Complete example**: See [../../assets/examples/template-report.typ](../../assets/examples/template-report.typ) for a full template with headers, custom counters, note boxes, and multi-region document.
 
 ## Template Function Pattern
 
@@ -130,7 +130,7 @@ For detailed query and state patterns, see [advanced.md](advanced.md).
 3. **Verify text output**: Use HTML export since agents cannot preview PDFs
 
    ```bash
-   typst compile test.typ /dev/stdout -f html --features html 2>/dev/null
+   typst compile test.typ out.html -f html --features html
    ```
 
 4. **Check with debug tools**: See [debug.md](debug.md) for `repr()`, `measure()`, and visual boundary helpers
