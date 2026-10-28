@@ -187,6 +187,7 @@ python3 scripts/search-api.py --list-categories
 | "variables from outside are read-only"           | Mutating captured variable   | Use loop accumulation or `state()` -- see advanced.md |
 | "expected content, found string" (or vice versa) | Content/string type mismatch | Use `[#str-var]` to embed string in content          |
 | set/show rule has no effect                      | Rule placed after content    | Place set/show rules before the content they target  |
+| 中文 `*粗体*` 没变粗、`_斜体_` 没倾斜（且不报错）      | CJK 字体无粗体/斜体字面，Typst 不做合成 | 用 `@preview/cuti` 伪粗体/伪斜体，见 [styling.md](references/typst/styling.md#cjk-伪粗体与伪斜体中文加粗斜体不生效) |
 
 ## Critical Syntax Distinctions
 

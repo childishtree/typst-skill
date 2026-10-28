@@ -129,6 +129,121 @@ Use `typst fonts --variants` to inspect weights, stretches, and variable axes. S
 
 Inline pattern: `#set text(font: "Your Variable Font", weight: 650, variations: (GRAD: 0.4))`.
 
+## CJK 伪粗体与伪斜体（中文加粗/斜体不生效）
+
+### 症状
+
+中文的 `*粗体*` 和 `_斜体_` **静默失效**：拉丁字母正常变粗/变斜，汉字纹丝不动，
+而且**不报任何错误**。这是 Typst 里最隐蔽的坑——编译 exit 0，看起来一切正常。
+
+### 根因
+
+Typst 按字重/字形去找字体，CJK 字体通常**只有 Regular**（少数带 Bold），
+**几乎不提供斜体字面**。于是：
+
+- 粗体：找不到粗体字面 → 要么保持 Regular（完全不加粗），要么跳到**另一个字体家族**
+  的 Bold。后者更糟：同一行里有的字粗、有的字不粗（当替代字体缺简体字形时）。
+- 斜体：CJK 字体没有 italic 字面，`_强调_` 里的汉字保持正体。
+
+这不是 bug，是 Typst **不做合成（synthetic）粗斜体**的设计选择。从 LaTeX 迁过来的人
+最容易踩——xeCJK / fontspec 会自动做假粗体，Typst 不会。
+
+### 复现与验证
+
+```typst
+#set text(font: "LXGW Neo ZhiSong")   // 只有 Regular 一个字面
+*中文粗体测试* ABC                     // ABC 变粗，汉字不变
+_中文斜体测试_ ABC                     // ABC 倾斜，汉字不变
+```
+
+⚠️ **不要用 PDF 的 md5 判断加粗是否生效**。实测：即使汉字完全没变粗，PDF 的 md5
+也和纯文本版**不同**（因为 strong 触发了字体回退）。正确做法是导出 PNG 用眼睛看：
+
+```bash
+typst compile doc.typ "page-{p}.png" -f png --ppi 200
+```
+
+先确认字体有没有粗体字面：`typst fonts --variants`。
+
+### 解决方案：cuti
+
+```typst
+#import "@preview/cuti:0.4.0": show-cn-fakebold, show-cn-fakeitalic
+
+#show strong: it => show-cn-fakebold(it)
+#show emph: it => show-cn-fakeitalic(it)
+```
+
+原理（读 cuti 0.4.0 源码确认）：
+
+- 伪粗体 = 把汉字压到 `weight: "regular"` 阻断按字重回退，再加描边
+  `stroke: 0.02857em + text.fill`（描边色跟随字色）
+- 伪斜体 = `box(skew(ax: -18.4deg, reflow: false, ...))`
+
+### 五个坑（全部实测过）
+
+**坑 1：`show-cn-fakebold` 只挂 `weight: "bold"`。**
+它的实现是 `show text.where(weight: "bold").or(strong)`。如果你的模板全程用
+`weight: "semibold"`（常见于配合 Libertinus 这类有 Semibold 字面的拉丁字体），
+它**不会生效**。此时自己挂 show 规则：
+
+```typst
+#import "@preview/cuti:0.4.0": regex-fakebold
+#let han = "[\p{script=Han}！-･〇-〰—]+"
+#show text.where(weight: "semibold").or(strong): it => regex-fakebold(reg-exp: han, it, weight: "regular")
+```
+
+**坑 2：`show-cn-fakeitalic` 名字里有 `cn`，但会把拉丁词一起 skew。**
+它内部调的 `fakeitalic` 正则同时匹配「非 CJK 的单词」和「单个 CJK 字符」。
+若拉丁字体已有真斜体，再 skew 一次就成了**双重倾斜**，比正体还难看。
+实测对比：`show-cn-fakeitalic` 下 `ABC` 明显比基线更斜。
+
+只对汉字做伪斜体：
+
+```typst
+#import "@preview/cuti:0.4.0": regex-fakeitalic
+#show emph: it => regex-fakeitalic(reg-exp: "[\p{script:Han}！-･〇-〰—]+", ang: -18.4deg, it)
+```
+
+**坑 3：`regex-fakebold` 的默认正则 `.+` 是贪婪的。**
+不限定范围会匹配全部内容，把拉丁字母也压成 Regular + 描边（毁掉真粗体）。
+必须显式传 `reg-exp`。
+
+### 中英混排的推荐写法
+
+只对汉字做伪粗体/伪斜体，拉丁保持真字面——这也是 LaTeX 上游 `\bfseries` 的语义：
+
+```typst
+#import "@preview/cuti:0.4.0": regex-fakebold, regex-fakeitalic
+
+#let han-re      = "[\p{script=Han}！-･〇-〰—]+"   // 汉字 + 全角标点
+#let han-char-re = "[\p{script:Han}！-･〇-〰—]"     // 逐字
+
+// ⚠️ 必须在外面重新施加真粗体/真斜体，见下方坑 4、坑 5
+#show strong: it => text(weight: "bold", regex-fakebold(reg-exp: han-re, it, weight: "regular"))
+#show emph:   it => text(style: "italic", regex-fakeitalic(reg-exp: han-char-re, ang: -18.4deg, it))
+```
+
+- 字类里带上全角标点（`！-･〇-〰—`），否则会出现「汉字斜、逗号正」的割裂。
+- 逐字 vs 整串匹配：`box` 本身不可断行，所以实践中常用逐字（正则末尾不加 `+`）。
+  但在 **Typst 0.15 + cuti 0.4.0 实测两种写法换行表现一致**，未观察到差异。
+  先按上面写，若遇到异常换行再改逐字。
+
+**坑 4：`#show strong: it => regex-fakebold(...)` 会把拉丁的粗体一起弄丢。**
+`show` 规则是**替换**而不是叠加。只匹配汉字的 `regex-fakebold` 替换掉 `strong` 的默认渲染后，
+未匹配的拉丁字母就失去了原本的粗体——实测：不加 cuti 时 `ABC` 是粗的，加上反而变细。
+所以要在外面包一层 `text(weight: "bold", ...)`：先给整段上真粗体，再把汉字压回 regular + 描边。
+
+**坑 5：`#show emph: it => emph(...)` 会无限递归。**
+报错 `maximum show rule depth exceeded`——show 规则匹配到了自己的输出。
+斜体要用 `text(style: "italic", ...)`，不要用 `emph(...)`。
+
+### 何时不需要 cuti
+
+CJK 字体自带 Bold 时（如 Noto Sans CJK 有 Bold），粗体可以直接
+`#set text(weight: "bold")`。但**斜体仍然没有**——CJK 字体几乎不提供 italic 字面，
+所以伪斜体基本是必需品。
+
 ## Figure Customization
 
 ```typst
