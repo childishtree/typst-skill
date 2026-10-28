@@ -1,6 +1,6 @@
 ---
 name: typst-skill
-description: 'Typst document creation, editing, debugging, package development, and presentation slides (Touying). Use when: (1) Working with .typ files, (2) User mentions typst, typst.toml, or typst-cli, (3) Creating/editing Typst documents, templates, or packages, (4) Creating presentation slides with Touying, (5) Converting Markdown/LaTeX to Typst, (6) Troubleshooting Typst compilation or syntax issues'
+description: 'Typst document creation, editing, debugging, package development, and presentation slides (Touying). Use when: (1) Working with .typ files, (2) User mentions typst, typst.toml, or typst-cli, (3) Creating/editing Typst documents, templates, or packages, (4) Creating presentation slides with Touying, (5) Converting Markdown/LaTeX to Typst, (6) Troubleshooting Typst compilation or syntax issues. 中文触发：排版、Typst 模板、写论文、做幻灯片/PPT、公式排版、表格、编译报错、中文粗体/斜体不生效、.typ 文件。'
 ---
 
 # Typst Skill
@@ -61,19 +61,19 @@ Concise, pattern-first reference docs covering specific tasks. Each doc links to
 | Verify output (HTML/PNG/pdftotext, repr)           | [references/typst/debug.md](references/typst/debug.md)            |
 | Profile performance (--timings, hotspots)          | [references/typst/perf.md](references/typst/perf.md)              |
 
-### Tier 2: Full Official Documentation (`references/typst-author/docs/`)
+### Tier 2: Full Official Documentation (`references/typst-author/`)
 A complete mirror of the official Typst documentation, organized by category:
 
-- **Tutorial**: `references/typst-author/docs/tutorial/writing-in-typst.md` -- Getting started
-- **Guides**: `references/typst-author/docs/guides/` -- Page setup, tables, page-setup, etc.
-- **Reference**: `references/typst-author/docs/reference/` -- Full API reference by category:
+- **Tutorial**: `references/typst-author/tutorial/writing-in-typst.md` -- Getting started
+- **Guides**: `references/typst-author/guides/` -- Page setup, tables, page-setup, etc.
+- **Reference**: `references/typst-author/reference/` -- Full API reference by category:
   - `foundations/` -- Array, dictionary, content, module, etc.
   - `model/` -- Heading, figure, table, footnote, etc.
   - `text/` -- Text, linebreak, highlight, etc.
   - `math/` -- Equation, math.equation, math.attach, etc.
   - `visualize/` -- Line, rect, circle, path, image, etc.
   - `layout/` -- Block, box, grid, stack, etc.
-  - `meta/` -- Styling, scripting, context, etc.
+  - `scripting.md` / `context.md` / `styling.md` -- Scripting, context, styling
   - `introspection/` -- Counter, state, query, etc.
   - `data-loading/` -- csv, json, xml, etc.
   - `symbols/` -- sym, emoji, etc.
@@ -186,7 +186,7 @@ python3 scripts/search-api.py --list-categories
 
 - Use a probe when bundled docs do not settle runtime or evaluation behavior.
 - Prefer fileless probes through stdin: `printf '#metadata(1 + 2) <probe>\n' | typst query - "<probe>" --field value --one`
-- See `references/typst/query.md` and `references/typst-author/docs/reference/introspection/query.md` for details.
+- See `references/typst/query.md` and `references/typst-author/reference/introspection/query.md` for details.
 
 ## Ecosystem Tools
 
