@@ -19,11 +19,15 @@ For command options beyond this quick reference, see [cli.md](cli.md).
 
 Agent verification — choose by what you need to check (see [debug.md](debug.md) for details):
 
-| Method      | Command                                                                 | Best for                                  |
-| ----------- | ----------------------------------------------------------------------- | ----------------------------------------- |
-| HTML export | `typst compile doc.typ /dev/stdout -f html --features html 2>/dev/null` | Text content, structure, headings, tables |
-| PNG export  | `typst compile doc.typ page-{p}.png -f png`                             | Visual layout, alignment, spacing, fonts  |
-| pdftotext   | `typst compile doc.typ && pdftotext doc.pdf -`                          | Fallback for page-specific content        |
+| Method      | Command                                                  | Best for                                  |
+| ----------- | -------------------------------------------------------- | ----------------------------------------- |
+| HTML export | `typst compile doc.typ out.html -f html --features html` | Text content, structure, headings, tables |
+| PNG export  | `typst compile doc.typ "page-{p}.png" -f png`            | Visual layout, alignment, spacing, fonts  |
+| pdftotext   | `typst compile doc.typ && pdftotext doc.pdf -`           | Fallback for page-specific content        |
+
+Write HTML/PNG to a real file. `-f html -` / `/dev/stdout` fails on Windows with
+`os error 3`, and a trailing `2>/dev/null` hides it — you will think the export
+succeeded. Multi-page PNG export needs the `{p}` placeholder.
 
 ## Minimal Document
 
