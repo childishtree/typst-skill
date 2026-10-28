@@ -18,6 +18,10 @@ Rules
 * `<mirror>/<path>.md` wins if it exists (most links).
 * Otherwise `<mirror>/<path>/` is used when it is a directory (category pages).
 * Anything that resolves to neither is left untouched and reported.
+* Links inside a **language-tagged** code fence are example content, not cross
+  references, and are left alone. A bare ``` fence is scanned as prose: upstream
+  `reference/text/raw.md` has one that never closes properly and buries 19 real
+  links in what a naive fence detector calls "code".
 
 Fragments are preserved as-is. Note that the upstream fragments are anchors the
 docs *site* generates from its frontmatter (e.g. `#parameters-tracking`); a plain
@@ -49,39 +53,50 @@ MIRRORS = [
 # Markdown inline link / image: ](target) or ](<target>)
 LINK_RE = re.compile(r"\]\(\s*(<[^>]*>|[^)\s]+)\s*\)")
 # Opening or closing code fence line (CommonMark: up to 3 spaces of indent,
-# 3+ backticks or tildes).
-FENCE_LINE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
+# 3+ backticks or tildes, then an optional info string such as `typst`).
+FENCE_LINE_RE = re.compile(r"^ {0,3}(`{3,}|~{3,})(.*)$")
 # Only these prefixes are treated as site-absolute doc paths.
 SITE_PREFIXES = ("/docs/", "/reference/", "/tutorial/", "/guides/")
 
 
-def fence_spans(text: str) -> list[tuple[int, int]]:
-    """Character ranges covered by fenced code blocks.
+def fence_spans(text: str) -> list[tuple[int, int, bool]]:
+    """Character ranges covered by fenced code blocks, with a language flag.
 
     A line-based state machine rather than a regex: fence markers can appear an
     odd number of times in these mirrors (a stray ``` in prose or inside an
     example), and any greedy pairing then swallows whole paragraphs as "code".
     Toggling per line keeps an unterminated fence open to end of file, which is
     how CommonMark behaves.
+
+    The third tuple element records whether the opening fence carried an info
+    string (```typst, ```md). Only those are treated as real code by
+    `rewrite_file`. A *bare* ``` that swallows prose is a defect of the upstream
+    markdown — `reference/text/raw.md` has one, and it buries 19 genuine
+    cross-references — so bare fences are scanned as prose. Measured on the
+    current mirror: 2383 links in prose, 19 inside bare fences (all of them the
+    raw.md paragraphs), 0 inside language-tagged fences.
     """
-    spans: list[tuple[int, int]] = []
+    spans: list[tuple[int, int, bool]] = []
     pos = 0
     open_at: int | None = None
     open_marker = ""
+    open_lang = False
     for line in text.splitlines(keepends=True):
         m = FENCE_LINE_RE.match(line)
         if m:
-            marker = m.group(1)
+            marker, info = m.group(1), m.group(2).strip()
             if open_at is None:
                 open_at = pos
                 open_marker = marker
+                open_lang = bool(info)
             elif marker[0] == open_marker[0] and len(marker) >= len(open_marker):
-                spans.append((open_at, pos + len(line)))
+                spans.append((open_at, pos + len(line), open_lang))
                 open_at = None
                 open_marker = ""
+                open_lang = False
         pos += len(line)
     if open_at is not None:
-        spans.append((open_at, len(text)))
+        spans.append((open_at, len(text), open_lang))
     return spans
 
 
@@ -103,28 +118,26 @@ def resolve(mirror: Path, url_path: str) -> Path | None:
 
 
 def rewrite_file(
-    md: Path, mirror: Path, apply: bool, ignore_fences: bool = False
+    md: Path, mirror: Path, apply: bool
 ) -> tuple[int, int, list[str], int]:
-    """Returns (rewritten, untouched_site_absolute, unresolved_paths, fenced).
+    """Returns (rewritten, untouched_site_absolute, unresolved_paths, in_code).
 
-    ``fenced`` counts site-absolute links skipped because they sit inside a
-    code fence. Those are exactly the links the fallback pass picks up, so
-    ``--check`` can report the fallback's yield without running it (running it
-    there would rescan the unwritten text and double count).
+    ``in_code`` counts site-absolute links left alone because they sit inside a
+    language-tagged code block — those are example content, not cross
+    references, and rewriting them would corrupt the example.
     """
     text = md.read_text(encoding="utf-8")
-    # Rewrite only outside fenced code blocks, unless we are in the fallback
-    # pass for links stuck inside a malformed fence.
-    spans = [] if ignore_fences else fence_spans(text)
+    # Only language-tagged fences count as code; see fence_spans().
+    code_spans = [(a, b) for a, b, has_lang in fence_spans(text) if has_lang]
 
-    def in_fence(pos: int) -> bool:
-        return any(a <= pos < b for a, b in spans)
+    def in_code(pos: int) -> bool:
+        return any(a <= pos < b for a, b in code_spans)
 
     out = []
     last = 0
     rewritten = 0
     untouched = 0
-    fenced = 0
+    in_code_count = 0
     unresolved: list[str] = []
 
     for m in LINK_RE.finditer(text):
@@ -132,8 +145,8 @@ def rewrite_file(
         raw = target[1:-1] if target.startswith("<") else target
         if not raw.startswith(SITE_PREFIXES):
             continue
-        if in_fence(m.start()):
-            fenced += 1
+        if in_code(m.start()):
+            in_code_count += 1
             continue
         path, sep, frag = raw.partition("#")
         dest = resolve(mirror, path)
@@ -153,7 +166,7 @@ def rewrite_file(
     if rewritten and apply:
         out.append(text[last:])
         md.write_text("".join(out), encoding="utf-8")
-    return rewritten, untouched, unresolved, fenced
+    return rewritten, untouched, unresolved, in_code_count
 
 
 def main() -> int:
@@ -162,7 +175,7 @@ def main() -> int:
     args = ap.parse_args()
 
     total_rw = total_un = 0
-    total_forced = 0
+    total_code = 0
     all_unresolved: list[tuple[str, str]] = []
 
     for mirror in MIRRORS:
@@ -170,44 +183,24 @@ def main() -> int:
             print(f"skip (missing): {mirror}", file=sys.stderr)
             continue
         files = sorted(mirror.rglob("*.md"))
-        rw = un = forced = 0
+        rw = un = in_code = 0
         for md in files:
-            r, _u, _unresolved, fenced = rewrite_file(
-                md, mirror, apply=not args.check
-            )
-            # Fallback pass: a handful of links sit inside malformed fences
-            # upstream (a bare ``` in prose opens a block that never closes
-            # properly). Those are still doc cross-references, so localize them
-            # anyway. In apply mode pass 1 has already written, so pass 2 sees
-            # only the leftovers and is a no-op when pass 1 covered the file.
-            r2, u2, unresolved2, _ = rewrite_file(
-                md, mirror, apply=not args.check, ignore_fences=True
-            )
-            if args.check:
-                # Pass 2 rescans the unwritten text, so it would count every
-                # link pass 1 already reported a second time. Only the links
-                # pass 1 skipped because of fences are genuinely extra, and
-                # that is precisely what pass 2 would rewrite in apply mode.
-                rw += r + fenced
-                forced += fenced
-            else:
-                rw += r + r2
-                forced += r2
-            # Unresolved is reported from the final state only: after pass 1
-            # writes, the still-absolute links are the ones that never resolve.
-            un += u2
-            for url in unresolved2:
+            r, u, unresolved, c = rewrite_file(md, mirror, apply=not args.check)
+            rw += r
+            un += u
+            in_code += c
+            for url in unresolved:
                 all_unresolved.append((md.relative_to(SKILL_DIR).as_posix(), url))
         verb = "would rewrite" if args.check else "rewrote"
         print(
-            f"{mirror.name}: {len(files)} files, {verb} {rw} links "
-            f"({forced} forced past fences), {un} unresolved"
+            f"{mirror.name}: {len(files)} files, {verb} {rw} links, "
+            f"{un} unresolved, {in_code} left in code blocks"
         )
         total_rw += rw
         total_un += un
-        total_forced += forced
+        total_code += in_code
 
-    print(f"\ntotal: {total_rw} rewritten ({total_forced} forced), {total_un} left as-is")
+    print(f"\ntotal: {total_rw} rewritten, {total_un} unresolved, {total_code} in code blocks")
     if all_unresolved:
         print(f"\nunresolved ({len(all_unresolved)}), first 20:")
         for where, url in all_unresolved[:20]:
