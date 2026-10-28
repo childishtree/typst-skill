@@ -9,7 +9,7 @@ for CLI introspection, or `--channel 0.14.2` with API search.
 ```bash
 typst compile document.typ              # compile once → PDF
 typst compile document.typ output.pdf   # explicit output path
-typst compile document.typ -f png       # export as PNG image
+typst compile document.typ "page-{p}.png" -f png   # PNG; {p} 必填（多页）
 typst compile src/main.typ --root .     # set project root for /path imports
 typst watch document.typ                # recompile on change
 typst eval --in document.typ 'query(heading).len()'  # Typst 0.15+ introspection
@@ -25,9 +25,10 @@ Agent verification — choose by what you need to check (see [debug.md](debug.md
 | PNG export  | `typst compile doc.typ "page-{p}.png" -f png`            | Visual layout, alignment, spacing, fonts  |
 | pdftotext   | `typst compile doc.typ && pdftotext doc.pdf -`           | Fallback for page-specific content        |
 
-Write HTML/PNG to a real file. `-f html -` / `/dev/stdout` fails on Windows with
-`os error 3`, and a trailing `2>/dev/null` hides it — you will think the export
-succeeded. Multi-page PNG export needs the `{p}` placeholder.
+Write HTML export to a real file (`out.html`); `-` also works when you want stdout.
+Do **not** use `/dev/stdout` — that path does not exist on Windows and fails with
+`os error 3`, which a trailing `2>/dev/null` will hide. Multi-page PNG export needs
+the `{p}` placeholder.
 
 ## Minimal Document
 

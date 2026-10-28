@@ -27,11 +27,12 @@ typst watch document.typ                # recompile on change
 
 ⚠️ 两条实测出来的坑：
 
-- 不要写 `-f html -` 或 `/dev/stdout` 当输出。Windows 上会 `error: failed to write HTML file
-  (os error 3)`，如果同时加了 `2>/dev/null`，这条错误会被吞掉，agent 会以为导出成功了。
-  一律写到真实文件再读。
+- HTML 导出的输出路径写真实文件（`out.html`）；要接管道就写 `-`（走 stdout，实测可用）。
+  **不要**写 `/dev/stdout` —— 那个路径在 Windows 上不存在，会 `error: failed to write HTML
+  file (os error 3)`；如果同时加了 `2>/dev/null`，这条错误会被吞掉，agent 会以为导出成功了。
 - 多页文档导出 PNG 必须带页码占位符 `{p}`，否则报
-  `cannot export multiple images without a page number template`。
+  `cannot export multiple images without a page number template`。单页文档两种写法都行，
+  统一写 `"page-{p}.png"` 可以省掉一次判断。
 
 ## Minimal Document
 
@@ -164,7 +165,7 @@ python3 scripts/search-api.py --list-categories
 2. Import Touying and a theme, apply with `#show: <theme>.with(...)`
 3. Use headings to create slides; use `#slide` for custom layouts or animations
 4. For multi-file decks: `globals.typ` + `main.typ` + `content.typ` pattern
-5. `typst compile deck.typ` 验证；导出 `-f png` 抽查首页版式
+5. `typst compile deck.typ` 验证；再 `typst compile deck.typ "page-{p}.png" -f png --pages 1` 导出首页抽查版式（幻灯片必然多页，`-f png` 不带 `{p}` 会直接报错）
 
 ```typst
 #import "@preview/touying:0.6.1": *
@@ -242,7 +243,16 @@ python3 scripts/search-api.py --list-categories
 ## Probing Uncertain Behavior
 
 - Use a probe when bundled docs do not settle runtime or evaluation behavior.
-- Prefer fileless probes through stdin: `printf '#metadata(1 + 2) <probe>\n' | typst query - "<probe>" --field value --one`
+- Typst 0.15+ 用 `typst eval --in`：
+
+  ```bash
+  printf '#metadata(1 + 2) <probe>\n' > /tmp/probe.typ
+  typst eval --in /tmp/probe.typ 'query(<probe>).first().value'   # -> 3
+  ```
+
+- `typst query -` 也能 fileless 直接喂 stdin（`printf ... | typst query - "<probe>" --field value --one`），
+  但 0.15 起会打 `warning: the typst query subcommand is deprecated`。要跑 Typst 0.14 才用它。
+  注意 `typst eval` **不接受** `-` 当输入，必须给 `--in <文件>`。
 - See `references/typst/query.md` and `references/typst-author/reference/introspection/query.md` for details.
 
 ## 校验与性能脚本

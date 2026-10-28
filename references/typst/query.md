@@ -292,7 +292,7 @@ typst eval --in doc.typ 'query(figure).len()'                    # figure count
 typst eval --in doc.typ 'query(<doc-info>).first().value.at("status")' | jq -e '. == "final"'
 ```
 
-See [query-export.typ](examples/query-export.typ) for a runnable example.
+See [../../assets/examples/query-export.typ](../../assets/examples/query-export.typ) for a runnable example.
 
 ## Fileless Probe
 

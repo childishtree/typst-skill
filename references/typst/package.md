@@ -2,7 +2,7 @@
 
 For Typst language basics (syntax, functions), see [basics.md](basics.md). For types and operators, see [types.md](types.md).
 
-**Complete example**: See [examples/package-example/](examples/package-example/) for a minimal publishable package with submodules.
+**Complete example**: See [../../assets/examples/package-example/](../../assets/examples/package-example/) for a minimal publishable package with submodules.
 
 ## Package Structure
 

@@ -15,9 +15,9 @@ typst compile document.typ out.html -f html --features html
 grep -i "expected text" out.html
 ```
 
-⚠️ 不要写 `-f html -` 或 `/dev/stdout`。Windows 上会 `error: failed to write HTML
-file (os error 3)`，而常见的 `2>/dev/null` 会把这条错误一起吞掉，让 agent 误以为
-导出成功。写到真实文件再读。
+⚠️ HTML 导出写真实文件（`out.html`）；要接管道就把输出写成 `-`（走 stdout，实测可用）。
+**不要**用 `/dev/stdout` —— 那个路径在 Windows 上不存在，会 `error: failed to write HTML
+file (os error 3)`，而常见的 `2>/dev/null` 会把这条错误一起吞掉，让 agent 误以为导出成功。
 
 HTML export is experimental and ignores page-specific features (headers, footers, page numbers).
 

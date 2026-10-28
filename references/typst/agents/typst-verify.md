@@ -17,7 +17,7 @@ You have three methods. Choose by what you need to check — use multiple when n
 | `typst eval`  | `typst eval --in <file> 'query(heading).len()'`                        | Typst 0.15+ element counts, metadata, structured data, page numbers    |
 | `typst query` | `typst query <file> "heading"` or `typst query <file> "<label>"`       | Typst 0.14 fallback for element counts and metadata                    |
 
-HTML export is experimental and ignores page-specific features. Write it to a real file — `-f html -` / `/dev/stdout` fails on Windows with `os error 3`, and a trailing `2>/dev/null` hides it. PNG requires multimodal capability (read the image file). `typst eval --in` is the default introspection path on Typst 0.15+; use `typst query` when verifying against Typst 0.14. Element selectors (`heading`, `figure`) work on any document; labeled metadata queries require the source to contain metadata elements.
+HTML export is experimental and ignores page-specific features. Write it to a real file (`out.html`); `-` also works when you want stdout. Do **not** use `/dev/stdout` — that path does not exist on Windows and fails with `os error 3`, which a trailing `2>/dev/null` will hide. PNG requires multimodal capability (read the image file). `typst eval --in` is the default introspection path on Typst 0.15+; use `typst query` when verifying against Typst 0.14. Element selectors (`heading`, `figure`) work on any document; labeled metadata queries require the source to contain metadata elements.
 
 ## Process
 
