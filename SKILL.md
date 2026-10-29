@@ -87,6 +87,10 @@ Concise, pattern-first reference docs covering specific tasks. Each doc links to
 ### Tier 2: Full Official Documentation (`references/typst-author/`)
 A complete mirror of the official Typst documentation, organized by category:
 
+> ⚠️ **镜像对应 0.14 文档**（`changelog/` 最新只到 0.14.2），本机 typst 是 0.15。绝大多数 API
+> 仍然一致，但个别有变——已知 `path()` 在 0.15 不再接受点数组（`#path((0pt,50pt), ...)` 报
+> `expected path or string, found array`）。**镜像与 `typst compile` 冲突时以实测为准。**
+
 > 镜像里的交叉引用已从站点绝对路径（`/docs/reference/model/strong/`）**本地化为相对路径**
 > （`../model/strong.md`），当前镜像 2402 条全部可直接打开。若从上游重新同步过镜像，跑一次
 > `python3 scripts/localize-mirror-links.py` 重新本地化（幂等，可重复跑；`--check` 只报告，
@@ -268,12 +272,17 @@ python3 scripts/search-api.py --list-categories
 | --- | --- | --- |
 | `scripts/search-api.py` | 检索内置的 Typst API 索引（函数/方法/符号，支持 `--channel`） | 无 |
 | `scripts/search-packages.py` | 检索内置的 Typst Universe 包索引 | 无 |
-| `scripts/validate-examples.py` | 校验文档内所有 ```typst 代码块能否编译 | `markdown-it-py` |
+| `scripts/validate-examples.py` | 校验文档内所有 ```typst 代码块能否编译（4 种状态：pass / fail / skip / fragment） | `markdown-it-py` |
 | `scripts/perf-timings.py` | 解析 `typst compile --timings` 轨迹，输出热点表 | 无 |
 | `scripts/localize-mirror-links.py` | 把上游镜像里的站点绝对链接本地化为相对路径（幂等，重同步后跑）；`--check` 只报告，未本地化时 exit 1 | 无 |
 
 - `validate-examples.py` 默认只校验本 skill 自身的 md（根目录 `*.md` + `references/typst/` 下全部 md，具体文件数由脚本自行枚举）；加 `--all` 才会扫上游文档镜像
-  （`references/typst-author/` 等，约 1100 个代码块，耗时数十分钟）。
+  （`references/typst-author/` 等，约 1300 个代码块，耗时十几分钟）。
+  只有 `fail` 会让脚本 exit 1，其余三种状态的含义：
+  - `skip` —— 结构上就不是程序（API 签名 `)->` 列表、`...` 占位符、依赖外部文件的 `csv()`/`image()` 等）。
+  - `fragment` —— 是代码，但要粘进外层文档才能跑（引用了同文件别处 `#let` 的名字，或 Touying deck 片段）。
+  - `pass` —— 独立可编译。
+  把 `fragment` 当失败去"修"没有意义，镜像里那是文档的分块写法，不是 bug。
 - `perf-timings.py` 吃的是 JSON 轨迹，不是 `.typ` 源文件：
   `typst compile --timings trace.json doc.typ doc.pdf && python3 scripts/perf-timings.py trace.json --self-time`
 - 脚本不可用时的降级路径见上方「失败回边」表。

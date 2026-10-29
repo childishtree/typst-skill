@@ -5,6 +5,17 @@ Extracts ```typst fenced code blocks from .md files using a CommonMark parser,
 wraps snippets with a standard preamble to supply common undefined variables,
 and attempts to compile each block with `typst compile`.
 
+Each block ends up in one of four states, and only `fail` is a problem:
+
+* ``pass``     — compiles on its own.
+* ``skip``     — not a program by shape: API signature listings (`) -> content`),
+                 `...` placeholders, blocks that load an external file, shell
+                 transcripts, and so on. See SKIP_RULES.
+* ``fragment`` — real code that needs a surrounding document: it uses a name the
+                 same markdown file binds elsewhere, or it is a Touying deck
+                 snippet that relies on the theme. See fragment_reason().
+* ``fail``     — compiles, was expected to, and did not.
+
 Requires: markdown-it-py (pip install markdown-it-py)
 
 Usage:
@@ -55,26 +66,85 @@ PREAMBLE = r"""
 // === End preamble ===
 """
 
-# Patterns that indicate a block is intentionally non-compilable
-SKIP_PATTERNS = [
-    r"^\s*//\s*\.\.\.",  # // ... placeholder
-    r"\.\.\.",  # any ... ellipsis
-    r'#import\s+"[^@]',  # relative imports (file not present)
-    r'#import\s+"@local/',  # local packages (not installed)
-    r'#import\s+"@preview/',  # preview packages may require network/cache
-    r'#import\s+"@preview/package-name',  # placeholder package names
-    r'#include\s+"',  # include (file not present)
-    r"image\(",  # image() references (with or without #)
-    r"#bibliography\(",  # bibliography references
-    r"#read\(",  # read() file references
-    r"#csv\(",  # csv() file references
-    r"#json\(",  # json() file references but allow xml()
-    r"#yaml\(",  # yaml() file references
-    r'#raw\("',  # raw() with string (often partial)
-    r"item\.key",  # assumes dict-shaped items
-    r"```xml",  # embedded raw XML blocks
-    r"@\w+\d{4}",  # citation references (require .bib file)
+# Blocks that are not standalone programs. Each entry is (regex, reason): the
+# reason is what gets printed and stored in the JSON, so a skip is auditable
+# instead of just "matched some pattern".
+SKIP_RULES = [
+    (r"^\s*//\s*\.\.\.", "placeholder comment"),
+    (r"\.\.\.", "ellipsis placeholder"),
+    # API signature listing, e.g. `#block(\n  width: auto | relative,\n) -> content`.
+    # `->` has no meaning in Typst code, and upstream uses this shape for every
+    # function reference page (~435 blocks in the mirror). The arrow line is
+    # always the block's last non-empty line and no such block contains a real
+    # command, so matching the arrow is safe.
+    (r"(?m)^\s*\)\s*->", "API signature listing"),
+    # `#let name(args)` with no body: the signature of a user-defined function.
+    # `[^=\n]*` rather than `[^)]*` because the parameter list can nest parens
+    # (`enum-args: (:)`), and a real definition always has `=` on the line.
+    (r"(?m)^\s*#let\s+[\w-]+\s*\([^=\n]*\)\s*$", "function signature without body"),
+    (r"\{\s*\.\.\s*\}", "`{ .. }` body placeholder"),
+    (r"=>\s*\.\.", "`=> ..` body placeholder"),
+    # A block whose first line is a bare `name(`: the argument list of a call
+    # whose head was elided (upstream does this for theme config snippets, e.g.
+    # `config-common(handout: true)`). Real Typst code starts with `#`, `//`, `$`
+    # or markup, so a lowercase identifier followed directly by `(` is never code.
+    (r"(?m)\A\s*[a-z][\w-]*\(", "argument list without `#`"),
+    # Upstream marks anti-patterns with a leading comment saying so.
+    (
+        r"(?m)^\s*//\s*(?:This|That)\s+(?:doesn'?t|does not|won'?t)\s+work",
+        "documented anti-pattern",
+    ),
+    # A typst block containing a fence marker means the markdown source itself is
+    # malformed (upstream `raw.md` demonstrates inline ``` in prose). The extracted
+    # "code" is then half prose, so there is nothing meaningful to compile.
+    # ```xml is matched first so its more specific reason wins.
+    (r"```xml", "embedded raw XML block"),
+    (r"```", "malformed markdown: fence inside block"),
+    # Shell transcript mislabelled as a typst block (`$ typst query ...`).
+    # Matched by command name on purpose: a bare `^\s*\$ ` also hits display math
+    # (`$ E = m c^2 $`), which is valid Typst and must still be compiled.
+    (
+        r"(?m)^\s*\$ (?:typst|pdftotext|pdftoppm|git|npm|npx|python3?|curl|magick|convert|ls|cd|cat)\b",
+        "shell transcript",
+    ),
+    (r"#panic\(", "example that is meant to fail"),
+    (r'#import\s+"[^@]', "relative import (file not present)"),
+    (r'#import\s+"@local/', "local package (not installed)"),
+    (r'#import\s+"@preview/', "preview package (needs network/cache)"),
+    (r'#import\s+"@preview/package-name', "placeholder package name"),
+    (r'#include\s+"', "include (file not present)"),
+    (r"image\(", "image file reference"),
+    (r"#bibliography\(", "bibliography file reference"),
+    (r"#cite\(", "citation needs a bibliography"),
+    # File loaders read from disk, so they fail wherever the data file is absent.
+    # Matched without requiring `#`: upstream writes them inside `#let x = csv(..)`.
+    (r"\bread\(", "read() file reference"),
+    (r"\bcsv\(", "csv() file reference"),
+    (r"\bjson\(", "json() file reference"),
+    (r"\byaml\(", "yaml() file reference"),
+    (r"\btoml\(", "toml() file reference"),
+    # xml() accepts inline XML (`xml("<a/>")`), so only flag a path argument.
+    (r'\bxml\(\s*"[^<]', "xml() file reference"),
+    (r"\bplugin\(", "wasm plugin file reference"),
+    (r"#pdf\.attach\(", "pdf.attach() file reference"),
+    (r'#raw\("', "raw() with string (often partial)"),
+    (r"item\.key", "assumes dict-shaped items"),
+    (r"@\w+\d{4}", "citation reference (needs .bib file)"),
 ]
+SKIP_PATTERNS = [r for r, _ in SKIP_RULES]  # kept for callers that only need regexes
+
+# Errors that mean "this needs an in-development feature flag", not "this is wrong".
+FEATURE_GATED = re.compile(
+    r"unknown variable: (html|bundle)\b|module `pdf` does not contain"
+)
+ALL_FEATURES = "html,bundle,a11y-extras"
+
+# `unknown variable: X` — the identifier the block wanted but could not see.
+UNKNOWN_VAR = re.compile(r"unknown variable: ([\w-]+)")
+# Names a markdown file defines or imports somewhere in its own prose.
+LET_DEF = re.compile(r"(?m)^\s*#let\s+([A-Za-z_][\w-]*)")
+LET_TUPLE_DEF = re.compile(r"(?m)^\s*#let\s*\(([^)]*)\)\s*=")
+IMPORT_TAIL = re.compile(r"(?m)^\s*#import\s+[^\n]*?:\s*([^\n]+)")
 
 
 def extract_blocks(md_path: Path) -> list[dict]:
@@ -101,10 +171,68 @@ def extract_blocks(md_path: Path) -> list[dict]:
 
 
 def should_skip(code: str) -> str | None:
-    """Return a reason string if this block should be skipped, else None."""
-    for pattern in SKIP_PATTERNS:
+    """Return a human-readable reason if this block should be skipped, else None."""
+    for pattern, reason in SKIP_RULES:
         if re.search(pattern, code):
-            return f"matches skip pattern: {pattern}"
+            return reason
+    return None
+
+
+def file_definitions(md_path: Path) -> tuple[set[str], bool]:
+    """Names a markdown file binds somewhere in its own text, plus wildcard flag.
+
+    Used to recognise *fragments*: upstream docs split one program across several
+    blocks, so a later block can legitimately use a name an earlier block defined
+    (`#let frame(stroke) = ...` in guides/tables.md, for instance). Compiling such
+    a block in isolation must fail, and that is a property of the docs, not a bug.
+    """
+    try:
+        text = md_path.read_text(encoding="utf-8")
+    except OSError:
+        return set(), False
+
+    names = set(LET_DEF.findall(text))
+    for group in LET_TUPLE_DEF.findall(text):
+        for part in group.split(","):
+            name = part.strip().split(":")[0].strip()
+            if re.fullmatch(r"[A-Za-z_][\w-]*", name):
+                names.add(name)
+
+    wildcard = False
+    for tail in IMPORT_TAIL.findall(text):
+        if tail.strip() == "*":
+            wildcard = True
+            continue
+        for part in tail.split(","):
+            name = part.strip().split(" as ")[-1].strip()
+            if re.fullmatch(r"[A-Za-z_][\w-]*", name):
+                names.add(name)
+    return names, wildcard
+
+
+def fragment_reason(
+    code: str, stderr: str, md_path: Path, defs: tuple[set[str], bool]
+) -> str | None:
+    """Explain a failure as "this block is a fragment", or return None.
+
+    Only two explanations are accepted, both checkable:
+
+    * the missing name is bound elsewhere in the same markdown file, so the block
+      was written to follow that definition;
+    * the block lives in the Touying mirror, whose snippets are all pasted into a
+      deck and rely on the theme to provide `slide`, `utils`, `config-colors`, ...
+    """
+    match = UNKNOWN_VAR.search(stderr)
+    if not match:
+        return None
+    name = match.group(1)
+    names, wildcard = defs
+    if name in names:
+        return f"fragment: uses `{name}`, bound elsewhere in this file"
+    if wildcard:
+        return f"fragment: uses `{name}` from this file's wildcard import"
+    if "touying-author" in md_path.as_posix():
+        return f"fragment: uses `{name}` from the surrounding Touying deck"
     return None
 
 
@@ -134,6 +262,11 @@ def compile_block(
     The output must be a real file path: passing a Unix-style sink such as
     /dev/null fails on Windows with "failed to write PDF file (os error 3)".
     Compile inside a scratch directory so nothing is left behind.
+
+    Upstream documents in-development APIs (`html.*`, `pdf.data-cell`) that only
+    exist behind a feature flag. When the first attempt fails for that reason the
+    block is retried once with every feature enabled, so those blocks are judged
+    on their own merits instead of being written off as broken.
     """
     full_code = (PREAMBLE + "\n" + code) if preamble else code
 
@@ -144,15 +277,23 @@ def compile_block(
         with open(src_path, "w", encoding="utf-8") as f:
             f.write(full_code)
 
-        try:
-            result = subprocess.run(
-                ["typst", "compile", src_path, out_path, "-f", "pdf"],
+        def run(features: str | None) -> subprocess.CompletedProcess:
+            cmd = ["typst", "compile", src_path, out_path, "-f", "pdf"]
+            if features:
+                cmd += ["--features", features]
+            return subprocess.run(
+                cmd,
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
                 errors="replace",
                 timeout=10,
             )
+
+        try:
+            result = run(None)
+            if result.returncode != 0 and FEATURE_GATED.search(result.stderr):
+                result = run(ALL_FEATURES)
             ok = result.returncode == 0
             if keep:
                 print(f"  (kept: {src_path})", file=sys.stderr)
@@ -218,7 +359,8 @@ def main():
         md_files = default_md_files(skill_dir, args.scan_mirrors)
 
     results = []
-    counts = {"pass": 0, "fail": 0, "skip": 0}
+    counts = {"pass": 0, "fail": 0, "skip": 0, "fragment": 0}
+    defs_cache: dict[Path, tuple[set[str], bool]] = {}
 
     for md_file in md_files:
         if not md_file.exists():
@@ -248,19 +390,23 @@ def main():
                 keep=args.keep,
             )
 
+            entry = {"file": rel_path, "line": block["line"]}
             if ok:
                 counts["pass"] += 1
-                status = "pass"
+                entry["status"] = "pass"
             else:
-                counts["fail"] += 1
-                status = "fail"
-
-            entry = {
-                "file": rel_path,
-                "line": block["line"],
-                "status": status,
-            }
-            if not ok:
+                if md_file not in defs_cache:
+                    defs_cache[md_file] = file_definitions(md_file)
+                frag = fragment_reason(
+                    block["code"], stderr, md_file, defs_cache[md_file]
+                )
+                if frag:
+                    counts["fragment"] += 1
+                    entry["status"] = "fragment"
+                    entry["reason"] = frag
+                else:
+                    counts["fail"] += 1
+                    entry["status"] = "fail"
                 # Show first line of error for context
                 first_error = stderr.split("\n")[0] if stderr else "unknown error"
                 entry["error"] = first_error
@@ -270,19 +416,23 @@ def main():
     if args.json_output:
         print(json.dumps({"counts": counts, "results": results}, indent=2))
     else:
+        icons = {"pass": "OK", "fail": "FAIL", "skip": "SKIP", "fragment": "FRAG"}
         for r in results:
-            icon = {"pass": "OK", "fail": "FAIL", "skip": "SKIP"}[r["status"]]
+            icon = icons[r["status"]]
             loc = f"{r['file']}:{r['line']}"
             msg = r.get("error", r.get("reason", ""))
             suffix = f"  {msg}" if msg else ""
             print(f"{icon:>4}  {loc:<30}{suffix}")
 
         print()
-        total = counts["pass"] + counts["fail"] + counts["skip"]
+        total = sum(counts.values())
         print(
-            f"Total: {total}  Pass: {counts['pass']}  Fail: {counts['fail']}  Skip: {counts['skip']}"
+            f"Total: {total}  Pass: {counts['pass']}  Fail: {counts['fail']}  "
+            f"Skip: {counts['skip']}  Fragment: {counts['fragment']}"
         )
 
+    # Only real failures are a problem. Skipped blocks are not code by shape;
+    # fragments are code that needs a surrounding document to compile.
     sys.exit(1 if counts["fail"] > 0 else 0)
 
 
